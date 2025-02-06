@@ -98,6 +98,20 @@ section {
     border-radius: 5px;
     margin-top: 10px;
 }
+.whatsapp-button, .donate-button {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.whatsapp-button:hover, .donate-button:hover {
+    background: #1da851;
+}
 
 footer {
     background: #333;
