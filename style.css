@@ -1,69 +1,135 @@
 body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f0f0f0; /* צבע רקע עדין */
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8; /* צבע רקע עדין יותר */
+    direction: rtl; /* כיוון כתיבה מימין לשמאל */
 }
 
 header {
-  background-color: #fff;
-  padding: 20px;
-  text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* צל עדין לכותרת */
 }
 
 .logo h1 {
-  margin-bottom: 10px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.logo h2 {
+    font-size: 18px;
+    color: #666;
 }
 
 main {
-  padding: 20px;
+    padding: 20px;
 }
 
 .cards-container {
-  display: flex;
-  overflow-x: auto; /* גלילה אופקית */
-  margin-bottom: 20px;
+    display: flex;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    padding-bottom: 10px; /* מרווח קטן לתחתית הגלילה */
 }
 
 .card {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  margin-right: 10px;
-  flex: 0 0 200px; /* רוחב קבוע לכרטיסייה */
-  text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-right: 10px;
+    flex: 0 0 250px; /* רוחב מינימלי לכרטיסייה */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* צל עדין לכרטיסיות */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s; /* מעבר חלק בעת ריחוף */
+}
+
+.card:hover {
+    transform: scale(1.05); /* הגדלה קלה בריחוף */
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
 }
 
 .updates-link {
-  text-align: center;
-  margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.updates-link a {
+    color: #007bff; /* צבע כחול לקישור */
+    text-decoration: none;
 }
 
 .gallery {
-  /* עיצוב גלריית תמונות */
+    /* עיצוב גלריית תמונות - טרם מיושם */
 }
 
 .prayer-times {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* צל עדין לזמני תפילות */
+}
+
+.prayer-times h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.prayer-times p {
+    margin: 5px 0;
+    color: #666;
 }
 
 .donation-button {
-  text-align: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.donation-button a {
+    background-color: #f0ad4e; /* צבע כתום לכפתור תרומה */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s; /* מעבר חלק בצבע רקע */
+}
+
+.donation-button a:hover {
+    background-color: #e69500; /* צבע כתום כהה יותר בריחוף */
 }
 
 footer {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
 }
 
 /* עיצוב רספונסיבי */
 @media (max-width: 768px) {
-  .card {
-    flex: 0 0 150px; /* רוחב כרטיסייה במובייל */
-  }
+    .card {
+        flex: 0 0 90%; /* רוחב כרטיסייה במובייל - כמעט מסך מלא */
+        margin: 10px 0; /* מרווח עליון/תחתון במובייל */
+    }
+
+    .cards-container {
+        flex-direction: column; /* סידור אנכי של כרטיסיות במובייל */
+        overflow-x: visible; /* ביטול גלילה אופקית במובייל */
+    }
 }
