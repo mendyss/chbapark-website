@@ -1,193 +1,69 @@
-/* עיצוב כללי */
 body {
-    font-family: 'Rubik', sans-serif;
-    direction: rtl;
-    background-color: #f9f9f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0; /* צבע רקע עדין */
 }
 
 header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px;
-    text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  text-align: center;
 }
 
-header .logo h1 {
-    margin: 0;
-    font-size: 2rem;
+.logo h1 {
+  margin-bottom: 10px;
 }
 
-header .logo p {
-    margin: 5px 0 0;
-    font-size: 1.2rem;
-}
-
-/* כרטיסיות נגללות */
-.services {
-    padding: 20px;
-}
-
-.services h2 {
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+main {
+  padding: 20px;
 }
 
 .cards-container {
-    display: flex;
-    overflow-x: auto;
-    gap: 15px;
-    padding: 10px 0;
+  display: flex;
+  overflow-x: auto; /* גלילה אופקית */
+  margin-bottom: 20px;
 }
 
 .card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    min-width: 250px;
-    text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-right: 10px;
+  flex: 0 0 200px; /* רוחב קבוע לכרטיסייה */
+  text-align: center;
 }
 
-.card h3 {
-    margin: 0;
-    font-size: 1.4rem;
+.updates-link {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.card p {
-    margin: 10px 0 0;
-    font-size: 1rem;
-    color: #666;
-}
-
-/* זמני תפילות */
-.schedule {
-    padding: 20px;
-    background-color: #f1f1f1;
-    text-align: center;
-}
-
-.schedule h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-}
-
-.schedule ul {
-    list-style: none;
-    padding: 0;
-}
-
-.schedule li {
-    font-size: 1.2rem;
-    margin: 10px 0;
-}
-
-/* כפתורים */
-.actions {
-    padding: 20px;
-    text-align: center;
-}
-
-.actions a {
-    display: inline-block;
-    margin: 10px;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.whatsapp-button {
-    background-color: #25D366;
-}
-
-.donate-button {
-    background-color: #FF5722;
-}
-
-/* גלריית תמונות */
 .gallery {
-    padding: 20px;
-    text-align: center;
+  /* עיצוב גלריית תמונות */
 }
 
-.gallery h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+.prayer-times {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
-.gallery-container {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
+.donation-button {
+  text-align: center;
 }
 
-.gallery img {
-    width: 200px;
-    height: 150px;
-    border-radius: 10px;
-    object-fit: cover;
-}
-
-/* יצירת קשר */
-.contact {
-    padding: 20px;
-    background-color: #f1f1f1;
-}
-
-.contact h2 {
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-}
-
-.contact form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.contact input, .contact textarea {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.contact button {
-    padding: 10px;
-    font-size: 1.2rem;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.contact button:hover {
-    background-color: #45a049;
-}
-
-.map {
-    margin-top: 20px;
-}
-
-/* פוטר */
 footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    margin-top: 20px;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
 }
 
-footer p {
-    margin: 0;
-    font-size: 1rem;
+/* עיצוב רספונסיבי */
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 150px; /* רוחב כרטיסייה במובייל */
+  }
 }
