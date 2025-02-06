@@ -4,48 +4,175 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>בית חב"ד שכונת הפארק - באר שבע</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap');
+        
+        * {
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .services-scroll {
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .services-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .service-card {
+            min-width: 280px;
+            max-width: 280px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <h1>בית חב"ד שכונת הפארק</h1>
-        <h2>עם כל ה❤️ לכל אחד</h2>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-6 px-4 text-center">
+        <h1 class="text-3xl font-bold mb-2">בית חב"ד שכונת הפארק</h1>
+        <p class="text-xl">עם כל ה❤️ לכל אחד</p>
     </header>
 
-    <main>
-        <section class="carousel">
-            <div class="carousel-container">
-                <div class="card">בית כנסת פתוח לכולם</div>
-                <div class="card">אירועי שיא בחגים</div>
-                <div class="card">שיעורי תורה</div>
-                <div class="card">תכנית הכנה לבר מצווה</div>
-                <div class="card">ערבי נשים</div>
-                <div class="card">סיוע כלכלי למשפחות</div>
-                <div class="card">בדיקת ומכירת תפילין ומזוזות</div>
-                <div class="card">מיזם "פינוק ליולדת"</div>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Services Scroll -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">השירותים שלנו</h2>
+            <div class="services-scroll overflow-x-auto flex gap-4 pb-4">
+                <div class="service-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-2">בית כנסת</h3>
+                    <p>בית כנסת פתוח לכולם באווירה חמה ומשפחתית</p>
+                </div>
+                <div class="service-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-2">אירועי חגים</h3>
+                    <p>חגיגות וארועים מיוחדים לכל המשפחה</p>
+                </div>
+                <div class="service-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-2">שיעורי תורה</h3>
+                    <p>שיעורים בגמרא, תניא ועוד</p>
+                </div>
+                <div class="service-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-2">בר מצווה</h3>
+                    <p>תכנית הכנה מקיפה לבר מצווה</p>
+                </div>
             </div>
         </section>
 
-        <section class="actions">
-            <a href="whatsapp://send?text=הצטרף לבית חב\"ד הפארק" class="btn btn-whatsapp">הצטרף לקבוצת וואטסאפ</a>
-            <a href="#" class="btn btn-donate">תרומה</a>
+        <!-- Prayer Times -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-12">
+            <h2 class="text-2xl font-bold mb-4">זמני תפילות</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h3 class="font-bold">שחרית</h3>
+                    <p>06:15</p>
+                </div>
+                <div>
+                    <h3 class="font-bold">ערבית</h3>
+                    <p>20:00</p>
+                </div>
+                <div>
+                    <h3 class="font-bold">שיעור גמרא</h3>
+                    <p>יום ראשון 20:15</p>
+                </div>
+                <div>
+                    <h3 class="font-bold">שיעור נשים</h3>
+                    <p>20:45</p>
+                </div>
+            </div>
         </section>
 
-        <section class="prayer-times">
-            <h3>זמני תפילות ושיעורים</h3>
-            <ul>
-                <li>שחרית: 06:15</li>
-                <li>ערבית: 20:00</li>
-                <li>שיעור גמרא (יום ראשון): 20:15</li>
-                <li>שיעור נשים (תניא לחיים): 20:45</li>
-            </ul>
+        <!-- Call to Action Buttons -->
+        <section class="flex flex-col gap-4 mb-12">
+            <a href="https://wa.me/+972XXXXXXXXX" class="bg-green-500 text-white text-center py-4 px-6 rounded-lg text-xl font-bold">
+                הצטרפו לקבוצת העדכונים בוואטסאפ
+            </a>
+            <a href="#" class="bg-blue-500 text-white text-center py-4 px-6 rounded-lg text-xl font-bold">
+                לתרומה 🤍
+            </a>
+        </section>
+
+        <!-- Gallery -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">גלריה</h2>
+            <div class="gallery">
+                <img src="/api/placeholder/200/200" alt="תמונה מאירוע" class="w-full h-40 object-cover rounded-lg">
+                <img src="/api/placeholder/200/200" alt="תמונה מאירוע" class="w-full h-40 object-cover rounded-lg">
+                <img src="/api/placeholder/200/200" alt="תמונה מאירוע" class="w-full h-40 object-cover rounded-lg">
+                <img src="/api/placeholder/200/200" alt="תמונה מאירוע" class="w-full h-40 object-cover rounded-lg">
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4">צור קשר</h2>
+            <form class="flex flex-col gap-4">
+                <input type="text" placeholder="שם מלא" class="p-2 border rounded">
+                <input type="tel" placeholder="טלפון" class="p-2 border rounded">
+                <input type="email" placeholder="אימייל" class="p-2 border rounded">
+                <textarea placeholder="הודעה" class="p-2 border rounded h-32"></textarea>
+                <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded">שליחה</button>
+            </form>
+            <div class="mt-6">
+                <p class="font-bold">כתובת:</p>
+                <p>נחל דליות 16, באר שבע</p>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <p>כתובת: נחל דליות 16, באר שבע</p>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 px-4 text-center mt-12">
+        <p>© כל הזכויות שמורות לבית חב"ד שכונת הפארק</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Simple form handling
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('הטופס נשלח בהצלחה!');
+            this.reset();
+        });
+
+        // Smooth scroll for services
+        const servicesScroll = document.querySelector('.services-scroll');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        servicesScroll.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - servicesScroll.offsetLeft;
+            scrollLeft = servicesScroll.scrollLeft;
+        });
+
+        servicesScroll.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        servicesScroll.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        servicesScroll.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - servicesScroll.offsetLeft;
+            const walk = (x - startX) * 2;
+            servicesScroll.scrollLeft = scrollLeft - walk;
+        });
+    </script>
 </body>
 </html>
