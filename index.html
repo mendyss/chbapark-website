@@ -1,107 +1,55 @@
 <!DOCTYPE html>
-<html lang="he">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בית חב"ד שכונת הפארק - באר שבע</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap">
+  <title>בית חב"ד שכונת הפארק - באר שבע</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <!-- דף הבית -->
-    <header>
-        <div class="logo">
-            <h1>בית חב"ד שכונת הפארק</h1>
-            <p>עם כל ה❤️ לכל אחד</p>
+  <header>
+    <div class="logo">
+      <h1>בית חב"ד</h1>
+      <h2>עם כל ה❤️ לכל אחד</h2>
+    </div>
+  </header>
+
+  <main>
+    <div class="cards-container">
+      <div class="card">
+        <h3>בית כנסת פתוח לכולם</h3>
+      </div>
+      <div class="card">
+        <h3>אירועי שיא בחגים</h3>
+      </div>
+      <div class="card">
+        <h3>שיעורי תורה</h3>
+      </div>
+      </div>
+
+      <div class="updates-link">
+        <a href="#">הצטרפו לקבוצת וואטסאפ לעדכונים</a>
+      </div>
+
+      <div class="gallery">
         </div>
-    </header>
 
-    <!-- כרטיסיות נגללות -->
-    <section class="services">
-        <h2>שירותים ופעילויות</h2>
-        <div class="cards-container">
-            <div class="card">
-                <h3>בית כנסת פתוח לכולם</h3>
-                <p>מקום לתפילה ולימוד בצוותא.</p>
-            </div>
-            <div class="card">
-                <h3>אירועי שיא בחגים</h3>
-                <p>חגיגות ואירועים לכל המשפחה.</p>
-            </div>
-            <div class="card">
-                <h3>שיעורי תורה</h3>
-                <p>גמרא, תניא ושיעורים נוספים.</p>
-            </div>
-            <div class="card">
-                <h3>תכנית הכנה לבר מצווה</h3>
-                <p>ליווי והכנה לבר מצווה.</p>
-            </div>
-            <div class="card">
-                <h3>ערבי נשים</h3>
-                <p>שיעורים ופעילויות לנשים.</p>
-            </div>
-            <div class="card">
-                <h3>סיוע כלכלי</h3>
-                <p>תמיכה למשפחות נזקקות.</p>
-            </div>
-            <div class="card">
-                <h3>בדיקת תפילין ומזוזות</h3>
-                <p>שירותי בדיקה ומכירה.</p>
-            </div>
-            <div class="card">
-                <h3>פינוק ליולדת</h3>
-                <p>מיזם לתמיכה ביולדות.</p>
-            </div>
-        </div>
-    </section>
+      <div class="prayer-times">
+        <h3>זמני תפילות ושיעורים</h3>
+        <p>שחרית: 06:15</p>
+        <p>ערבית: 20:00</p>
+        <p>שיעור גמרא (יום ראשון): 20:15</p>
+        <p>שיעור נשים (תניא לחיים): 20:45</p>
+      </div>
 
-    <!-- זמני תפילות ושיעורים -->
-    <section class="schedule">
-        <h2>זמני תפילות ושיעורים</h2>
-        <ul>
-            <li>שחרית: 06:15</li>
-            <li>ערבית: 20:00</li>
-            <li>שיעור גמרא (יום ראשון): 20:15</li>
-            <li>שיעור נשים (תניא לחיים): 20:45</li>
-        </ul>
-    </section>
+      <div class="donation-button">
+        <a href="#">תרומה</a>
+      </div>
+  </main>
 
-    <!-- כפתורים חשובים -->
-    <section class="actions">
-        <a href="https://wa.me/מספר_טלפון" class="whatsapp-button">הצטרף לקבוצת וואטסאפ</a>
-        <a href="https://paybox.com/קישור_לתרומה" class="donate-button">תרום עכשיו</a>
-    </section>
+  <footer>
+    <p>&copy; כל הזכויות שמורות לבית חב"ד</p>
+  </footer>
 
-    <!-- גלריית תמונות -->
-    <section class="gallery">
-        <h2>גלריית תמונות</h2>
-        <div class="gallery-container">
-            <img src="image1.jpg" alt="תמונה 1">
-            <img src="image2.jpg" alt="תמונה 2">
-            <img src="image3.jpg" alt="תמונה 3">
-        </div>
-    </section>
-
-    <!-- יצירת קשר -->
-    <section class="contact">
-        <h2>יצירת קשר</h2>
-        <form>
-            <input type="text" placeholder="שם מלא" required>
-            <input type="tel" placeholder="טלפון" required>
-            <input type="email" placeholder="אימייל" required>
-            <textarea placeholder="הודעה" required></textarea>
-            <button type="submit">שלח</button>
-        </form>
-        <div class="map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3387.123456789012!2d34.7890123456789!3d31.234567890123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDE0JzA0LjQiTiAzNMKwNDcnMjEuMiJF!5e0!3m2!1sen!2sil!4v1621234567890!5m2!1sen!2sil" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </section>
-
-    <!-- פוטר -->
-    <footer>
-        <p>© 2025 בית חב"ד שכונת הפארק, באר שבע</p>
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
