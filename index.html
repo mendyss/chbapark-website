@@ -1,129 +1,105 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>בית חב"ד שכונת הפארק - באר שבע</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap">
 </head>
 <body>
-
-    <!-- כותרת ראשית -->
+    <!-- דף הבית -->
     <header>
-        <h1>בית חב"ד שכונת הפארק - באר שבע</h1>
-        <p>עם כל ה❤️ לכל אחד</p>
+        <div class="logo">
+            <h1>בית חב"ד שכונת הפארק</h1>
+            <p>עם כל ה❤️ לכל אחד</p>
+        </div>
     </header>
 
-    <!-- תפריט ניווט -->
-    <nav>
-        <ul>
-            <li><a href="#">בית</a></li>
-            <li><a href="#">אודות</a></li>
-            <li><a href="#">שירותים</a></li>
-            <li><a href="#">תרומה</a></li>
-            <li><a href="#">צור קשר</a></li>
-        </ul>
-    </nav>
+    <!-- כרטיסיות נגללות -->
+    <section class="services">
+        <h2>שירותים ופעילויות</h2>
+        <div class="cards-container">
+            <div class="card">
+                <h3>בית כנסת פתוח לכולם</h3>
+                <p>מקום לתפילה ולימוד בצוותא.</p>
+            </div>
+            <div class="card">
+                <h3>אירועי שיא בחגים</h3>
+                <p>חגיגות ואירועים לכל המשפחה.</p>
+            </div>
+            <div class="card">
+                <h3>שיעורי תורה</h3>
+                <p>גמרא, תניא ושיעורים נוספים.</p>
+            </div>
+            <div class="card">
+                <h3>תכנית הכנה לבר מצווה</h3>
+                <p>ליווי והכנה לבר מצווה.</p>
+            </div>
+            <div class="card">
+                <h3>ערבי נשים</h3>
+                <p>שיעורים ופעילויות לנשים.</p>
+            </div>
+            <div class="card">
+                <h3>סיוע כלכלי</h3>
+                <p>תמיכה למשפחות נזקקות.</p>
+            </div>
+            <div class="card">
+                <h3>בדיקת תפילין ומזוזות</h3>
+                <p>שירותי בדיקה ומכירה.</p>
+            </div>
+            <div class="card">
+                <h3>פינוק ליולדת</h3>
+                <p>מיזם לתמיכה ביולדות.</p>
+            </div>
+        </div>
+    </section>
 
     <!-- זמני תפילות ושיעורים -->
-    <section id="times">
+    <section class="schedule">
         <h2>זמני תפילות ושיעורים</h2>
         <ul>
-            <li>שחרית - 06:15</li>
-            <li>ערבית - 20:00</li>
-            <li>שיעור גמרא (יום ראשון) - 20:15</li>
-            <li>שיעור נשים (תניא לחיים) - 20:45</li>
+            <li>שחרית: 06:15</li>
+            <li>ערבית: 20:00</li>
+            <li>שיעור גמרא (יום ראשון): 20:15</li>
+            <li>שיעור נשים (תניא לחיים): 20:45</li>
         </ul>
     </section>
-<!-- שירותים ופעילויות -->
-<section id="services">
-    <h2>השירותים שלנו</h2>
-    <div class="services-container">
-        <div class="service-card">
-            <img src="images/shul.jpg" alt="בית הכנסת">
-            <h3>בית הכנסת פתוח לכולם</h3>
-            <p>מקום חם ליהודים מכל הסוגים. הצטרפו לתפילות ולשיעורים.</p>
-        </div>
-        <div class="service-card">
-            <img src="images/holidays.jpg" alt="אירועי חגים">
-            <h3>אירועי שיא בחגים</h3>
-            <p>אירועים מיוחדים לכל המשפחה במהלך חגי ישראל.</p>
-        </div>
-        <div class="service-card">
-            <img src="images/torah.jpg" alt="שיעורי תורה">
-            <h3>שיעורי תורה</h3>
-            <p>שיעורי גמרא, תניא ולימוד יהדות לגברים ונשים.</p>
-        </div>
-        <div class="service-card">
-            <img src="images/bar-mitzvah.jpg" alt="הכנה לבר מצווה">
-            <h3>הכנה לבר מצווה</h3>
-            <p>תכנית מיוחדת לבר מצווה – הכנה רוחנית ולימוד קריאה בתורה.</p>
-        </div>
-        <div class="service-card">
-            <img src="images/women.jpg" alt="ערבי נשים">
-            <h3>ערבי נשים</h3>
-            <p>מפגשים חווייתיים עם תוכן יהודי לנשות הקהילה.</p>
-        </div>
-        <div class="service-card">
-            <img src="images/help.jpg" alt="סיוע כלכלי">
-            <h3>סיוע למשפחות</h3>
-            <p>עזרה למשפחות במצוקה - מזון, תמיכה וליווי אישי.</p>
-        </div>
-        <div class="service-card">
-            <img src="images/mezuzah.jpg" alt="בדיקת ומכירת תפילין ומזוזות">
-            <h3>בדיקת ומכירת תפילין ומזוזות</h3>
-            <p>בדיקה והכשרה של תפילין ומזוזות ברמה הגבוהה ביותר.</p>
-        </div>
-        <div class="service-card">
-            <img src="images/newborn.jpg" alt="פינוק ליולדת">
-            <h3>מיזם פינוק ליולדת</h3>
-            <p>חבילת מתנות ליולדות עם עוגיות, מתנות ושוברים מבתי עסק.</p>
-        </div>
-    </div>
-</section>
+
+    <!-- כפתורים חשובים -->
+    <section class="actions">
+        <a href="https://wa.me/מספר_טלפון" class="whatsapp-button">הצטרף לקבוצת וואטסאפ</a>
+        <a href="https://paybox.com/קישור_לתרומה" class="donate-button">תרום עכשיו</a>
+    </section>
+
     <!-- גלריית תמונות -->
-    <section id="gallery">
-        <h2>תמונות מהפעילות</h2>
+    <section class="gallery">
+        <h2>גלריית תמונות</h2>
         <div class="gallery-container">
-            <img src="images/pic1.jpg" alt="תמונה 1">
-            <img src="images/pic2.jpg" alt="תמונה 2">
-            <img src="images/pic3.jpg" alt="תמונה 3">
+            <img src="image1.jpg" alt="תמונה 1">
+            <img src="image2.jpg" alt="תמונה 2">
+            <img src="image3.jpg" alt="תמונה 3">
         </div>
     </section>
 
-    <!-- המלצות מהקהילה -->
-    <section id="testimonials">
-        <h2>מה אומרים עלינו?</h2>
-        <blockquote>"בית חב"ד שכונת הפארק הוא הבית החם של כולם!"</blockquote>
-        <blockquote>"חוויית קהילה אמיתית, שיעורים מרתקים ושירות לכל אחד"</blockquote>
-    </section>
-
-    <!-- תרומה -->
-    <section id="donate">
-        <h2>תרום לבית חב"ד</h2>
-        <p>הצטרפו ותמכו בפעילות שלנו!</p>
-        <a href="https://payboxapp.page.link/your-donation-link" class="donate-button">לחץ לתרומה</a>
-    </section>
-
-    <!-- הצטרפות לקבוצת וואטסאפ -->
-    <section id="whatsapp">
-        <h2>הצטרפו לעדכונים</h2>
-        <p>קבלו עדכונים ישירות לקבוצת הוואטסאפ השקטה שלנו:</p>
-        <a href="https://chat.whatsapp.com/your-group-link" class="whatsapp-button">הצטרף לקבוצה</a>
-    </section>
-
-    <!-- מפה -->
-    <section id="map">
-        <h2>איך מגיעים אלינו?</h2>
-        <iframe
-            src="https://www.google.com/maps/embed/v1/place?q=נחל+דליות+16,+באר+שבע&key=YOUR_GOOGLE_MAPS_API_KEY"
-            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
-        </iframe>
+    <!-- יצירת קשר -->
+    <section class="contact">
+        <h2>יצירת קשר</h2>
+        <form>
+            <input type="text" placeholder="שם מלא" required>
+            <input type="tel" placeholder="טלפון" required>
+            <input type="email" placeholder="אימייל" required>
+            <textarea placeholder="הודעה" required></textarea>
+            <button type="submit">שלח</button>
+        </form>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3387.123456789012!2d34.7890123456789!3d31.234567890123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDE0JzA0LjQiTiAzNMKwNDcnMjEuMiJF!5e0!3m2!1sen!2sil!4v1621234567890!5m2!1sen!2sil" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
     </section>
 
     <!-- פוטר -->
     <footer>
-        <p>© כל הזכויות שמורות לבית חב"ד שכונת הפארק, באר שבע</p>
+        <p>© 2025 בית חב"ד שכונת הפארק, באר שבע</p>
     </footer>
 
     <script src="script.js"></script>
