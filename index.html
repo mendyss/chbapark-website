@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בית חב"ד הפארק</title>
+    <title>בית חב"ד נחל קדרון</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>בית חב"ד הפארק</h1>
+        <h1>בית חב"ד נחל קדרון</h1>
         <nav>
             <ul>
                 <li><a href="#about">אודות</a></li>
@@ -21,7 +23,7 @@
 
     <section id="about">
         <h2>אודות</h2>
-        <p>בית חב"ד הפארק הוא מרכז קהילתי המספק שירותים ופעילויות לכל המשפחה. אנו פועלים לחזק את הקשר ליהדות ולהקהילה באמצעות תוכניות חינוכיות, חברתיות ודתיות.</p>
+        <p>בית חב"ד נחל קדרון הוא מרכז קהילתי המספק שירותים ופעילויות לכל המשפחה. אנו פועלים לחזק את הקשר ליהדות ולהקהילה באמצעות תוכניות חינוכיות, חברתיות ודתיות.</p>
     </section>
 
     <section id="services">
@@ -62,13 +64,18 @@
 
     <section id="contact">
         <h2>צור קשר</h2>
-        <p>כתובת: רחוב הפארק 123, הפארק</p>
+        <p>כתובת: נחל קדרון 26</p>
         <p>טלפון: 050-1234567</p>
-        <p>אימייל: info@chabadpark.com</p>
+        <p>אימייל: info@chabadnachal.com</p>
+    </section>
+
+    <section id="map">
+        <h2>מיקומנו</h2>
+        <div id="google-map"></div>
     </section>
 
     <footer>
-        <p>&copy; 2023 בית חב"ד הפארק. כל הזכויות שמורות.</p>
+        <p>&copy; 2023 בית חב"ד נחל קדרון. כל הזכויות שמורות.</p>
     </footer>
 </body>
 </html>
