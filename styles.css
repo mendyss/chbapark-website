@@ -1,201 +1,292 @@
-/* ייבוא גופנים מותאמים */
-@font-face {
-  font-family: 'FBHachaluzimRegular';
-  src: url('fonts/FBHACHALUZIM-REGULAR.OTF') format('opentype');
-}
-
-@font-face {
-  font-family: 'FBHachaluzimMedium';
-  src: url('fonts/FBHACHALUZIM-MEDIUM.OTF') format('opentype');
-}
-
-/* משתני CSS לצבעים */
+/***********************************************************
+  ערכת צבעים (המרה מקורבת ל-PANTONE)
+************************************************************/
 :root {
-  --header-color: #7A0019; /* קירוב ל-PANTONE 7421 C */
-  --footer-color: #FF7F00; /* קירוב ל-PANTONE 716 C */
-  --cta-color: #FF7F00;    /* אותו צבע כמו בפוטר לכפתורי פעולה */
-  --text-color: #333;
-  --background-color: #fff;
+  --color-orange: #F26D21; /* PANTONE 716 C (כתום, בקירוב) */
+  --color-wine:   #4D0F28; /* PANTONE 7421 C (אדום יין, בקירוב) */
 }
 
+/***********************************************************
+  איפוס בסיסי
+************************************************************/
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: 'FBHachaluzimRegular', sans-serif;
-  color: var(--text-color);
-  background-color: var(--background-color);
-  direction: rtl; /* התאמה לעברית */
+/***********************************************************
+  HEADER
+************************************************************/
+.site-header {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
 }
-
-/* עיצוב ה-Header */
-header {
-  background-color: var(--header-color);
+.header-bg {
+  background: linear-gradient(to top left, var(--color-orange) 30%, var(--color-wine) 100%);
+  padding: 10px;
   color: #fff;
-  padding: 10px 20px;
 }
-
-.header-container {
+.header-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
 }
-
 .logo img {
-  height: 50px;
+  height: 50px; 
+  /* לשנות לפי הצורך */
 }
 
-.navbar {
-  flex: 1;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-}
-
-.nav-links li a {
-  color: #fff;
-  text-decoration: none;
-  font-family: 'FBHachaluzimMedium', sans-serif;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.donate-link {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.whatsapp-link {
-  color: #fff;
-  font-size: 1.5rem;
-  text-decoration: none;
-}
-
-/* כפתור "המבורגר" - יוצג במובייל בלבד */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
+/* כפתור המבורגר */
+.hamburger-btn {
   background: none;
   border: none;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 30px;
 }
-
-.hamburger .bar {
+.hamburger-btn .bar {
   width: 25px;
-  height: 3px;
-  background-color: #fff;
+  height: 2px;
+  background: #fff;
   margin: 3px 0;
 }
 
-/* סליידר תמונות */
-.slider {
-  position: relative;
-  width: 100%;
+/* תפריט צד נגלל */
+.main-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100vh;
+  background-color: #fff;
+  color: #333;
   overflow: hidden;
+  transition: width 0.3s ease;
+  padding: 0 15px;
+}
+.main-nav ul {
+  list-style-type: none;
+  margin-top: 70px; /* כדי לרדת מתחת ל־Header */
+}
+.main-nav li {
+  margin: 20px 0;
+}
+.main-nav li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+.main-nav.hidden {
+  width: 0;
+}
+.main-nav:not(.hidden) {
+  width: 200px; /* הרוחב הפתוח של התפריט */
 }
 
-.slider img {
-  width: 100%;
-  height: auto;
-  display: block;
+/***********************************************************
+  SLIDER
+************************************************************/
+.slider-container {
+  margin-top: 60px; /* כדי שהסליידר לא יתחבא מאחורי ה־Header הקבוע */
+  position: relative;
+  overflow: hidden;
+  height: 50vh; /* גובה התחלתי לסליידר */
 }
-
-/* עיצוב חלקי תוכן */
-section {
-  padding: 40px 20px;
-  text-align: center;
-}
-
-section h2 {
-  margin-bottom: 20px;
-  font-family: 'FBHachaluzimMedium', sans-serif;
-}
-
-/* מיכל כרטיסיות (שירותים ועדויות) */
-.cards-container {
+.slider {
   display: flex;
-  overflow-x: auto;
-  gap: 15px;
-  padding: 10px;
-  scroll-behavior: smooth;
+  width: 400%;
+  animation: slide 15s infinite;
 }
-
-.cards-container .card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  padding: 15px;
-  min-width: 250px;
-  border-radius: 5px;
-  flex-shrink: 0;
+.slide {
+  flex: 1 0 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
-
-/* עיצוב מיוחד לעדויות */
-.testimonial-card {
-  background-color: var(--background-color);
-  border: 1px solid var(--cta-color);
-}
-
-/* חלק קריאה לפעולה */
-.cta {
-  background-color: #f1f1f1;
-  padding: 40px 20px;
-}
-
-.cta-button {
-  background-color: var(--cta-color);
-  border: none;
+.slide-text {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
   color: #fff;
-  padding: 15px 30px;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'FBHachaluzimMedium', sans-serif;
+  font-size: 2rem;
+  z-index: 2;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.15);
+  z-index: 1;
 }
 
-/* עיצוב ה-Footer */
-footer {
-  background-color: var(--footer-color);
+/* אנימציית סליידר */
+@keyframes slide {
+  0%   { margin-left: 0; }
+  20%  { margin-left: 0; }
+  25%  { margin-left: -100%; }
+  45%  { margin-left: -100%; }
+  50%  { margin-left: -200%; }
+  70%  { margin-left: -200%; }
+  75%  { margin-left: -300%; }
+  95%  { margin-left: -300%; }
+  100% { margin-left: 0; }
+}
+
+/***********************************************************
+  SCROLL CARDS
+************************************************************/
+.scroll-cards-section {
+  margin: 20px 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  background: #f7f7f7;
+  padding: 10px;
+}
+.scroll-cards-container {
+  display: inline-flex;
+  gap: 10px;
+}
+.scroll-card {
+  background: #fff;
+  border-radius: 8px;
+  min-width: 200px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+/***********************************************************
+  SERVICES (GRID)
+************************************************************/
+.services-section {
+  padding: 20px;
+  background: #fff;
+}
+.services-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+.service-card {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+.service-card i {
+  font-size: 2rem;
+  color: var(--color-orange);
+  margin-bottom: 10px;
+}
+.service-card h3 {
+  margin-bottom: 10px;
+}
+
+/***********************************************************
+  CTA SECTION
+************************************************************/
+.cta-section {
+  text-align: center;
+  margin: 40px 0;
+}
+.cta-buttons {
+  display: inline-flex;
+  gap: 20px;
+}
+.cta-btn {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #fff;
+}
+.cta-btn.whatsapp {
+  background-color: #25D366; /* ירוק של וואטסאפ */
+}
+.cta-btn.donate {
+  background-color: var(--color-wine);
+}
+
+/***********************************************************
+  TESTIMONIALS
+************************************************************/
+.testimonials-section {
+  background: #f7f7f7;
+  padding: 30px;
+  text-align: center;
+}
+.testimonials-section h2 {
+  margin-bottom: 20px;
+}
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.testimonial {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  font-style: italic;
+  position: relative;
+}
+.testimonial cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  font-weight: bold;
+}
+
+/***********************************************************
+  ABOUT
+************************************************************/
+.about-section {
+  padding: 30px;
+}
+
+/***********************************************************
+  FOOTER
+************************************************************/
+.site-footer {
+  background-color: var(--color-orange);
   color: #fff;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
+  margin-top: 30px;
 }
 
-/* התאמה למובייל */
+/***********************************************************
+  RESPONSIVE
+************************************************************/
 @media (max-width: 768px) {
-  .nav-links {
-    display: none;
+  .header-content {
+    justify-content: space-between;
+  }
+  .slider-container {
+    height: 40vh;
+  }
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  .testimonials {
     flex-direction: column;
-    width: 100%;
-    text-align: center;
   }
-  
-  .nav-links.active {
-    display: flex;
-  }
-  
-  .hamburger {
-    display: flex;
-  }
-  
-  .header-container {
+  .cta-buttons {
     flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .header-actions {
-    align-self: flex-end;
   }
 }
