@@ -1,79 +1,104 @@
 <!DOCTYPE html>
 <html lang="he">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בית חב"ד שכונת הפארק</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>בית חב"ד שכונת הפארק</title>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- קובץ ה-CSS שלנו -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- סרגל ניווט -->
-    <header>
-    <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo.png" alt="לוגו בית חב"ד" style="max-width: 150px; display: block; margin: auto;">
-        <nav>
-            <ul>
-                <li><a href="#home">דף הבית</a></li>
-                <li><a href="#about">אודות</a></li>
-                <li><a href="#services">שירותים</a></li>
-                <li><a href="#donate">תרומות</a></li>
-                <li><a href="#contact">צור קשר</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <!-- דף הבית -->
-    <section id="home">
-        <h1>ברוכים הבאים לבית חב"ד שכונת הפארק</h1>
-        <p>כתובת לכל עניין יהודי - שיעורים, תפילות, פעילויות ועוד.</p>
-        <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/SYN%20Beer%20Sheva-20.jpg" alt="בית חב"ד שכונת הפארק" style="width:100%; max-width:800px;">
-    </section>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo.png" alt="לוגו בית חב"ד">
+      </a>
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="about.html">אודות</a></li>
+          <li><a href="donate.html">תרומות</a></li>
+          <li><a href="contact.html">צור קשר</a></li>
+          <li><a href="bar-mitzvah.html">בר מצווה</a></li>
+          <li><a href="synagogue.html">בית כנסת</a></li>
+          <li><a href="mezuzah-check.html">בדיקת מזוזות</a></li>
+          <li><a href="baby-gift.html">פינוק ליולדת</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="https://app.icount.co.il/m/104dc/" class="donate-link">תרומה באשראי</a>
+        <a href="https://api.whatsapp.com/send?phone=XXXXXXXXXX" class="whatsapp-link">
+          <i class="bi bi-whatsapp"></i>
+        </a>
+        <!-- כפתור "המבורגר" למובייל -->
+        <button class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-    <!-- אודות -->
-    <section id="about">
-        <h2>אודות</h2>
-        <p>בית חב"ד מעניק תמיכה רוחנית וחברתית לתושבי השכונה.</p>
-        <!-- ניתן להוסיף תמונות והיסטוריה על בית חב"ד -->
-    </section>
+  <!-- סליידר תמונות -->
+  <section class="slider">
+    <img id="slider-image" src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/SYN%20Beer%20Sheva-20.jpg" alt="סליידר">
+  </section>
 
-    <!-- שירותים -->
-    <section id="services">
-        <h2>השירותים שלנו</h2>
-        <div class="services-container">
-            <div class="service-card"> <!-- כל כרטיס מייצג שירות -->
-                <h3>בדיקת תפילין ומזוזות</h3>
-                <p>בדיקה והכשרה ברמה הגבוהה ביותר.</p>
-                <!-- מקום לתמונה -->
-            </div>
-            <div class="service-card">
-                <h3>שיעורי תורה</h3>
-                <p>שיעורי גמרא, תניא ולימוד יהדות לגברים ונשים.</p>
-                <!-- מקום לתמונה -->
-            </div>
-        </div>
-    </section>
+  <!-- כרטיסיות שירותים -->
+  <section class="services">
+    <h2>השירותים שלנו</h2>
+    <div class="cards-container">
+      <div class="card">
+        <h3>תפילות ושיעורים</h3>
+        <p>מידע על תפילות ושיעורי תורה.</p>
+      </div>
+      <div class="card">
+        <h3>פעילויות לילדים</h3>
+        <p>תכניות והדרכות לילדים.</p>
+      </div>
+      <div class="card">
+        <h3>סיוע וקהילה</h3>
+        <p>סיוע למשפחות הזקוקות לעזרה.</p>
+      </div>
+      <!-- ניתן להוסיף כרטיסיות נוספות -->
+    </div>
+  </section>
 
-    <!-- תרומות -->
-    <section id="donate">
-        <h2>תרומות</h2>
-        <p>הצטרפו ותמכו בפעילותנו.</p>
-        <button onclick="donate()">תרום עכשיו</button>
-    </section>
+  <!-- עדויות קצרות -->
+  <section class="testimonials">
+    <h2>עדויות</h2>
+    <div class="cards-container">
+      <div class="card testimonial-card">
+        <p>"החב"ד כאן שינה את חיי!"</p>
+        <span>- משה</span>
+      </div>
+      <div class="card testimonial-card">
+        <p>"תודה על השירות והקהילה החמה."</p>
+        <span>- רחל</span>
+      </div>
+      <div class="card testimonial-card">
+        <p>"התחברתי לקהילה ועזרתי לאחרים."</p>
+        <span>- דוד</span>
+      </div>
+      <!-- ניתן להוסיף עוד עדויות -->
+    </div>
+  </section>
 
-    <!-- יצירת קשר -->
-    <section id="contact">
-        <h2>צור קשר</h2>
-        <p>נשמח לשמוע ממך! מלא את פרטיך ונחזור אליך בהקדם.</p>
-        <form>
-            <input type="text" placeholder="שם מלא" required>
-            <input type="email" placeholder="אימייל" required>
-            <textarea placeholder="הודעה"></textarea>
-            <button type="submit">שלח</button>
-        </form>
-    </section>
-    
-    <footer>
-        <p>© 2025 בית חב"ד שכונת הפארק - כל הזכויות שמורות</p>
-    </footer>
+  <!-- כפתור קריאה לפעולה (CTA) -->
+  <section class="cta">
+    <h2>הצטרפו לקבוצת העדכונים השקטה</h2>
+    <button class="cta-button">הצטרף עכשיו</button>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 בית חב"ד שכונת הפארק. כל הזכויות שמורות.</p>
+  </footer>
+
+  <!-- קובץ ה-JS שלנו -->
+  <script src="script.js"></script>
 </body>
 </html>
