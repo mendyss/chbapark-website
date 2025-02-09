@@ -33,22 +33,24 @@
 </head>
 <body dir="rtl" style="margin:0; padding:0; font-family:FBHACHALUZIM, sans-serif;">
 
-<!-- HEADER -->
-<header class="site-header">
-  <div class="header-bg">
-    <div class="header-content">
-      <!-- כפתור המבורגר (2 קווים) -->
+<body dir="rtl" style="margin:0; padding:0; font-family:FBHACHALUZIM, sans-serif;">
+  
+  <!-- HEADER פשוט ולא מקובע -->
+  <header class="site-header">
+    <div class="header-container">
+      <!-- לוגו מימין -->
+      <div class="logo-area">
+        <img src="images/logo-trans.svg" alt="לוגו בית חב״ד שכונת הפארק" />
+        <span class="site-title">בית חב״ד שכונת הפארק</span>
+      </div>
+      
+      <!-- כפתור המבורגר משמאל (למסכים קטנים) -->
       <button class="hamburger-btn" onclick="toggleMenu()">
         <span class="bar"></span>
         <span class="bar"></span>
       </button>
       
-      <!-- לוגו -->
-      <a href="index.html" class="logo">
-        <img src="images/logo-trans.svg" alt="לוגו בית חב״ד שכונת הפארק" />
-      </a>
-      
-      <!-- תפריט צד נגלל -->
+      <!-- תפריט רגיל (שיוצג אופקית במסכים גדולים, או בהמבורגר בקטנים) -->
       <nav id="main-nav" class="main-nav hidden">
         <ul>
           <li><a href="bet-keneset.html">בית כנסת</a></li>
@@ -58,30 +60,21 @@
         </ul>
       </nav>
     </div>
-  </div>
-</header>
-
-<!-- סליידר -->
-<section class="slider-container">
-  <div class="slider">
-    <div class="slide" style="background-image: url('images/slide1.jpg');">
-      <div class="overlay"></div>
-      <div class="slide-text">ברוכים הבאים לבית חב"ד שכונת הפארק ❤️</div>
+  </header>
+  
+  <!-- סליידר פשוט (תמונה אחת לדוגמה או כמה) -->
+  <section class="slider-simple">
+    <div class="slide-content">
+      <img src="images/slide1.jpg" alt="תמונת בית חב״ד" />
+      <div class="slide-text-overlay">
+        ברוכים הבאים לבית חב"ד שכונת הפארק ❤️
+      </div>
     </div>
-    <div class="slide" style="background-image: url('images/slide2.jpg');">
-      <div class="overlay"></div>
-      <div class="slide-text">ברוכים הבאים לבית חב"ד שכונת הפארק ❤️</div>
-    </div>
-    <div class="slide" style="background-image: url('images/slide3.jpg');">
-      <div class="overlay"></div>
-      <div class="slide-text">ברוכים הבאים לבית חב"ד שכונת הפארק ❤️</div>
-    </div>
-    <div class="slide" style="background-image: url('images/slide4.jpg');">
-      <div class="overlay"></div>
-      <div class="slide-text">ברוכים הבאים לבית חב"ד שכונת הפארק ❤️</div>
-    </div>
-  </div>
-</section>
+  </section>
+  
+  <!-- כאן תמשיך כל התוכן של כרטיסיות זמני תפילות, שירותים וכו'... -->
+  
+</body>
 
 <!-- כרטיסיות גלילה: זמני תפילות ושיעורים -->
 <section class="scroll-cards-section">
