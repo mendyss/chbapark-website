@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="בית חב\"ד שכונת הפארק">
-    <meta property="og:description" content="הצטרפו לפעילויות ולשירותים של בית חב\"ד.">
+    <meta property="og:description" content="בית חב\"ד שכונת הפארק">
     <meta property="og:image" content="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg">
     <meta property="og:url" content="https://chbapark.org">
     <meta name="twitter:card" content="summary_large_image">
@@ -17,15 +17,15 @@
         <nav>
             <div class="container">
                 <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg" alt="לוגו בית חב"ד" style="height: 50px;">
-                    <button id="menu-toggle" class="hamburger-menu">
+                    <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg" alt="לוגו בית חב\"ד" style="height: 50px;">
+                    <button id="menu-toggle" class="hamburger-menu" style="background: none; border: none; cursor: pointer; font-size: 24px; color: white;">
                         <i class="bi bi-list"></i>
                     </button>
                 </div>
-                <ul id="menu" style="display: none;">
-                    <li><a href="#synagogue">בית כנסת</a></li>
-                    <li><a href="#donate">תרומות</a></li>
-                    <li><a href="#bar-mitzvah">בר מצווה</a></li>
+                <ul id="menu" style="display: none; position: absolute; top: 60px; right: 10px; background: #F58C28; padding: 10px; border-radius: 5px; list-style: none;">
+                    <li><a href="#synagogue" style="color: white; text-decoration: none;">בית כנסת</a></li>
+                    <li><a href="#donate" style="color: white; text-decoration: none;">תרומות</a></li>
+                    <li><a href="#bar-mitzvah" style="color: white; text-decoration: none;">בר מצווה</a></li>
                 </ul>
             </div>
         </nav>
@@ -45,18 +45,57 @@
         <!-- שירותים -->
         <section class="services" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px;">
             <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
-                <h3>תפילות ושיעורים</h3>
-                <p>מידע על תפילות ושיעורי תורה.</p>
+                <h3>בית כנסת מפואר</h3>
+                <p>מקום תפילה וחיבור ליהדות.</p>
             </div>
             <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
-                <h3>פינוק ליולדת</h3>
-                <p>מארזים ליולדות עם מתנות ייחודיות.</p>
+                <h3>אירועי שיא בחגים</h3>
+                <p>חוויות ייחודיות לכל המשפחה.</p>
             </div>
             <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
-                <h3>בדיקת מזוזות</h3>
-                <p>שירותי בדיקה ומכירת מזוזות.</p>
+                <h3>שיעורי תורה</h3>
+                <p>לימוד והעמקה בנושאי יהדות.</p>
+            </div>
+            <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
+                <h3>תכנית הכנה לבר מצווה</h3>
+                <p>ליווי אישי לקראת העלייה לתורה.</p>
+            </div>
+            <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
+                <h3>ערבי נשים</h3>
+                <p>פעילויות והשראה לנשים.</p>
+            </div>
+            <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
+                <h3>סיוע כלכלי למשפחות</h3>
+                <p>עזרה ותמיכה למי שזקוק.</p>
+            </div>
+            <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
+                <h3>רב עד הבית</h3>
+                <p>שירותי רבנות במעגל החיים.</p>
+            </div>
+            <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
+                <h3>בדיקת ומכירת תפילין ומזוזות</h3>
+                <p>שירותי בדיקה ומכירה איכותיים.</p>
+            </div>
+            <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
+                <h3>מיזם "פינוק ליולדת"</h3>
+                <p>מארזים אישיים ליולדות.</p>
+            </div>
+            <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
+                <h3>פעילות במוסדות חינוך</h3>
+                <p>חיבור ילדים לערכי היהדות.</p>
+            </div>
+            <div class="service-card" style="border: 1px solid #ccc; padding: 10px; text-align: center;">
+                <h3>קייטנת חב"ד בקיץ</h3>
+                <p>פעילות חווייתית לילדים.</p>
             </div>
         </section>
+
+        <!-- כפתור הצטרפות -->
+        <div style="text-align: center; margin: 20px;">
+            <a href="https://bit.ly/WhatsappUpdatesChabad" style="display: inline-block; background: #F58C28; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+                רוצים להישאר מעודכנים? היכנסו לקבוצת ההכרזות של בית חב״ד שכונת הפארק
+            </a>
+        </div>
     </main>
 
     <footer style="background-color: #F58C28; text-align: center; padding: 10px;">
