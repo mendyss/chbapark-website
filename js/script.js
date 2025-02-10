@@ -2,19 +2,20 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     // ========== תפריט המבורגר ==========
-    const hamburgerButton = document.getElementById('hamburger-menu-button');
-    const closeMenuButton = document.getElementById('close-menu-button');
-    const hamburgerMenu = document.getElementById('hamburger-menu');
+const hamburgerButton = document.getElementById('hamburger-menu-button');
+const closeMenuButton = document.getElementById('close-menu-button');
+const hamburgerMenu = document.getElementById('hamburger-menu');
 
-    if (hamburgerButton && closeMenuButton && hamburgerMenu) { // בדיקה שהאלמנטים קיימים
-        hamburgerButton.addEventListener('click', () => {
-            hamburgerMenu.classList.add('active');
-        });
+if (hamburgerButton && closeMenuButton && hamburgerMenu) { // בדיקה שהאלמנטים קיימים
+    hamburgerButton.addEventListener('click', () => {
+        hamburgerMenu.classList.add('active');
+    });
 
-        closeMenuButton.addEventListener('click', () => {
-            hamburgerMenu.classList.remove('active');
-        });
-    }
+    closeMenuButton.addEventListener('click', () => {
+        hamburgerMenu.classList.remove('active');
+    });
+}
+
 
 
     // ========== סליידר תמונות ==========
