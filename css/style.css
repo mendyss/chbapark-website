@@ -1,0 +1,346 @@
+/* css/style.css */
+
+/* ========== עיצוב תפריט המבורגר ========== */
+#hamburger-menu {
+    direction: rtl; /* כיוון מימין לשמאל */
+    transform: translateX(100%); /* מוסתר מחוץ למסך כברירת מחדל */
+    transition: transform 0.3s ease-in-out; /* אנימציית מעבר */
+}
+
+#hamburger-menu.active {
+    transform: translateX(0); /* מוצג על המסך כאשר פעיל */
+}
+
+/* ========== עיצוב סליידר ========== */
+.slider-container {
+    position: relative;
+}
+
+.slider-wrapper {
+    display: flex;
+    overflow-x: hidden; /* מסתיר תוכן שגולש אופקית */
+    scroll-snap-type: x mandatory; /* גלילה לפי שקופיות */
+    -webkit-overflow-scrolling: touch; /* גלילה חלקה במכשירי iOS */
+}
+
+.slide {
+    scroll-snap-align: start; /* יישור תחילת השקופית לתחילת המכולה */
+    flex: 0 0 100%; /* כל שקופית תופסת 100% רוחב */
+    width: 100%;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem; /* מרווח בין נקודות */
+}
+
+.slider-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: #bbb;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.slider-dot.active {
+    background-color: #555;
+}
+
+
+/* ========== עיצוב קרוסלת עדויות ========== */
+.testimonials-carousel {
+    position: relative;
+}
+
+.testimonials-wrapper {
+    display: flex;
+    overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.testimonial-slide {
+    scroll-snap-align: start;
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.testimonial-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.testimonial-prev-button,
+.testimonial-next-button {
+    background-color: #ddd;
+    border: none;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.testimonial-prev-button:hover,
+.testimonial-next-button:hover {
+    background-color: #ccc;
+}
+
+
+/* ========== התאמות עיצוב לאתר לדוגמה (chbapark.org) ========== */
+
+/* צבעי רקע כלליים (אופציונלי, אפשר לשנות ישירות ב-Tailwind) */
+body {
+    background-color: #f4f4f4; /* רקע אפור בהיר */
+    color: #333; /* צבע טקסט כהה יותר */
+}
+
+/* Header - דומה לאתר לדוגמה */
+header {
+    background-color: #fff; /* רקע לבן */
+    border-bottom: 1px solid #eee; /* פס גבול תחתון דק */
+}
+
+header .container {
+    max-width: 1200px; /* רוחב מקסימלי של התוכן */
+    margin: 0 auto; /* מרכוז אופקי */
+    padding: 1rem 1.5rem; /* ריווח פנימי */
+}
+
+header a.text-xl {
+    font-size: 1.5rem; /* גודל לוגו */
+    font-weight: bold;
+    color: #222; /* צבע לוגו כהה יותר */
+}
+
+header nav a {
+    color: #555; /* צבע קישורים בתפריט */
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: color 0.3s ease;
+}
+
+header nav a:hover {
+    color: #007bff; /* צבע קישור במעבר עכבר */
+}
+
+
+/* סקציות עם ריווח פנימי גדול יותר */
+section {
+    padding: 3rem 0; /* ריווח אנכי גדול יותר */
+}
+
+/* כותרות סקציות */
+section h2.text-2xl {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #222; /* צבע כותרות כהה יותר */
+}
+
+/* כרטיסיות שירותים - התאמה לריווח ועיצוב */
+#services .grid {
+    grid-gap: 2rem; /* מרווח גדול יותר בין כרטיסיות */
+}
+
+#services .bg-white {
+    background-color: #fff; /* רקע לבן */
+    border-radius: 0.5rem; /* פינות מעוגלות יותר */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05); /* צל עדין */
+    padding: 1.5rem; /* ריווח פנימי גדול יותר */
+    text-align: center; /* מרכוז טקסט בכרטיסיות שירותים */
+}
+
+#services .bg-white i.bi {
+    font-size: 3rem; /* גודל אייקונים בכרטיסיות שירותים */
+    margin-bottom: 1rem;
+}
+
+#services .bg-white h3.text-xl {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+}
+
+#services .bg-white p.text-gray-700 {
+    color: #666; /* צבע טקסט בתיאור שירות */
+    line-height: 1.6; /* ריווח שורות בתיאור שירות */
+}
+
+#services .bg-white a.inline-block {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #007bff; /* צבע קישור "למידע נוסף" */
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+#services .bg-white a:hover {
+    color: #0056b3; /* צבע קישור "למידע נוסף" במעבר עכבר */
+}
+
+
+/* כפתורי CTA - התאמה לעיצוב באתר לדוגמה */
+#cta .container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* מרווח בין כפתורים */
+}
+
+#cta a.bg-green-500, #cta a.bg-yellow-500 {
+    background-color: #28a745; /* ירוק של וואטסאפ */
+    color: #fff;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    border-radius: 2rem; /* פינות מעוגלות מאוד */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: background-color 0.3s ease;
+}
+
+#cta a.bg-yellow-500 {
+    background-color: #ffc107; /* צהוב של תרומה (אפשר לשנות) */
+    color: #333; /* צבע טקסט כהה יותר לצהוב */
+}
+
+
+#cta a:hover {
+    opacity: 0.9; /* שקיפות קלה במעבר עכבר */
+}
+
+/* עדויות - התאמה לעיצוב באתר לדוגמה */
+#testimonials .testimonials-carousel {
+    max-width: 900px; /* רוחב מקסימלי של קרוסלה */
+    margin: 0 auto; /* מרכוז אופקי */
+}
+
+#testimonials .testimonial-slide {
+    padding: 1.5rem;
+}
+
+#testimonials .bg-white {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    text-align: center;
+}
+
+#testimonials .bg-white p.text-gray-700 {
+    color: #555;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    line-height: 1.7; /* ריווח שורות בעדויות */
+}
+
+#testimonials .bg-white p.font-semibold {
+    font-weight: bold;
+    color: #333;
+}
+
+#testimonials .testimonial-controls {
+    margin-top: 1.5rem;
+}
+
+
+/* זמני תפילות ושיעורים */
+#prayer-times {
+    background-color: #f8f8f8; /* רקע בהיר יותר לסקציית זמנים */
+    padding: 4rem 0;
+}
+
+#prayer-times .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+#prayer-times h2.text-2xl {
+    margin-bottom: 3rem; /* מרווח גדול יותר מתחת לכותרת */
+}
+
+#prayer-times .flex {
+    display: flex;
+    overflow-x: auto; /* מאפשר גלילה אופקית אם אין מספיק מקום */
+    gap: 2rem; /* מרווח בין כרטיסיות זמנים */
+    padding-bottom: 1rem; /* ריווח תחתון לגלילה */
+}
+
+#prayer-times .bg-white {
+    background-color: #fff;
+    border-radius: 0.75rem; /* פינות מעוגלות יותר לכרטיסיות זמנים */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.07);
+    padding: 2rem;
+    text-align: center;
+    min-width: 250px; /* רוחב מינימלי לכרטיסיית זמן */
+}
+
+#prayer-times .bg-white h3.text-lg {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 1.2rem;
+    color: #333;
+}
+
+#prayer-times .bg-white p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 0.75rem;
+}
+
+
+/* ========== עיצוב רספונסיבי ========== */
+
+@media (max-width: 1024px) { /* מסכים בינוניים ומטה (טאבלטים) */
+    #services .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 עמודות בטאבלטים */
+    }
+}
+
+
+@media (max-width: 768px) { /* מסכים קטנים ומטה (טלפונים) */
+    header .container {
+        flex-direction: row-reverse; /* הלוגו מימין לתפריט המבורגר בטלפונים */
+    }
+
+    header nav.hidden.lg\:flex {
+        display: none !important; /* הסתר תפריט ניווט במסכים קטנים */
+    }
+
+    #services .grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr)); /* עמודה אחת בטלפונים */
+    }
+
+    #cta .container {
+        flex-direction: column; /* כפתורי CTA אחד מתחת לשני בטלפונים */
+        align-items: center;
+    }
+
+    #cta .container a {
+        width: 100%; /* כפתורי CTA ברוחב מלא בטלפונים */
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    #prayer-times .flex {
+        flex-direction: column; /* כרטיסיות זמנים אחת מתחת לשנייה בטלפונים */
+    }
+}
