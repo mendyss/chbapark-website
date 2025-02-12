@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>בית חב"ד שכונת הפארק</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Hachaluzim';
+            src: url('fonts/FBHACHALUZIM-REGULAR.OTF') format('opentype');
+            font-weight: normal;
+        }
+        
+        @font-face {
+            font-family: 'Hachaluzim';
+            src: url('fonts/FBHACHALUZIM-MEDIUM.OTF') format('opentype');
+            font-weight: 500;
+        }
+
+        :root {
+            --primary-color: #932745; /* PANTONE 7421 C */
+            --secondary-color: #F47B20; /* PANTONE 716 C */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hachaluzim', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Slider Styles */
+        .slider {
+            margin-top: 80px;
+            position: relative;
+            height: 60vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Cards Section */
+        .cards-section {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card.prayer-times {
+            border-right: 4px solid var(--primary-color);
+        }
+
+        .card.torah-classes {
+            border-right: 4px solid var(--secondary-color);
+        }
+
+        /* CTA Buttons */
+        .cta-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .slider {
+                height: 40vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg" alt="לוגו בית חב״ד">
+            </div>
+            <nav class="nav-links">
+                <a href="#"><i class="bi bi-whatsapp"></i></a>
+                <a href="https://app.icount.co.il/m/104dc/" class="cta-button">תרומה</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="slider">
+        <div class="slide active">
+            <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/SYN%20Beer%20Sheva-20.jpg" alt="תמונה 1">
+        </div>
+        <div class="slide">
+            <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/WhatsApp%20Image%202024-09-30%20at%2020.22.52%20(1).jpeg" alt="תמונה 2">
+        </div>
+        <div class="slide">
+            <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/synagog.jpg" alt="תמונה 3">
+        </div>
+        <div class="slide">
+            <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/376ee636-b873-4aec-b46b-e3f5a3b596c2.JPG" alt="תמונה 4">
+        </div>
+    </div>
+
+    <section class="cards-section">
+        <div class="card prayer-times">
+            <h2>זמני תפילה</h2>
+            <p>שחרית: 6:00</p>
+            <p>ערבית: 20:00</p>
+        </div>
+        
+        <div class="card torah-classes">
+            <h2>שיעורי תורה</h2>
+            <p>יום ראשון: שיעור גמרא</p>
+            <p>יום שני: שיעור תניא</p>
+        </div>
+    </section>
+
+    <script>
+        // Slider functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        // Change slide every 2 seconds
+        setInterval(nextSlide, 2000);
+    </script>
+</body>
+</html>
