@@ -1,346 +1,243 @@
-/* css/style.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* ========== עיצוב תפריט המבורגר ========== */
-#hamburger-menu {
-    direction: rtl; /* כיוון מימין לשמאל */
-    transform: translateX(100%); /* מוסתר מחוץ למסך כברירת מחדל */
-    transition: transform 0.3s ease-in-out; /* אנימציית מעבר */
+/* Global Styles */
+@layer base {
+    body {
+        @apply font-assistant bg-gray-50 text-gray-800 direction-rtl;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-fb-hachaluzim font-medium mt-0 mb-2 leading-tight;
+    }
+    a {
+        @apply text-inherit no-underline;
+    }
 }
 
-#hamburger-menu.active {
-    transform: translateX(0); /* מוצג על המסך כאשר פעיל */
-}
+/* Header Styles */
+@layer components {
+    header {
+        @apply sticky top-0 z-50 bg-white shadow-md p-4 flex justify-between items-center;
+    }
+    header .logo img {
+        @apply max-h-16;
+    }
+    nav ul {
+        @apply flex items-center space-x-8 rtl:space-x-reverse;
+    }
+    nav ul li {
+        @apply mr-8 last:mr-0;
+    }
+    nav ul li a {
+        @apply block px-4 py-2 rounded-md transition-colors duration-300 hover:bg-gray-100;
+    }
+    .donate-button {
+        @apply bg-orange-500 text-white font-bold rounded-md px-5 py-2 ml-4 hover:opacity-90;
+    }
+    .whatsapp-link {
+        @apply inline-flex items-center justify-center w-10 h-10 rounded-full bg-green-500 text-white hover:bg-green-700 transition-colors duration-300;
+    }
+    .hamburger-menu {
+        @apply md:hidden flex flex-col justify-around w-6 h-4 cursor-pointer bg-transparent border-none focus:outline-none z-50 transition-transform duration-300 ease-in-out;
+    }
+    .hamburger-menu span {
+        @apply block h-0.5 w-full bg-gray-700 rounded-full transition-all duration-300 ease-in-out;
+    }
+    .hamburger-menu.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
 
-/* ========== עיצוב סליידר ========== */
-.slider-container {
-    position: relative;
-}
+    .hamburger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
 
-.slider-wrapper {
-    display: flex;
-    overflow-x: hidden; /* מסתיר תוכן שגולש אופקית */
-    scroll-snap-type: x mandatory; /* גלילה לפי שקופיות */
-    -webkit-overflow-scrolling: touch; /* גלילה חלקה במכשירי iOS */
-}
+    .hamburger-menu.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+    .donate-icon-mobile,
+    .whatsapp-icon-mobile {
+        @apply inline-flex items-center justify-center w-10 h-10 rounded-full text-white hover:bg-opacity-80 transition-colors duration-300;
+    }
 
-.slide {
-    scroll-snap-align: start; /* יישור תחילת השקופית לתחילת המכולה */
-    flex: 0 0 100%; /* כל שקופית תופסת 100% רוחב */
-    width: 100%;
-}
+    .donate-icon-mobile {
+        @apply bg-orange-500;
+    }
 
-.slider-dots {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.5rem; /* מרווח בין נקודות */
-}
-
-.slider-dot {
-    width: 0.75rem;
-    height: 0.75rem;
-    border-radius: 50%;
-    background-color: #bbb;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.slider-dot.active {
-    background-color: #555;
-}
-
-
-/* ========== עיצוב קרוסלת עדויות ========== */
-.testimonials-carousel {
-    position: relative;
-}
-
-.testimonials-wrapper {
-    display: flex;
-    overflow-x: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-}
-
-.testimonial-slide {
-    scroll-snap-align: start;
-    flex: 0 0 100%;
-    width: 100%;
-    padding: 1rem;
-    box-sizing: border-box;
-}
-
-.testimonial-controls {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1rem;
-}
-
-.testimonial-prev-button,
-.testimonial-next-button {
-    background-color: #ddd;
-    border: none;
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.testimonial-prev-button:hover,
-.testimonial-next-button:hover {
-    background-color: #ccc;
-}
-
-
-/* ========== התאמות עיצוב לאתר לדוגמה (chbapark.org) ========== */
-
-/* צבעי רקע כלליים (אופציונלי, אפשר לשנות ישירות ב-Tailwind) */
-body {
-    background-color: #f4f4f4; /* רקע אפור בהיר */
-    color: #333; /* צבע טקסט כהה יותר */
-}
-
-/* Header - דומה לאתר לדוגמה */
-header {
-    background-color: #fff; /* רקע לבן */
-    border-bottom: 1px solid #eee; /* פס גבול תחתון דק */
-}
-
-header .container {
-    max-width: 1200px; /* רוחב מקסימלי של התוכן */
-    margin: 0 auto; /* מרכוז אופקי */
-    padding: 1rem 1.5rem; /* ריווח פנימי */
-}
-
-header a.text-xl {
-    font-size: 1.5rem; /* גודל לוגו */
-    font-weight: bold;
-    color: #222; /* צבע לוגו כהה יותר */
-}
-
-header nav a {
-    color: #555; /* צבע קישורים בתפריט */
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
-    transition: color 0.3s ease;
-}
-
-header nav a:hover {
-    color: #007bff; /* צבע קישור במעבר עכבר */
-}
-
-
-/* סקציות עם ריווח פנימי גדול יותר */
-section {
-    padding: 3rem 0; /* ריווח אנכי גדול יותר */
-}
-
-/* כותרות סקציות */
-section h2.text-2xl {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-    text-align: center;
-    color: #222; /* צבע כותרות כהה יותר */
-}
-
-/* כרטיסיות שירותים - התאמה לריווח ועיצוב */
-#services .grid {
-    grid-gap: 2rem; /* מרווח גדול יותר בין כרטיסיות */
-}
-
-#services .bg-white {
-    background-color: #fff; /* רקע לבן */
-    border-radius: 0.5rem; /* פינות מעוגלות יותר */
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05); /* צל עדין */
-    padding: 1.5rem; /* ריווח פנימי גדול יותר */
-    text-align: center; /* מרכוז טקסט בכרטיסיות שירותים */
-}
-
-#services .bg-white i.bi {
-    font-size: 3rem; /* גודל אייקונים בכרטיסיות שירותים */
-    margin-bottom: 1rem;
-}
-
-#services .bg-white h3.text-xl {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 0.75rem;
-}
-
-#services .bg-white p.text-gray-700 {
-    color: #666; /* צבע טקסט בתיאור שירות */
-    line-height: 1.6; /* ריווח שורות בתיאור שירות */
-}
-
-#services .bg-white a.inline-block {
-    display: inline-block;
-    margin-top: 1rem;
-    color: #007bff; /* צבע קישור "למידע נוסף" */
-    text-decoration: underline;
-    transition: color 0.3s ease;
-}
-
-#services .bg-white a:hover {
-    color: #0056b3; /* צבע קישור "למידע נוסף" במעבר עכבר */
-}
-
-
-/* כפתורי CTA - התאמה לעיצוב באתר לדוגמה */
-#cta .container {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem; /* מרווח בין כפתורים */
-}
-
-#cta a.bg-green-500, #cta a.bg-yellow-500 {
-    background-color: #28a745; /* ירוק של וואטסאפ */
-    color: #fff;
-    font-weight: bold;
-    padding: 1rem 2rem;
-    border-radius: 2rem; /* פינות מעוגלות מאוד */
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    transition: background-color 0.3s ease;
-}
-
-#cta a.bg-yellow-500 {
-    background-color: #ffc107; /* צהוב של תרומה (אפשר לשנות) */
-    color: #333; /* צבע טקסט כהה יותר לצהוב */
-}
-
-
-#cta a:hover {
-    opacity: 0.9; /* שקיפות קלה במעבר עכבר */
-}
-
-/* עדויות - התאמה לעיצוב באתר לדוגמה */
-#testimonials .testimonials-carousel {
-    max-width: 900px; /* רוחב מקסימלי של קרוסלה */
-    margin: 0 auto; /* מרכוז אופקי */
-}
-
-#testimonials .testimonial-slide {
-    padding: 1.5rem;
-}
-
-#testimonials .bg-white {
-    background-color: #fff;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
-    padding: 2rem;
-    text-align: center;
-}
-
-#testimonials .bg-white p.text-gray-700 {
-    color: #555;
-    font-style: italic;
-    margin-bottom: 1.5rem;
-    line-height: 1.7; /* ריווח שורות בעדויות */
-}
-
-#testimonials .bg-white p.font-semibold {
-    font-weight: bold;
-    color: #333;
-}
-
-#testimonials .testimonial-controls {
-    margin-top: 1.5rem;
-}
-
-
-/* זמני תפילות ושיעורים */
-#prayer-times {
-    background-color: #f8f8f8; /* רקע בהיר יותר לסקציית זמנים */
-    padding: 4rem 0;
-}
-
-#prayer-times .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-}
-
-#prayer-times h2.text-2xl {
-    margin-bottom: 3rem; /* מרווח גדול יותר מתחת לכותרת */
-}
-
-#prayer-times .flex {
-    display: flex;
-    overflow-x: auto; /* מאפשר גלילה אופקית אם אין מספיק מקום */
-    gap: 2rem; /* מרווח בין כרטיסיות זמנים */
-    padding-bottom: 1rem; /* ריווח תחתון לגלילה */
-}
-
-#prayer-times .bg-white {
-    background-color: #fff;
-    border-radius: 0.75rem; /* פינות מעוגלות יותר לכרטיסיות זמנים */
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.07);
-    padding: 2rem;
-    text-align: center;
-    min-width: 250px; /* רוחב מינימלי לכרטיסיית זמן */
-}
-
-#prayer-times .bg-white h3.text-lg {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 1.2rem;
-    color: #333;
-}
-
-#prayer-times .bg-white p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 0.75rem;
-}
-
-
-/* ========== עיצוב רספונסיבי ========== */
-
-@media (max-width: 1024px) { /* מסכים בינוניים ומטה (טאבלטים) */
-    #services .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 עמודות בטאבלטים */
+    .whatsapp-icon-mobile {
+        @apply bg-green-500;
     }
 }
 
 
-@media (max-width: 768px) { /* מסכים קטנים ומטה (טלפונים) */
-    header .container {
-        flex-direction: row-reverse; /* הלוגו מימין לתפריט המבורגר בטלפונים */
+/* Slider Section Styles */
+@layer components {
+    .slider {
+        @apply relative mt-20 md:mt-16 h-[300px] md:h-[400px] bg-cover bg-center bg-no-repeat overflow-hidden rounded-lg;
     }
-
-    header nav.hidden.lg\:flex {
-        display: none !important; /* הסתר תפריט ניווט במסכים קטנים */
+    .slider .overlay {
+        @apply absolute inset-0 bg-black opacity-50 rounded-lg;
     }
-
-    #services .grid {
-        grid-template-columns: repeat(1, minmax(0, 1fr)); /* עמודה אחת בטלפונים */
+    .slider .slider-text {
+        @apply absolute top-1/2 rtl:right-1/2 translate-x-1/2 -translate-y-1/2 text-center text-white z-10 w-full px-4;
     }
-
-    #cta .container {
-        flex-direction: column; /* כפתורי CTA אחד מתחת לשני בטלפונים */
-        align-items: center;
+    .slider .slider-text h2 {
+        @apply font-fb-hachaluzim text-3xl md:text-4xl font-medium mb-2;
     }
-
-    #cta .container a {
-        width: 100%; /* כפתורי CTA ברוחב מלא בטלפונים */
-        text-align: center;
-        margin-bottom: 1rem;
+    .slider .slider-text p {
+        @apply text-lg md:text-xl font-light;
     }
+}
 
-    #prayer-times .flex {
-        flex-direction: column; /* כרטיסיות זמנים אחת מתחת לשנייה בטלפונים */
+
+/* Info Cards Section Styles */
+@layer components {
+    .info-cards {
+        @apply py-12;
+    }
+    .info-cards .container {
+        @apply mx-auto px-4;
+    }
+    .info-cards .flex {
+        @apply flex overflow-x-auto space-x-4 rtl:space-x-reverse pb-4;
+    }
+    .info-cards .info-card {
+        @apply bg-white rounded-lg shadow-md p-6 w-[280px] flex-none;
+    }
+    .info-cards .info-card h3 {
+        @apply font-fb-hachaluzim text-xl text-center mb-4;
+    }
+    .info-cards .info-card p {
+        @apply text-gray-700 text-sm text-center;
+    }
+}
+
+/* Services Section Styles */
+@layer components {
+    .services-section {
+        @apply py-16 bg-gray-100;
+    }
+    .services-section .container {
+        @apply mx-auto px-4 text-center;
+    }
+    .services-section h2 {
+        @apply font-fb-hachaluzim text-3xl md:text-4xl font-medium mb-8 text-gray-800;
+    }
+    .services-section .services-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4;
+    }
+    .services-section .service-card {
+        @apply bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 text-center;
+    }
+    .services-section .service-card i {
+        @apply text-4xl mb-4; /* Example icon size - adjust as needed */
+    }
+    .services-section .service-card h3 {
+        @apply font-fb-hachaluzim text-xl font-semibold mb-2;
+    }
+    .services-section .service-card p {
+        @apply text-gray-600 text-sm;
+    }
+}
+
+
+/* CTA Buttons Section Styles */
+@layer components {
+    .cta-buttons {
+        @apply py-16;
+    }
+    .cta-buttons .container {
+        @apply mx-auto px-4 flex flex-col md:flex-row justify-center gap-8;
+    }
+    .cta-buttons .cta-button {
+        @apply bg-orange-500 hover:bg-orange-700 text-white font-bold rounded-xl py-4 px-8 transition-colors duration-300 inline-flex items-center justify-center;
+    }
+}
+
+
+/* Testimonials Section Styles */
+@layer components {
+    .testimonials {
+        @apply py-20 bg-gray-50;
+    }
+    .testimonials .container {
+        @apply mx-auto px-4 text-center;
+    }
+    .testimonials h2 {
+        @apply font-fb-hachaluzim text-3xl md:text-4xl font-medium mb-12 text-gray-800;
+    }
+    .testimonials .testimonial-slider {
+        @apply overflow-x-auto whitespace-nowrap pb-8;
+    }
+    .testimonials .testimonial-card {
+        @apply bg-white rounded-lg shadow-md p-8 w-[300px] md:w-[400px] inline-block mx-4 text-center;
+    }
+    .testimonials .testimonial-card p.italic {
+        @apply text-gray-700 italic mb-4;
+    }
+    .testimonials .testimonial-card p.font-semibold {
+        @apply font-semibold text-gray-800;
+    }
+}
+
+
+/* Map Section Styles */
+@layer components {
+    .map-section {
+        @apply py-16;
+    }
+    .map-section .container {
+        @apply mx-auto px-4 text-center;
+    }
+    .map-section h2 {
+        @apply font-fb-hachaluzim text-3xl md:text-4xl font-medium mb-8 text-gray-800;
+    }
+    .map-section .google-map {
+        @apply rounded-lg overflow-hidden shadow-md;
+    }
+}
+
+
+/* WhatsApp Updates Section Styles */
+@layer components {
+    .whatsapp-updates {
+        @apply py-20 bg-gray-100 text-center;
+    }
+    .whatsapp-updates .container {
+        @apply mx-auto px-4;
+    }
+    .whatsapp-updates h2 {
+        @apply font-fb-hachaluzim text-3xl md:text-4xl font-medium mb-8 text-gray-800;
+    }
+    .whatsapp-updates .whatsapp-button {
+        @apply bg-green-500 hover:bg-green-700 text-white font-bold rounded-xl py-4 px-8 transition-colors duration-300 inline-flex items-center justify-center;
+    }
+}
+
+
+/* Footer Styles */
+@layer components {
+    footer {
+        @apply bg-gray-800 text-white text-center py-8 text-sm;
+    }
+}
+
+
+/* Mobile Menu Styles */
+@layer utilities {
+    .nav-mobile-menu {
+        @apply fixed top-0 left-0 w-full h-full bg-white bg-opacity-95 flex flex-col items-center justify-center pt-24 opacity-0 invisible transition-opacity duration-300 ease-in-out z-40;
+    }
+    .nav-mobile-menu.open {
+        @apply opacity-100 visible;
+    }
+    .nav-mobile-menu ul {
+        @apply flex flex-col items-center;
+    }
+    .nav-mobile-menu li {
+        @apply my-6 text-xl;
+    }
+    .nav-mobile-menu li a {
+        @apply block px-4 py-2 rounded-md transition-colors duration-300 hover:bg-gray-100;
     }
 }
