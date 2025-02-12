@@ -1,152 +1,62 @@
-// js/script.js
+document.addEventListener('DOMContentLoaded', function() {
+    // --- תפריט המבורגר (מובייל) - תחילת סקריפט תפריט המבורגר ---
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const navUL = document.querySelector('nav ul');
 
-document.addEventListener('DOMContentLoaded', function () {
-    // ========== תפריט המבורגר ==========
-const hamburgerButton = document.getElementById('hamburger-menu-button');
-const closeMenuButton = document.getElementById('close-menu-button');
-const hamburgerMenu = document.getElementById('hamburger-menu');
-
-if (hamburgerButton && closeMenuButton && hamburgerMenu) { // בדיקה שהאלמנטים קיימים
-    hamburgerButton.addEventListener('click', () => {
-        hamburgerMenu.classList.add('active');
+    hamburgerMenu.addEventListener('click', () => {
+        hamburgerMenu.classList.toggle('active'); // הוספה/הסרה של קלאס 'active' לאייקון ההמבורגר (אנימציה)
+        navUL.classList.toggle('open'); // הוספה/הסרה של קלאס 'open' לתפריט (תצוגה/הסתרה)
+        navUL.classList.toggle('nav-mobile-menu'); // הוספה/הסרה של קלאס תפריט מובייל
     });
-
-    closeMenuButton.addEventListener('click', () => {
-        hamburgerMenu.classList.remove('active');
-    });
-}
+    // --- תפריט המבורגר (מובייל) - סוף סקריפט תפריט המבורגר ---
 
 
+    // --- סליידר תמונות - תחילת סקריפט סליידר ---
+    const sliderSection = document.querySelector('.slider'); // סעיף סליידר
+    const sliderImages = [ // רשימת תמונות לסליידר - יש להחליף בקישורים אמיתיים
+        "images/SYN%20Beer%20Sheva-20.jpg",
+        "images/WhatsApp%20Image%202024-09-30%20at%2020.22.52%20(1).jpeg",
+        "images/synagog.jpg",
+        "images/376ee636-b873-4aec-b46b-e3f5a3b596c2.JPG"
+    ];
+    let currentImageIndex = 0;
 
-    // ========== סליידר תמונות ==========
-    const sliderContainer = document.querySelector('.slider-container');
-    const sliderWrapper = document.querySelector('.slider-wrapper');
-    const slides = document.querySelectorAll('.slide');
-    const sliderDots = document.querySelectorAll('.slider-dot');
-    const slideWidth = slides[0].offsetWidth; // רוחב שקופית אחת
-    let currentSlide = 0;
-    let autoSlideInterval; // משתנה לאחסון האינטרוול של הסליידר האוטומטי
-
-
-    function goToSlide(slideIndex) {
-        if (slideIndex < 0) {
-            currentSlide = slides.length - 1; // חזרה לשקופית האחרונה אם מגיעים להתחלה
-        } else if (slideIndex >= slides.length) {
-            currentSlide = 0; // חזרה לשקופית הראשונה אם מגיעים לסוף
-        } else {
-            currentSlide = slideIndex;
-        }
-
-        sliderWrapper.style.transform = `translateX(-${currentSlide * slideWidth}px)`; // הזזת הסליידר
-        updateDots(); // עדכון נקודות הניווט
+    function setSliderBackground() {
+        sliderSection.style.backgroundImage = `url('${sliderImages[currentImageIndex]}')`;
     }
 
+    function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % sliderImages.length;
+        setSliderBackground();
+    }
 
-    function updateDots() {
-        sliderDots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide); // סימון הנקודה הפעילה
+    setSliderBackground(); // הגדרת תמונה ראשונה עם טעינת הדף
+    setInterval(nextImage, 3000); // החלפת תמונה כל 3 שניות (3000 מילישניות)
+    // --- סליידר תמונות - סוף סקריפט סליידר ---
+
+
+    // --- עדויות נגללות - תחילת סקריפט עדויות ---
+    const testimonialSliderContainer = document.querySelector('.testimonial-slider');
+    const testimonials = [ // רשימת עדויות - יש להחליף בתוכן אמיתי
+        "עדות 1 - בית חב''ד תמיד כאן בשבילי! בזכותם חגגנו בר מצווה לבן שלנו בצורה הכי מרגשת שיכולנו לדמיין.",
+        "עדות 2 - הלימוד השבועי לנשים שינה לי את החיים – סוף סוף מצאתי מקום שבו אני מרגישה מחוברת ומוקפת באנשים חמים.",
+        "עדות 3 - כשעברנו לשכונה, לא הכרנו אף אחד, אבל בית חב''ד הפך אותנו לחלק ממשפחה אחת גדולה!"
+    ];
+
+
+    function createTestimonialCards() {
+        testimonials.forEach(testimonialText => {
+            const card = document.createElement('div');
+            card.classList.add('testimonial-card', 'bg-white', 'rounded-lg', 'shadow-md', 'p-8', 'w-[300px]', 'md:w-[400px]', 'inline-block', 'mx-4'); // הוספת קלאסים של Tailwind
+            card.innerHTML = `
+                <p class="text-gray-700 italic mb-4">"${testimonialText}"</p>
+                <p class="font-semibold text-gray-800">- שם העד</p>
+            `;
+            testimonialSliderContainer.appendChild(card);
         });
     }
 
-
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(() => {
-            goToSlide(currentSlide + 1); // מעבר לשקופית הבאה כל 5 שניות (ברירת מחדל)
-        }, 5000); // זמן מעבר בין שקופיות (5 שניות)
-    }
-
-
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval); // עצירת הסליידר האוטומטי
-    }
-
-
-    sliderDots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            goToSlide(index); // מעבר לשקופית לפי לחיצה על נקודה
-            stopAutoSlide(); // עצירת הסליידר האוטומטי בלחיצה ידנית
-            startAutoSlide(); // הפעלה מחדש של סליידר אוטומטי אחרי לחיצה ידנית
-        });
-    });
-
-
-    // הפעלת סליידר אוטומטי כאשר הדף נטען
-    startAutoSlide();
-
-    // עצירת סליידר אוטומטי במעבר עכבר מעל הסליידר
-    sliderContainer.addEventListener('mouseenter', stopAutoSlide);
-
-    // הפעלת סליידר אוטומטי מחדש בהרחקת עכבר מהסליידר
-    sliderContainer.addEventListener('mouseleave', startAutoSlide);
-
-
-    // אתחול שקופית ראשונה ונקודות ניווט
-    goToSlide(0);
-
-
-    // ========== קרוסלת עדויות ==========
-    const testimonialsCarousel = document.querySelector('.testimonials-carousel');
-    const testimonialsWrapper = document.querySelector('.testimonials-wrapper');
-    const testimonialSlides = document.querySelectorAll('.testimonial-slide');
-    const testimonialPrevButton = document.querySelector('.testimonial-prev-button');
-    const testimonialNextButton = document.querySelector('.testimonial-next-button');
-    const testimonialSlideWidth = testimonialSlides[0].offsetWidth;
-    let currentTestimonialSlide = 0;
-    let autoTestimonialSlideInterval;
-
-
-    function goToTestimonialSlide(slideIndex) {
-        if (slideIndex < 0) {
-            currentTestimonialSlide = testimonialSlides.length - 1;
-        } else if (slideIndex >= testimonialSlides.length) {
-            currentTestimonialSlide = 0;
-        } else {
-            currentTestimonialSlide = slideIndex;
-        }
-
-        testimonialsWrapper.style.transform = `translateX(-${currentTestimonialSlide * testimonialSlideWidth}px)`;
-    }
-
-
-    function startAutoTestimonialSlide() {
-        autoTestimonialSlideInterval = setInterval(() => {
-            goToTestimonialSlide(currentTestimonialSlide + 1);
-        }, 6000); // זמן מעבר בין עדויות (6 שניות)
-    }
-
-
-    function stopAutoTestimonialSlide() {
-        clearInterval(autoTestimonialSlideInterval);
-    }
-
-
-    if (testimonialPrevButton && testimonialNextButton) {
-        testimonialPrevButton.addEventListener('click', () => {
-            goToTestimonialSlide(currentTestimonialSlide - 1);
-            stopAutoTestimonialSlide();
-            startAutoTestimonialSlide();
-        });
-
-        testimonialNextButton.addEventListener('click', () => {
-            goToTestimonialSlide(currentTestimonialSlide + 1);
-            stopAutoTestimonialSlide();
-            startAutoTestimonialSlide();
-        });
-    }
-
-
-    // הפעלת קרוסלת עדויות אוטומטית
-    startAutoTestimonialSlide();
-
-    // עצירת קרוסלת עדויות אוטומטית במעבר עכבר
-    testimonialsCarousel.addEventListener('mouseenter', stopAutoTestimonialSlide);
-
-    // הפעלת קרוסלת עדויות אוטומטית מחדש בהרחקת עכבר
-    testimonialsCarousel.addEventListener('mouseleave', startAutoTestimonialSlide);
-
-
-    // אתחול שקופית ראשונה בעדויות
-    goToTestimonialSlide(0);
-
+    createTestimonialCards(); // יצירת כרטיסיות עדויות
+     // --- עדויות נגללות - סוף סקריפט עדויות ---
 
 });
