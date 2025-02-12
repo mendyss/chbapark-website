@@ -3,198 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בית חב"ד שכונת הפארק</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPxyukkqittlnqiCZiuNwBj25lwtfckL/teGy+rYzP3zcu5hS37NkYczDLcJVPujnz3+H7vCu3gJbbYgO7YLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap">
-    <link rel="stylesheet" href="css/style.css"> </head>
+    <title>בית חב״ד שכונת הפארק - באר שבע</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom Fonts -->
+    <style>
+        @font-face {
+            font-family: 'FB Hachaluzim';
+            src: url('fonts/FBHACHALUZIM-REGULAR.OTF') format('opentype');
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: 'FB Hachaluzim';
+            src: url('fonts/FBHACHALUZIM-MEDIUM.OTF') format('opentype');
+            font-weight: 500;
+        }
+        @font-face {
+            font-family: 'Assistant';
+            src: url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&display=swap');
+        }
+    </style>
+
+    <!-- Custom Styles -->
+    <style>
+        .font-hachaluzim {
+            font-family: 'FB Hachaluzim', sans-serif;
+        }
+        .font-assistant {
+            font-family: 'Assistant', sans-serif;
+        }
+    </style>
+</head>
 <body class="font-assistant">
-    <header class="bg-white shadow-md sticky top-0 z-10">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-8 rtl:space-x-reverse">
-                <div class="flex space-x-4 rtl:space-x-reverse">
-                    <a href="https://app.icount.co.il/m/104dc/" target="_blank" class="rounded-full bg-gray-100 hover:bg-gray-200 p-2 inline-flex items-center justify-center">
-                        <i class="bi bi-heart-fill text-red-500"></i>
-                    </a>
-                    <a href="https://wa.me/972503999262" target="_blank" class="rounded-full bg-gray-100 hover:bg-gray-200 p-2 inline-flex items-center justify-center">
-                        <i class="bi bi-whatsapp text-green-500"></i>
-                    </a>
-                </div>
-                <nav class="hidden md:flex space-x-8 rtl:space-x-reverse text-lg">
-                    <a href="#" class="hover:text-blue-600">אודות</a>
-                    <a href="#" class="hover:text-blue-600">תרומות</a>
-                    <a href="#" class="hover:text-blue-600">צור קשר</a>
-                    <a href="#" class="hover:text-blue-600">תכנית בר מצווה</a>
-                    <a href="#" class="hover:text-blue-600">בית כנסת</a>
-                    <a href="#" class="hover:text-blue-600">בדיקת מזוזות</a>
-                    <a href="#" class="hover:text-blue-600">פינוק ליולדת</a>
-                </nav>
-            </div>
-            <a href="/" class="text-2xl font-bold">
-                <img src="https://via.placeholder.com/100x50?text=לוגו+בית+חב%22ד" alt="לוגו בית חב&quot;ד" class="h-10" />
+    <!-- Header -->
+    <header class="fixed top-0 right-0 left-0 bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="/" class="text-2xl font-hachaluzim text-blue-900">
+                בית חב״ד שכונת הפארק
             </a>
-            <button id="mobile-menu-button" class="md:hidden text-gray-500 hover:text-gray-800 focus:outline-none">
-                <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                    <path v-if="!isOpen" fill-rule="evenodd" clip-rule="evenodd" d="M4 5h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z"/>
-                </svg>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-6 space-x-reverse">
+                <a href="/about" class="text-gray-600 hover:text-blue-900">אודות</a>
+                <a href="/donate" class="text-gray-600 hover:text-blue-900">תרומות</a>
+                <a href="/contact" class="text-gray-600 hover:text-blue-900">צור קשר</a>
+                <a href="/bar-mitzvah" class="text-gray-600 hover:text-blue-900">תכנית בר מצווה</a>
+                <a href="/synagogue" class="text-gray-600 hover:text-blue-900">בית כנסת</a>
+            </nav>
+
+            <!-- Social Icons -->
+            <div class="flex space-x-4 space-x-reverse">
+                <a href="https://app.icount.co.il/m/104dc/" class="p-2 rounded-full bg-blue-100 hover:bg-blue-200">
+                    <i class="bi bi-heart-fill text-blue-900"></i>
+                </a>
+                <a href="https://wa.me/972503999262" class="p-2 rounded-full bg-green-100 hover:bg-green-200">
+                    <i class="bi bi-whatsapp text-green-600"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden p-2" id="mobile-menu-button">
+                <i class="bi bi-list text-2xl"></i>
             </button>
         </div>
-        <div class="md:hidden hidden" id="mobile-menu">
-            <nav class="px-4 py-2 flex flex-col space-y-2">
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">אודות</a>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">תרומות</a>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">צור קשר</a>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">תכנית בר מצווה</a>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">בית כנסת</a>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">בדיקת מזוזות</a>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">פינוק ליולדת</a>
-            </nav>
-        </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="hidden md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="/about" class="block px-3 py-2 text-gray-600">אודות</a>
+                <a href="/donate" class="block px-3 py-2 text-gray-600">תרומות</a>
+                <a href="/contact" class="block px-3 py-2 text-gray-600">צור קשר</a>
+                <a href="/bar-mitzvah" class="block px-3 py-2 text-gray-600">תכנית בר מצווה</a>
+                <a href="/synagogue" class="block px-3 py-2 text-gray-600">בית כנסת</a>
+            </div>
+        </nav>
     </header>
 
-    <section class="relative">
-        <div class="relative w-full overflow-hidden">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/SYN%20Beer%20Sheva-20.jpg" alt="תמונה 1" class="block w-full" style="filter: brightness(80%);">
+    <!-- Hero Slider -->
+    <div class="relative h-screen mt-16">
+        <div class="absolute inset-0 bg-black/50 z-10"></div>
+        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-white">
+            <h1 class="text-5xl md:text-6xl font-hachaluzim mb-4">
+                ברוכים הבאים
+            </h1>
+            <h2 class="text-3xl md:text-4xl font-hachaluzim">
+                בית חב״ד שכונת הפארק
+            </h2>
+            <p class="text-xl md:text-2xl mt-4">
+                עם כל הלב לכל אחד
+            </p>
+        </div>
+        <div class="relative h-full overflow-hidden">
+            <!-- Slider Images -->
+            <div class="flex transition-transform duration-500" id="slider">
+                <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/SYN%20Beer%20Sheva-20.jpg" 
+                     alt="בית חב״ד" class="w-full h-full object-cover">
+                <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/WhatsApp%20Image%202024-09-30%20at%2020.22.52%20(1).jpeg" 
+                     alt="פעילות בבית חב״ד" class="w-full h-full object-cover">
+                <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/synagog.jpg" 
+                     alt="בית הכנסת" class="w-full h-full object-cover">
+                <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/376ee636-b873-4aec-b46b-e3f5a3b596c2.JPG" 
+                     alt="אירועים בבית חב״ד" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Cards -->
+    <div class="container mx-auto px-4 -mt-16 relative z-30">
+        <div class="flex overflow-x-auto pb-4 space-x-4 space-x-reverse">
+            <!-- Prayer Times -->
+            <div class="flex-none w-80 bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-hachaluzim text-blue-900 mb-4">זמני תפילות</h3>
+                <div class="space-y-2">
+                    <p>שחרית: 06:15</p>
+                    <p>ערבית: 20:00</p>
                 </div>
-                <div class="swiper-slide">
-                    <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/WhatsApp%20Image%202024-09-30%20at%2020.22.52%20\(1\).jpeg" alt="תמונה 2" class="block w-full" style="filter: brightness(80%);">
+            </div>
+
+            <!-- Class Times -->
+            <div class="flex-none w-80 bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-hachaluzim text-blue-900 mb-4">זמני שיעורים</h3>
+                <div class="space-y-2">
+                    <p>גמרא: ראשון 20:15</p>
+                    <p>תניא לנשים: שלישי 20:45</p>
                 </div>
-                <div class="swiper-slide">
-                    <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/synagog.jpg" alt="תמונה 3" class="block w-full" style="filter: brightness(80%);">
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/376ee636-b873-4aec-b46b-e3f5a3b596c2.JPG" alt="תמונה 4" class="block w-full" style="filter: brightness(80%);">
+            </div>
+
+            <!-- Shabbat Times -->
+            <div class="flex-none w-80 bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-hachaluzim text-blue-900 mb-4">זמני שבת</h3>
+                <div class="space-y-2">
+                    <p>כניסת שבת: 18:00</p>
+                    <p>צאת שבת: 19:15</p>
                 </div>
             </div>
         </div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
-            <h2 class="text-4xl md:text-5xl font-bold mb-2">ברוכים הבאים בית חבד שכונת הפארק</h2>
-            <p class="text-xl md:text-2xl">עם כל הלב לכל אחד</p>
+    </div>
+
+    <!-- Services Grid -->
+    <section class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl font-hachaluzim text-center mb-12">השירותים שלנו</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Service Cards -->
+            <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                <i class="bi bi-building text-4xl text-blue-900 mb-4"></i>
+                <h3 class="text-xl font-hachaluzim text-blue-900 mb-2">בית כנסת מפואר</h3>
+                <p class="text-gray-600">בית כנסת חם ומזמין, פתוח לכולם. מקום תפילה, לימוד וקהילה.</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                <i class="bi bi-calendar-event text-4xl text-red-700 mb-4"></i>
+                <h3 class="text-xl font-hachaluzim text-red-700 mb-2">אירועי שיא בחגים</h3>
+                <p class="text-gray-600">חגיגות מיוחדות לכל המשפחה בחגי ישראל.</p>
+            </div>
+
+            <!-- Add more service cards following the same pattern -->
         </div>
     </section>
 
-    <section class="bg-gray-50 py-12">
-        <div class="container mx-auto px-4">
-            <div class="flex overflow-x-auto pb-4">
-                <div class="bg-white rounded-md shadow-md p-4 mx-2 min-w-[200px]">
-                    <h3 class="font-bold text-lg mb-2 text-center">זמני תפילות</h3>
-                    <p class="text-center">שחרית: 06:15</p>
-                    <p class="text-center">ערבית: 20:00</p>
-                </div>
-                <div class="bg-white rounded-md shadow-md p-4 mx-2 min-w-[200px]">
-                    <h3 class="font-bold text-lg mb-2 text-center">זמני שיעורים</h3>
-                    <p class="text-center">גמרא: ראשון 20:15</p>
-                    <p class="text-center">תניא לנשים: שלישי 20:45</p>
-                </div>
-                <div class="bg-white rounded-md shadow-md p-4 mx-2 min-w-[200px]">
-                    <h3 class="font-bold text-lg mb-2 text-center">זמני שבת</h3>
-                    <p class="text-center">כניסת שבת: 18:00</p>
-                    <p class="text-center">צאת שבת: 19:15</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-house-fill text-blue-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-blue-700">בית כנסת מפואר</h4>
-                    <p class="text-gray-700">בית כנסת מרכזי ומזמין לכל תושבי השכונה.</p>
-                </div>
-                <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-balloon-fill text-green-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-green-700">אירועי שיא לכל המשפחה בחגים</h4>
-                    <p class="text-gray-700">חגיגות ואירועים מיוחדים לכל המשפחה במהלך החגים.</p>
-                </div>
-                 <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-book-half text-yellow-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-yellow-700">שיעורי תורה</h4>
-                    <p class="text-gray-700">מגוון שיעורי תורה ויהדות למבוגרים וילדים.</p>
-                </div>
-                <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-person-fill text-purple-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-purple-700">תכנית הכנה לבר מצווה</h4>
-                    <p class="text-gray-700">תכנית מיוחדת ומרגשת להכנה לבר מצווה.</p>
-                </div>
-                <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-people-fill text-pink-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-pink-700">ערבי נשים</h4>
-                    <p class="text-gray-700">ערבים קהילתיים ופעילויות מיוחדות לנשים.</p>
-                </div>
-                <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-cash-coin text-gray-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-gray-700">סיוע כלכלי למשפחות</h4>
-                    <p class="text-gray-700">סיוע ותמיכה למשפחות נזקקות בקהילה.</p>
-                </div>
-                <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-person-hearts text-orange-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-orange-700">שירות 'רב עד הבית' במעגל החיים</h4>
-                    <p class="text-gray-700">רב קהילה זמין לכל אירועי החיים.</p>
-                </div>
-                 <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-check2-square text-cyan-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-cyan-700">בדיקת ומכירת תפילין ומזוזות</h4>
-                    <p class="text-gray-700">שירות מומחה לבדיקת ומכירת תפילין ומזוזות.</p>
-                </div>
-                 <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-gift-fill text-lime-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-lime-700">מיזם "פינוק ליולדת"</h4>
-                    <p class="text-gray-700">שי אישי וייחודי ליולדות בשכונה.</p>
-                </div>
-                <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-mortarboard-fill text-teal-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-teal-700">פעילות במוסדות חינוך</h4>
-                    <p class="text-gray-700">פעילויות חינוכיות בבתי ספר וגנים בשכונה.</p>
-                </div>
-                 <div class="bg-white rounded-md shadow-md p-6">
-                    <i class="bi bi-sun-fill text-amber-500 text-3xl mb-4"></i>
-                    <h4 class="font-bold text-xl mb-2 text-amber-700">קייטנת חב"ד בקיץ</h4>
-                    <p class="text-gray-700">קייטנת קיץ חווייתית וערכית לילדים.</p>
-                </div>
-            </div>
-
-            <div class="mt-12 flex justify-center space-x-4 rtl:space-x-reverse">
-                <a href="https://bit.ly/WhatsappUpdatesChabad" target="_blank" class="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-md">
+    <!-- CTA Buttons -->
+    <section class="bg-blue-900 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="space-y-4 md:space-y-0 md:space-x-4 md:space-x-reverse">
+                <a href="https://bit.ly/WhatsappUpdatesChabad" 
+                   class="inline-block px-8 py-3 bg-green-500 hover:bg-green-600 rounded-lg">
                     צור קשר בוואטסאפ
                 </a>
-                <a href="https://app.icount.co.il/m/104dc/" target="_blank" class="bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-md">
+                <a href="https://app.icount.co.il/m/104dc/" 
+                   class="inline-block px-8 py-3 bg-red-600 hover:bg-red-700 rounded-lg">
                     לתרומה
                 </a>
             </div>
+        </div>
+    </section>
 
-            <div class="mt-16 overflow-x-auto pb-4">
-                <div class="flex space-x-8 rtl:space-x-reverse min-w-max">
-                    <div class="bg-white rounded-md shadow-md p-6 w-[300px] mx-2">
-                        <p class="text-gray-700 text-center">"בית חב"ד תמיד כאן בשבילי! בזכותם חגגנו בר מצווה לבן שלנו בצורה הכי מרגשת שיכולנו לדמיין."</p>
-                        <p class="font-bold text-center mt-4">- משה כהן</p>
-                    </div>
-                    <div class="bg-white rounded-md shadow-md p-6 w-[300px] mx-2">
-                        <p class="text-gray-700 text-center">"הלימוד השבועי לנשים שינה לי את החיים – סוף סוף מצאתי מקום שבו אני מרגישה מחוברת ומוקפת באנשים חמים."</p>
-                        <p class="font-bold text-center mt-4">- שרה לוי</p>
-                    </div>
-                    <div class="bg-white rounded-md shadow-md p-6 w-[300px] mx-2">
-                        <p class="text-gray-700 text-center">"כשעברנו לשכונה, לא הכרנו אף אחד, אבל בית חב"ד הפך אותנו לחלק ממשפחה אחת גדולה!"</p>
-                        <p class="font-bold text-center mt-4">- יוסי רז</p>
-                    </div>
-                </div>
+    <!-- Testimonials -->
+    <section class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl font-hachaluzim text-center mb-12">מה אומרים עלינו</h2>
+        <div class="flex overflow-x-auto pb-4 space-x-4 space-x-reverse">
+            <!-- Testimonial Cards -->
+            <div class="flex-none w-80 bg-white rounded-lg shadow-lg p-6">
+                <p class="text-gray-600 mb-4">"בית חב"ד תמיד כאן בשבילי! בזכותם חגגנו בר מצווה לבן שלנו בצורה הכי מרגשת שיכולנו לדמיין."</p>
+                <p class="font-bold">- משה כהן</p>
             </div>
 
-            <div class="mt-16">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3384.6348843099717!2d34.79573427445234!3d31.25147877388347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502766054c5979f%3A0xc56c753a0446c35c!2z15Lp16fF15og15L_15On15XX15Eg16_X15rC15Eg15o715Lz15EwMTYgNzEwMDAwMCBCZWVyIHNldmEsIOepjCDpq5Mg4Kas!5e0!3m2!1siw!2sil!4v1710314232949!5m2!1siw!2sil" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="flex-none w-80 bg-white rounded-lg shadow-lg p-6">
+                <p class="text-gray-600 mb-4">"הלימוד השבועי לנשים שינה לי את החיים – סוף סוף מצאתי מקום שבו אני מרגישה מחוברת ומוקפת באנשים חמים."</p>
+                <p class="font-bold">- שרה לוי</p>
+            </div>
+
+            <div class="flex-none w-80 bg-white rounded-lg shadow-lg p-6">
+                <p class="text-gray-600 mb-4">"כשעברנו לשכונה, לא הכרנו אף אחד, אבל בית חב"ד הפך אותנו לחלק ממשפחה אחת גדולה!"</p>
+                <p class="font-bold">- יוסי רז</p>
             </div>
         </div>
     </section>
 
-    <footer class="bg-gray-100 py-4 text-center">
-        <p>© כל הזכויות שמורות לבית חב"ד שכונת הפארק באר שבע</p>
+    <!-- Google Map -->
+    <section class="h-96">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3414.7089767780453!2d34.8016613!3d31.2503897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15026640529f67a9%3A0x1c468f30c821c8ad!2z16DXl9ecINen15nXldeqIE5haGFsIEtleW90!5e0!3m2!1sen!2sil!4v1635000000000!5m2!1sen!2sil"
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>© כל הזכויות שמורות לבית חב"ד שכונת הפארק באר שבע</p>
+        </div>
     </footer>
 
+    <!-- JavaScript -->
     <script>
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         });
-    </script>
-</body>
-</html>
+
+        // Image Slider
+        const slider = document.getElementById('slider');
+        let currentSlide = 0;
+        const slides = slider.children.length;
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides;
+            updateSlider();
+        }</antArtifact>
