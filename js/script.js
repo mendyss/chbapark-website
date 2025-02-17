@@ -69,7 +69,7 @@ actionButtons.forEach(button => {
 document.addEventListener("DOMContentLoaded", function() {
   const slides = document.querySelectorAll(".slide");
   let currentSlide = 0;
-  const slideInterval = setInterval(nextSlide, 2000); // החלפה כל 2 שניות
+  const slideInterval = setInterval(nextSlide, 3000); // החלפה כל 2 שניות
 
   function nextSlide() {
     slides[currentSlide].classList.remove("active");
