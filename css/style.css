@@ -1,4 +1,3 @@
-
 /* === בסיס === */
 :root {
     /* צבעי המותג */
@@ -198,7 +197,7 @@ ul {
     background-color: rgba(104, 0, 32, 0.05);
 }
 
-* כפתורי פעולה */
+/* כפתורי פעולה */
 .header-actions {
     display: flex;
     align-items: center;
@@ -238,6 +237,7 @@ ul {
     background-color: var(--color-white);
     color: var(--color-whatsapp);
 }
+
 /* === מקום שומר לגיבור (hero) === */
 .hero-placeholder {
     margin-top: 7rem;
@@ -369,7 +369,7 @@ ul {
   top: 0;
   left: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
   z-index: 2; /* מעל ה-overlay הכהה */
   
   display: flex;
