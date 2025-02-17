@@ -1,7 +1,10 @@
-function toggleMenu() {
-    const mobileMenu = document.getElementById('hamburger-menu');
-    mobileMenu.classList.toggle('hidden');
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const mobileDropdown = document.querySelector('.mobile-dropdown');
 
-document.getElementById('hamburger-menu-button').addEventListener('click', toggleMenu);
-document.getElementById('close-menu-button').addEventListener('click', toggleMenu);
+    if (hamburgerMenu && mobileDropdown) {
+        hamburgerMenu.addEventListener('click', function() {
+            mobileDropdown.classList.toggle('open');
+        });
+    }
+});
