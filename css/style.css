@@ -93,7 +93,7 @@ header {
     background: none;
     border: none;
     font-size: 1.5rem; /* Size of hamburger icon */
-    color: #333;
+    color: var(--orange); /*  צבע אייקון ההמבורגר - כתום ממותג  */
     cursor: pointer;
 }
 
@@ -133,7 +133,6 @@ header {
     display: block; /* Make links fill list item width */
     font-family: 'FB Hachaluzim Medium', sans-serif; /* Example of using Medium font for mobile nav links */
 }
-
 /* ======================== Header Icons - אייקוני ההדר ======================== */
 .header-icons {
     display: flex;
@@ -147,8 +146,8 @@ header {
     width: 35px; /* Icon container size */
     height: 35px;
     border-radius: 50%; /* Circular shape */
-    background-color: var(--grey); /* Grey background for icons */
-    color: var(--white); /* White icon color */
+    background-color: var(--wine-red); /* רקע אדום יין לאייקונים  */
+    color: var(--white); /* צבע לבן לאייקונים  */
     text-decoration: none;
     font-size: 1rem; /* Icon size */
     transition: background-color 0.3s ease; /* Smooth background transition */
