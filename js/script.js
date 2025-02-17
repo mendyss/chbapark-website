@@ -1,10 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburgerMenu = document.querySelector('.hamburger-menu');
-    const mobileDropdown = document.querySelector('.mobile-dropdown');
+// דוגמה בסיסית לסגירה/פתיחה של תפריט במובייל
+document.addEventListener("DOMContentLoaded", function() {
+  const navToggle = document.querySelector(".nav-toggle");
+  const navList = document.querySelector(".nav-list");
 
-    if (hamburgerMenu && mobileDropdown) {
-        hamburgerMenu.addEventListener('click', function() {
-            mobileDropdown.classList.toggle('open');
-        });
-    }
+  navToggle.addEventListener("click", () => {
+    navList.style.display = (navList.style.display === "flex") ? "none" : "flex";
+  });
 });
