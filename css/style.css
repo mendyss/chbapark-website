@@ -290,71 +290,111 @@ ul {
 }
 
 /* ======== [START] SLIDER STYLES ======== */
-body {
-  font-family: 'Rubik', 'Heebo', sans-serif;
-  margin: 0;
-  padding: 0;
+.slider {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  
+  /* מעגלים רק את הפינות התחתונות */
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
+/* קונטיינר שמחזיק את השקפים 
+   גובה 1/3 מסך (33vh). תוכל לשנות ל-30vh, 40vh וכו' לפי רצונך */
 .slider-container {
   position: relative;
   width: 100%;
-  margin-top: 60px;
+  height: 33vh;
+  /* כדי שהחלק התחתון יתעגל, גם הקונטיינר עצמו מקבל עיגול רק בתחתית */
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
-.caption {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  top: -60px;
-  color: #333;
-  font-weight: bold;
-  z-index: 10;
-}
-
-.caption h1 {
-  margin: 0;
-  font-size: 32px;
-}
-
-.caption h2 {
-  margin: 5px 0 0;
-  font-size: 24px;
-}
-
-.slider {
-  width: 100%;
-  height: 400px;
-  overflow: hidden;
-  position: relative;
-}
-
+/* כל שקף (תמונה) */
 .slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.slide.active {
-  opacity: 1;
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-} ======== [END] SLIDER STYLES ======== */
+  background-size: cover;
+  background-position: center;
+  
+  /*  ע"י ברירת מחדל שקוף (ולא מוצג) */
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  
+  /* התאמה לעיגול הפינות */
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+/* השקף הפעיל */
+.slide.active {
+  opacity: 1;
+}
+
+/* שכבת כהות עדינה על הסליידר */
+.slider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* 0.3 כהות - אפשר לחזק/להחליש אם תרצה */
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  
+  /* התאמה לעיגול הפינות */
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+/* טקסט Overlay */
+.slider-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2; /* מעל ה-overlay הכהה */
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* למרכז אנכית */
+  align-items: center;     /* למרכז אופקית */
+  text-align: center;
+  color: #fff;
+  padding: 1rem;
+}
+
+/* גדלי הכותרות - אפשר לשחק עם זה */
+.slider-overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+.slider-overlay h2 {
+  font-size: 2rem;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+/* רספונסיביות למובייל */
+@media (max-width: 768px) {
+  .slider-container {
+    height: 40vh; /* מעט יותר גבוה במובייל, לשיקולך */
+  }
+  
+  .slider-overlay h1 {
+    font-size: 2.2rem;
+  }
+  
+  .slider-overlay h2 {
+    font-size: 1.6rem;
+  }
+}
+/* ======== [END] SLIDER STYLES ======== */
