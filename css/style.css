@@ -345,7 +345,7 @@ ul {
   height: 100%;
   
   /* 0.3 כהות - אפשר לחזק/להחליש אם תרצה */
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
   
   /* התאמה לעיגול הפינות */
@@ -373,13 +373,13 @@ ul {
 
 /* גדלי הכותרות - אפשר לשחק עם זה */
 .slider-overlay h1 {
-  font-size: 4rem;
+  font-size: 3.6rem;
   margin-bottom: 0.5rem;
   text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
 }
 
 .slider-overlay h2 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
 }
 
