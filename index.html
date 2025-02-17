@@ -1,67 +1,94 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="אתר בית חב''ד שכונת הפארק באר שבע - בית חם לכל יהודי. פעילויות קהילתיות, שיעורי תורה, בית כנסת ועוד.">
-    <meta name="keywords" content="בית חב''ד, באר שבע, שכונת הפארק, קהילה יהודית, בית כנסת, שיעורי תורה, פעילויות לילדים, נשים">
-    <meta name="author" content="בית חב''ד שכונת הפארק">
-    <title>בית חב"ד שכונת הפארק באר שבע</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- תיאור קצר ומילות מפתח (Meta Description & Keywords) -->
+  <meta name="description" content="בית חב״ד שכונת הפארק בבאר שבע - כל הלב לכל אחד. מידע על פעילות, שירותים ותרומות.">
+  <meta name="keywords" content="חב״ד, שכונת הפארק, באר שבע, בית כנסת, תרומות, יהדות, בית חם, אירועים קהילתיים">
+
+  <title>בית חב"ד שכונת הפארק</title>
+
+  <!-- חיבור לקובץ CSS ראשי -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- חיבור לספריית Bootstrap Icons (אייקונים) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg" alt="לוגו בית חב''ד שכונת הפארק">
-                </a>
-            </div>
-            <nav class="desktop-nav">
-                <ul>
-                    <li><a href="#">אודות</a></li>
-                    <li><a href="#">תרומות</a></li>
-                    <li><a href="#">צור קשר</a></li>
-                    <li><a href="#">תכנית בר מצווה</a></li>
-                    <li><a href="#">בית כנסת</a></li>
-                    <li><a href="#">בדיקת מזוזות</a></li>
-                    <li><a href="#">פינוק ליולדת</a></li>
-                </ul>
-            </nav>
-            <div class="mobile-nav">
-                <button class="hamburger-menu">
-                    <i class="bi bi-list"></i>
-                </button>
-            </div>
-            <div class="header-icons">
-                <a href="https://app.icount.co.il/m/104dc/" target="_blank" class="donate-icon">
-                    <i class="bi bi-heart-fill"></i>  </a>
-                <a href="https://wa.me/972503999262" target="_blank" class="whatsapp-icon">
-                    <i class="bi bi-whatsapp"></i> </a>
-            </div>
-        </div>
-    </header>
 
-    <nav class="mobile-dropdown">
-        <ul>
-            <li><a href="#">אודות</a></li>
-            <li><a href="#">תרומות</a></li>
-            <li><a href="#">צור קשר</a></li>
-            <li><a href="#">תכנית בר מצווה</a></li>
-            <li><a href="#">בית כנסת</a></li>
-            <li><a href="#">בדיקת מזוזות</a></li>
-            <li><a href="#">פינוק ליולדת</a></li>
+  <!-- ======== Header (הדר) ======== -->
+  <header class="main-header">
+    <div class="container header-container">
+      <!-- לוגו (קישור לעמוד הבית) -->
+      <a href="index.html" class="logo-right">
+        <img 
+          src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg" 
+          alt="לוגו בית חב״ד" 
+          class="logo-image"
+        >
+      </a>
+      
+      <!-- תפריט ניווט (דסקטופ + המבורגר במובייל) -->
+      <nav class="main-nav">
+        <!-- אייקון תפריט המבורגר שיוצג רק במסכים צרים -->
+        <button class="nav-toggle" aria-label="Toggle Navigation">
+          <i class="bi bi-list"></i>
+        </button>
+        
+        <!-- רשימת קישורים, תוצג בדסקטופ -->
+        <ul class="nav-list">
+          <li><a href="#">אודות</a></li>
+          <li><a href="#">תרומות</a></li>
+          <li><a href="#">צור קשר</a></li>
+          <li><a href="#">תכנית בר מצווה</a></li>
+          <li><a href="#">בית כנסת</a></li>
+          <li><a href="#">בדיקת מזוזות</a></li>
+          <li><a href="#">פינוק ליולדת</a></li>
         </ul>
-    </nav>
+      </nav>
+
+      <!-- אייקוני קישורים (תרומה, וואטסאפ) -->
+      <div class="header-icons">
+        <a 
+          href="https://app.icount.co.il/m/104dc/" 
+          target="_blank" 
+          class="icon-link" 
+          aria-label="תרומה"
+        >
+          <i class="bi bi-heart-fill"></i>
+        </a>
+        <a 
+          href="https://wa.me/972503999262" 
+          target="_blank" 
+          class="icon-link" 
+          aria-label="וואטסאפ"
+        >
+          <i class="bi bi-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+  <!-- ======== End of Header ======== -->
 
 
-    <footer>
-        <div class="footer-container">
-            <p>© כל הזכויות שמורות לבית חב"ד שכונת הפארק באר שבע. תשפ"ה</p>
-        </div>
-    </footer>
+  <!-- תוכן האתר יגיע כאן בהמשך (סליידר, כרטיסיות, כפתורים וכו') -->
 
-    <script src="script.js"></script>
+  
+  <!-- ======== Footer (פוטר) ======== -->
+  <footer class="main-footer">
+    <div class="container footer-container">
+      <p class="copyright">
+        © כל הזכויות שמורות לבית חב"ד שכונת הפארק באר שבע, תשפ"ה
+      </p>
+    </div>
+  </footer>
+  <!-- ======== End of Footer ======== -->
+
+  <!-- סקריפט ג'אווה סקריפט במידת הצורך -->
+  <script src="js/script.js"></script>
 </body>
 </html>
