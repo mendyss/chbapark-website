@@ -146,18 +146,40 @@ header {
     width: 35px; /* Icon container size */
     height: 35px;
     border-radius: 50%; /* Circular shape */
-    background-color: var(--wine-red); /* רקע אדום יין לאייקונים  */
-    color: var(--white); /* צבע לבן לאייקונים  */
     text-decoration: none;
-    font-size: 1rem; /* Icon size */
+    font-size: 1.2rem; /* גודל אייקונים - קצת יותר גדול */
     transition: background-color 0.3s ease; /* Smooth background transition */
 }
 
-.header-icons a:hover {
-    background-color: var(--orange); /* Orange background on hover */
+/* עיצוב אייקון וואטסאפ */
+.whatsapp-icon {
+    background-color: #25d366; /* צבע ירוק לוואטסאפ */
+}
+
+.whatsapp-icon:hover {
+    background-color: #128c7e; /* צבע ירוק כהה יותר בה hover */
+}
+
+.whatsapp-icon i {
+    color: var(--white); /* צבע אייקון לבן */
+}
+
+
+/* עיצוב אייקון תרומה */
+.donate-icon {
+    background-color: var(--orange); /* צבע כתום לתרומה */
+}
+
+.donate-icon:hover {
+    background-color: var(--wine-red); /* צבע אדום יין בה hover */
+}
+
+.donate-icon i {
+    color: var(--white); /* צבע אייקון לבן */
 }
 
 /* ======================== Footer Styles - עיצוב הפוטר ======================== */
+
 footer {
     background-color: #333; /* Dark footer background */
     color: var(--white); /* White text color */
