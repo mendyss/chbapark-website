@@ -1,229 +1,173 @@
-/* ======================== Global Styles - סגנונות גלובליים ======================== */
-body {
-    font-family: 'FB Hachaluzim Regular', sans-serif; /* Use the regular font as default */
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    direction: rtl;
-    background-color: #f8f8f8;
-    color: #333;
-    line-height: 1.6; /* Improved line height for readability */
-}
-
-/* ======================== Define Font Faces - הגדרת פונטים מקומיים ======================== */
+/* ------------------------------
+   1. טעינת גופנים
+--------------------------------*/
 @font-face {
-    font-family: 'FB Hachaluzim Medium';
-    src: url('fonts/FBHACHALUZIM-MEDIUM.OTF') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'HachaluzimRegular';
+  src: url('../fonts/FBHACHALUZIM-REGULAR.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'FB Hachaluzim Regular';
-    src: url('fonts/FBHACHALUZIM-REGULAR.OTF') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'HachaluzimMedium';
+  src: url('../fonts/FBHACHALUZIM-MEDIUM.OTF') format('opentype');
+  font-weight: 500;
+  font-style: normal;
 }
 
+/* ניתן להשתמש גם בגופן אחד כרגע ולהגדיר בהמשך */
 
-/* ======================== Colors from Brand Book - צבעי מותג ======================== */
+/* ------------------------------
+   2. הגדרות בסיס
+--------------------------------*/
 :root {
-    --wine-red: rgb(104, 0, 32);
-    --orange: rgb(245, 140, 40);
-    --white: rgb(255, 255, 255);
-    --grey: #ccc;
-    --whatsapp-green: #25d366; /* צבע ירוק וואטסאפ */
-    --whatsapp-hover-green: #128c7e; /* צבע ירוק וואטסאפ בה hover */
-    --donate-orange: var(--orange); /* צבע כתום תרומה - מותג */
-    --donate-hover-wine-red: var(--wine-red); /* צבע אדום יין תרומה בה hover - מותג */
+  /* צבעי המותג לפי ספר המותג */
+  --wine-red: rgb(104, 0, 32); /* אדום יין */
+  --chabad-orange: rgb(245, 140, 40); /* כתום */
+  --white: #ffffff;
+  --gray-light: #f5f5f5;
+  
+  /* ניתן להוסיף צבעים אפורים נוספים לפי הצורך */
+  
+  /* משפחת גופן כללית */
+  --main-font: 'HachaluzimRegular', Arial, sans-serif;
 }
 
-/* ======================== Header Styles - עיצוב ההדר ======================== */
-header {
-    background-color: var(--white);
-    padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* גוף המסמך */
+body {
+  font-family: var(--main-font);
+  background-color: var(--white);
+  color: #333;
+  direction: rtl;
+}
+
+/* עזר לרוחב מקסימלי וקיבוע האלמנטים */
+.container {
+  width: 95%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ------------------------------
+   3. עיצוב ההדר (Header)
+--------------------------------*/
+.main-header {
+  background-color: var(--white);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+/* הקונטיינר הפנימי של ההדר */
 .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    direction: rtl;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
 }
 
-.logo {
-    margin-right: auto;
-    margin-left: 0;
+/* לוגו */
+.logo-right .logo-image {
+  height: 50px;
+  /* ניתן להתאים גודל לפי העיצוב הרצוי */
 }
 
-
-.logo img {
-    height: 50px;
+/* ניווט */
+.main-nav {
+  display: flex;
+  align-items: center;
 }
 
-/* ======================== Desktop Navigation - תפריט ניווט בדסקטופ ======================== */
-.desktop-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
+/* כפתור המבורגר - דיפולט (לא מוצג בדסקטופ רחב), נוכל לשנות במדיה קווארי */
+.nav-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  display: none;
+  cursor: pointer;
 }
 
-.desktop-nav li {
-    margin-right: 25px;
+/* רשימת ניווט לדסקטופ */
+.nav-list {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
 }
 
-.desktop-nav li:last-child {
-    margin-right: 0;
+.nav-list li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
-.desktop-nav a {
-    text-decoration: none;
-    color: #555;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    font-family: 'FB Hachaluzim Medium', sans-serif;
+.nav-list li a:hover {
+  color: var(--wine-red);
 }
 
-.desktop-nav a:hover {
-    color: var(--orange);
-}
-
-/* ======================== Mobile Navigation - תפריט ניווט במובייל ======================== */
-.mobile-nav {
-    display: none;
-}
-
-.hamburger-menu {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: var(--wine-red);
-    cursor: pointer;
-}
-
-.mobile-dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: var(--white);
-    width: 200px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    padding: 15px;
-}
-
-.mobile-dropdown.open {
-    display: block;
-}
-
-.mobile-dropdown ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.mobile-dropdown li {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.mobile-dropdown li:last-child {
-    border-bottom: none;
-}
-
-.mobile-dropdown a {
-    text-decoration: none;
-    color: #555;
-    display: block;
-    font-family: 'FB Hachaluzim Medium', sans-serif;
-}
-
-/* ======================== Header Icons - אייקוני ההדר ======================== */
+/* אייקונים בהדר */
 .header-icons {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 0.5rem;
 }
 
-.header-icons a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    text-decoration: none;
-    font-size: 1.2rem;
-    transition: background-color 0.3s ease;
+.icon-link {
+  color: #333;
+  font-size: 1.3rem;
+  display: inline-block;
+  transition: color 0.3s;
 }
 
-/* עיצוב אייקון וואטסאפ */
-.whatsapp-icon {
-    background-color: var(--whatsapp-green); /* צבע ירוק וואטסאפ */
+.icon-link:hover {
+  color: var(--chabad-orange);
 }
 
-.whatsapp-icon:hover {
-    background-color: var(--whatsapp-hover-green); /* צבע ירוק וואטסאפ בה hover */
-}
-
-.whatsapp-icon i {
-    color: var(--white);
-}
-
-
-/* עיצוב אייקון תרומה */
-.donate-icon {
-    background-color: var(--donate-orange); /* צבע כתום תרומה - מותג */
-}
-
-.donate-icon:hover {
-    background-color: var(--donate-hover-wine-red); /* צבע אדום יין תרומה בה hover - מותג */
-}
-
-.donate-icon i {
-    color: var(--white);
-}
-
-
-/* ======================== Footer Styles - עיצוב הפוטר ======================== */
-footer {
-    background-color: #333;
-    color: var(--white);
-    text-align: center;
-    padding: 20px 0;
-    position:relative;
-    bottom: 0;
-    width: 100%;
-}
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* ======================== Media Query for Mobile Devices - התאמה למובייל ======================== */
+/* ------------------------------
+   רספונסיביות בסיסית
+--------------------------------*/
 @media (max-width: 768px) {
-    .desktop-nav {
-        display: none;
-    }
-    .mobile-nav {
-        display: block;
-    }
-    .header-container {
-        flex-direction: row-reverse;
-    }
-    .logo {
-        margin-left: auto;
-    }
-    .header-icons {
-        margin-right: auto;
-    }
+  .nav-toggle {
+    display: block; /* יוצג על מובייל/טאבלט */
+  }
+
+  .nav-list {
+    display: none; /* תוצג רק כאשר נפתח את התפריט המבורגר */
+    flex-direction: column;
+    background-color: var(--white);
+    position: absolute;
+    top: 70px; /* מתחת להדר */
+    right: 0;
+    width: 200px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    padding: 1rem;
+  }
+
+  /* אפשר להוסיף מחלקה js שמציגה/מסתירה את התפריט במובייל */
+}
+
+/* ------------------------------
+   4. עיצוב פוטר (Footer)
+--------------------------------*/
+.main-footer {
+  background-color: #f8f8f8;
+  padding: 1rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.main-footer .footer-container {
+  display: flex;
+  justify-content: center;
+}
+
+.main-footer .copyright {
+  font-size: 0.9rem;
+  color: #666;
 }
