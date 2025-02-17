@@ -300,7 +300,7 @@ ul {
 .slider-container {
   position: relative;
   width: 100%;
-  height: 500px; /* קבע כאן את גובה הסליידר לפי הצורך */
+  height: 500px; /* ניתן להתאים לפי הצורך */
 }
 
 /* כל שקף (תמונה) */
@@ -330,7 +330,7 @@ ul {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4); /* חיזקתי מעט את ההכהיה */
   z-index: 1;
   border-radius: 8px;
 }
@@ -342,37 +342,43 @@ ul {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2; /* מעל ה-overlay הכהה */
+  z-index: 2; /* מעל שכבת ההכהיה */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* למקם אנכית באמצע */
-  align-items: center;     /* למקם אופקית באמצע */
+  justify-content: center; /* למרכז אנכית */
+  align-items: center;     /* למרכז אופקית */
   text-align: center;
   color: #fff;
   padding: 1rem;
 }
 
-/* כותרות בסליידר - ניתן להתאים גדלים */
-.slider-overlay {
-    margin-top: 7rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
-    background-color: var(--color-gray);
-    padding: 2rem;
-    text-align: center;
-}
-
+/* ====== הגדלת גודל הכותרות ====== */
 .slider-overlay h1 {
-    font-size: 3.6rem;
-    margin-bottom: 1rem;
-    color: var(--color-primary);
+  font-size: 4.5rem;  /* גודל ענק יותר */
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); /* הצללה לשיפור ניגודיות */
 }
 
-.slider-overlay p {
-    font-size: 2rem;
-    color: var(--color-gray-dark);
+.slider-overlay h2 {
+  font-size: 3rem;  /* גודל משני אך עדיין גדול */
+  font-weight: normal;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
 }
-/* ======== [END] SLIDER STYLES ======== */
+
+/* ====== התאמה למובייל ====== */
+@media (max-width: 768px) {
+  .slider-container {
+    height: 400px; /* להקטין מעט במובייל */
+  }
+
+  .slider-overlay h1 {
+    font-size: 3rem; /* לא מוגזם מדי במובייל */
+  }
+
+  .slider-overlay h2 {
+    font-size: 2rem;
+  }
+}
+
+/* ======== [END] SLIDER STYLES ======== *//* ======== [END] SLIDER STYLES ======== */
