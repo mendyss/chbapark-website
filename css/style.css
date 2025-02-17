@@ -426,4 +426,12 @@ ul {
   margin: 0.25rem 0;
   color: #333;
 }
+.cards-wrapper::-webkit-scrollbar {
+  height: 4px; /* גובה נמוך יותר */
+}
+
+.cards-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* צבע כהה ועדין */
+  border-radius: 10px; /* קצוות מעוגלים */
+}
 /* ======== [END] TIMES CARDS STYLES ======== */
