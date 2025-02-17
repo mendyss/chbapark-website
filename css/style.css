@@ -462,15 +462,10 @@ ul {
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   text-align: center;
 }
+
 .service-card:hover {
   transform: translateY(-5px);
-  transition: transform 0.3s ease-in-out;
-}
-
- .service-card {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* הצללה חזקה יותר */
-}
-
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .service-icon {
@@ -503,3 +498,4 @@ ul {
   color: var(--color-secondary);
 }
 /* ======== [END] SERVICES GRID STYLES ======== */
+
