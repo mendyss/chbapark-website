@@ -345,7 +345,7 @@ ul {
   height: 100%;
   
   /* 0.3 כהות - אפשר לחזק/להחליש אם תרצה */
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 1;
   
   /* התאמה לעיגול הפינות */
@@ -390,11 +390,11 @@ ul {
   }
   
   .slider-overlay h1 {
-    font-size: 2.2rem;
+    font-size: 3.6rem;
   }
   
   .slider-overlay h2 {
-    font-size: 1.6rem;
+    font-size: 2.4rem;
   }
 }
 /* ======== [END] SLIDER STYLES ======== */
