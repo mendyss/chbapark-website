@@ -1,3 +1,4 @@
+
 /* === בסיס === */
 :root {
     /* צבעי המותג */
@@ -197,47 +198,44 @@ ul {
     background-color: rgba(104, 0, 32, 0.05);
 }
 
-/* כפתורי פעולה */
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
+/* ======== [START] עיצוב כפתורי האייקונים ======== */
 .action-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    background-color: var(--color-white);
-    color: var(--color-white);
-    font-size: 1.8rem;
-    border: 1px solid;
-    transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%; /* עיגול מלא */
+  font-size: 1.8rem;
+  border: 2px solid currentColor; /* מסגרת דקה */
+  background-color: transparent; /* רקע שקוף כברירת מחדל */
+  color: var(--color-primary); /* ברירת מחדל – צבע המסגרת */
+  transition: var(--transition);
 }
 
+/* תרומה – מסגרת בורדו בלבד כברירת מחדל */
 .donate-button {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
-.donate-button:hover {
-    background-color: var(--color-white);
-    color: var(--color-primary);
-}
-
+/* וואטסאפ – מסגרת ירוקה בלבד כברירת מחדל */
 .whatsapp-button {
-    background-color: var(--color-whatsapp);
-    border-color: var(--color-whatsapp);
+  color: var(--color-whatsapp);
+  border-color: var(--color-whatsapp);
+}
+
+/* אפקט מעבר עכבר – הכפתור יתמלא בצבע */
+.donate-button:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .whatsapp-button:hover {
-    background-color: var(--color-white);
-    color: var(--color-whatsapp);
+  background-color: var(--color-whatsapp);
+  color: var(--color-white);
 }
-
+/* ======== [END] עיצוב כפתורי האייקונים ======== */
 /* === מקום שומר לגיבור (hero) === */
 .hero-placeholder {
     margin-top: 7rem;
