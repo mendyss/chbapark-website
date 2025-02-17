@@ -201,31 +201,50 @@ ul {
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
-    background-color: var(--color-white);
+    /* רקע שקוף ומסגרת דקה כברירת מחדל */
+    background-color: transparent;
     color: var(--color-white);
     font-size: 1.8rem;
-    border: 1px solid;
+    border: 1px solid currentColor; /* במקום סתם border: 1px solid */
     transition: var(--transition);
 }
 
+/* תרומה – קו בורדו כברירת מחדל */
 .donate-button {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
+    background-color: transparent;         /* שקוף כברירת מחדל */
+    border-color: var(--color-primary);    /* המסגרת בבורדו */
+    color: var(--color-primary);           /* טקסט ומסגרת באותו צבע */
 }
 
+/* במעבר עכבר נשאר שקוף (אין מילוי) */
 .donate-button:hover {
-    background-color: var(--color-white);
+    background-color: transparent;
     color: var(--color-primary);
 }
 
-.whatsapp-button {
-    background-color: var(--color-whatsapp);
-    border-color: var(--color-whatsapp);
+/* בלחיצה (active) הכפתור מתמלא בצבע */
+.donate-button:active {
+    background-color: var(--color-primary);
+    color: var(--color-white);
 }
 
+/* וואטסאפ – קו ירוק כברירת מחדל */
+.whatsapp-button {
+    background-color: transparent;         
+    border-color: var(--color-whatsapp);   
+    color: var(--color-whatsapp);          
+}
+
+/* מעבר עכבר נשאר שקוף */
 .whatsapp-button:hover {
-    background-color: var(--color-white);
+    background-color: transparent;
     color: var(--color-whatsapp);
+}
+
+/* בלחיצה (active) הכפתור מתמלא בירוק */
+.whatsapp-button:active {
+    background-color: var(--color-whatsapp);
+    color: var(--color-white);
 }
 
 /* === מקום שומר לגיבור (hero) === */
