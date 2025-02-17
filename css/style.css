@@ -1,124 +1,195 @@
-/* ======================== בסיס כללי ======================== */
-* {
+/* Global Styles */
+body {
+    font-family: 'FB Hachaluzim Regular', sans-serif; /* Use the regular font as default */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Assistant', sans-serif;
-}
-body {
-    background-color: #f5f5f5;
-    color: #333;
-    line-height: 1.6;
-    text-align: center;
+    direction: rtl;
+    background-color: #f8f8f8; /* Light grey background */
+    color: #333; /* Dark grey text for readability */
 }
 
-/* ======================== HEADER - תפריט ניווט דביק ======================== */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(to right, #742a2a, #d81b60);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px 20px;
-    z-index: 1000;
+/* Define Font Faces */
+@font-face {
+    font-family: 'FB Hachaluzim Medium';
+    src: url('fonts/FBHACHALUZIM-MEDIUM.OTF') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
-nav {
+
+@font-face {
+    font-family: 'FB Hachaluzim Regular';
+    src: url('fonts/FBHACHALUZIM-REGULAR.OTF') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* Colors from Brand Book */
+:root {
+    --wine-red: rgb(104, 0, 32);
+    --orange: rgb(245, 140, 40);
+    --white: rgb(255, 255, 255);
+    --grey: #ccc;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--white);
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    position: sticky; /* Make header sticky */
+    top: 0;
+    z-index: 100; /* Ensure header stays on top */
+}
+
+.header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
-    margin: auto;
+    margin: 0 auto;
+    padding: 0 20px;
 }
-.menu {
-    display: flex;
+
+.logo img {
+    height: 50px; /* Adjust logo size as needed */
+}
+
+/* Desktop Navigation */
+.desktop-nav ul {
     list-style: none;
-    gap: 25px;
+    padding: 0;
+    margin: 0;
+    display: flex;
 }
-.menu a {
+
+.desktop-nav li {
+    margin-right: 25px; /* Spacing between nav items */
+}
+
+.desktop-nav li:last-child {
+    margin-right: 0;
+}
+
+.desktop-nav a {
     text-decoration: none;
-    color: white;
-    font-size: 18px;
-    transition: color 0.3s;
+    color: #555; /* Medium grey for nav links */
+    font-weight: 500;
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+    font-family: 'FB Hachaluzim Medium', sans-serif; /* Example of using Medium font for nav links */
 }
-.menu a:hover {
-    color: #ffeb3b;
+
+.desktop-nav a:hover {
+    color: var(--orange); /* Orange color on hover */
 }
-.menu-toggle {
-    display: none;
+
+/* Mobile Navigation */
+.mobile-nav {
+    display: none; /* Hidden by default on desktop */
+}
+
+.hamburger-menu {
     background: none;
     border: none;
-    font-size: 28px;
-    color: white;
+    font-size: 1.5rem; /* Size of hamburger icon */
+    color: #333;
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: #d81b60;
-        padding: 15px 0;
-    }
-    .menu.open {
-        display: flex;
-    }
-    .menu-toggle {
-        display: block;
-    }
+.mobile-dropdown {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%; /* Position below header */
+    right: 0;
+    background-color: var(--white);
+    width: 200px; /* Adjust as needed */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 15px;
 }
 
-/* ======================== SLIDER ======================== */
-#slider {
-    margin-top: 100px;
-    background: url('slider.jpg') no-repeat center center/cover;
-    height: 400px;
+.mobile-dropdown.open {
+    display: block; /* Show dropdown when open class is added */
+}
+
+.mobile-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-dropdown li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee; /* Light border to separate items */
+}
+
+.mobile-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.mobile-dropdown a {
+    text-decoration: none;
+    color: #555;
+    display: block; /* Make links fill list item width */
+    font-family: 'FB Hachaluzim Medium', sans-serif; /* Example of using Medium font for mobile nav links */
+}
+
+/* Header Icons */
+.header-icons {
+    display: flex;
+    gap: 15px; /* Spacing between icons */
+}
+
+.header-icons a {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
+    width: 35px; /* Icon container size */
+    height: 35px;
+    border-radius: 50%; /* Circular shape */
+    background-color: var(--grey); /* Grey background for icons */
+    color: var(--white); /* White icon color */
+    text-decoration: none;
+    font-size: 1rem; /* Icon size */
+    transition: background-color 0.3s ease; /* Smooth background transition */
 }
 
-/* ======================== SERVICES - כרטיסיות שירותים ======================== */
-#services {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 50px;
-    max-width: 1200px;
-    margin: auto;
-}
-.service {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-}
-.service:hover {
-    transform: scale(1.05);
-}
-.service h3 {
-    color: #d81b60;
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-.service p {
-    font-size: 16px;
-    color: #555;
+.header-icons a:hover {
+    background-color: var(--orange); /* Orange background on hover */
 }
 
-/* ======================== FOOTER ======================== */
+/* Footer Styles */
 footer {
-    background: #742a2a;
-    color: white;
-    padding: 15px;
-    margin-top: 50px;
+    background-color: #333; /* Dark footer background */
+    color: var(--white); /* White text color */
+    text-align: center;
+    padding: 20px 0;
+    position:relative;
+    bottom: 0;
+    width: 100%;
 }
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none; /* Hide desktop nav on mobile */
+    }
+    .mobile-nav {
+        display: block; /* Show mobile nav on mobile */
+    }
+    .header-container {
+        flex-direction: row-reverse; /* Adjust icon and logo order on mobile */
+    }
+    .logo {
+        margin-left: auto; /* Push logo to the right on mobile */
+    }
+    .header-icons {
+        margin-right: auto; /* Push icons to the left on mobile */
+    }
+}ה
