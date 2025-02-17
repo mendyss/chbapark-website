@@ -1,217 +1,290 @@
-/* ------------------------------
-   1. טעינת גופנים
---------------------------------*/
-@font-face {
-  font-family: 'HachaluzimRegular';
-  src: url('../fonts/FBHACHALUZIM-REGULAR.OTF') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'HachaluzimMedium';
-  src: url('../fonts/FBHACHALUZIM-MEDIUM.OTF') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-/* ניתן להשתמש גם בגופן אחד כרגע ולהגדיר בהמשך */
-
-/* ------------------------------
-   2. הגדרות בסיס
---------------------------------*/
+/* === בסיס === */
 :root {
-  /* צבעי המותג לפי ספר המותג */
-  --wine-red: rgb(104, 0, 32); /* אדום יין */
-  --chabad-orange: rgb(245, 140, 40); /* כתום */
-  --white: #ffffff;
-  --gray-light: #f5f5f5;
-  
-  /* ניתן להוסיף צבעים אפורים נוספים לפי הצורך */
-  
-  /* משפחת גופן כללית */
-  --main-font: 'HachaluzimRegular', Arial, sans-serif;
+    /* צבעי המותג */
+    --color-primary: rgb(104, 0, 32); /* PANTONE 7421 C - אדום יין */
+    --color-secondary: rgb(245, 140, 40); /* PANTONE 716 C - כתום */
+    --color-white: #ffffff;
+    --color-black: #1c1c1c;
+    --color-gray: #f7f7f7;
+    --color-gray-dark: #555555;
+    --color-whatsapp: #25D366;
+
+    /* משתנים נוספים */
+    --border-radius: 8px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+@font-face {
+    font-family: 'FB Hachaluzim';
+    src: url('../fonts/FB-Hachaluzim-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* גוף המסמך */
+html {
+    font-size: 62.5%; /* 1rem = 10px */
+    scroll-behavior: smooth;
+}
+
 body {
-  font-family: var(--main-font);
-  background-color: var(--white);
-  color: #333;
-  direction: rtl;
+    font-family: 'Heebo', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: var(--color-black);
+    background-color: var(--color-white);
+    overflow-x: hidden;
+    direction: rtl;
 }
 
-/* עזר לרוחב מקסימלי וקיבוע האלמנטים */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'FB Hachaluzim', 'Heebo', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-primary);
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--color-secondary);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+ul {
+    list-style: none;
+}
+
 .container {
-  width: 95%;
-  max-width: 1200px;
-  margin: auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-/* ------------------------------
-   3. עיצוב ההדר (Header)
---------------------------------*/
-.main-header {
-  background-color: var(--white);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 999;
+/* === הדר === */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: var(--color-white);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    transition: var(--transition);
 }
 
-/* הקונטיינר הפנימי של ההדר */
 .header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 7rem;
+    padding: 0 2rem;
 }
 
-/* לוגו משמאל */
-.logo-left .logo-image {
-  height: 50px;
-  object-fit: contain;
+/* לוגו */
+.logo {
+    position: relative;
+    z-index: 1002;
 }
 
-/* עיטוף האייקונים והניווט (אם אתה משתמש ב-div נפרד, ודא שהוא בתוך .header-container) */
-/* לדוגמה: <div class="header-right"> ... </div> */
-/* אבל זה לא חובה - אפשר שהאייקונים והניווט יהיו ישירות ב-header-container */
-
-.header-icons {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.logo img {
+    height: 5rem;
+    width: auto;
 }
 
-/* אייקונים עגולים */
-.icon-link {
-  font-size: 1.4rem;
-  width: 42px;
-  height: 42px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: 1px solid #333;
-  transition: all 0.3s;
-  color: #333;
-  text-decoration: none;
-}
-
-.icon-link:hover {
-  color: var(--chabad-orange);
-}
-
-/* תרומה באדום */
-.icon-donation {
-  color: var(--wine-red);
-  border-color: var(--wine-red);
-}
-.icon-donation:hover {
-  background-color: var(--wine-red);
-  color: #fff;
-}
-
-/* וואטסאפ בירוק */
-.icon-whatsapp {
-  color: green;
-  border-color: green;
-}
-.icon-whatsapp:hover {
-  background-color: green;
-  color: #fff;
-}
-
-/* ניווט ראשי */
-.main-nav {
-  display: flex;
-  align-items: center;
-  position: relative; /* בסיס למיקום dropdown */
-}
-
-/* כפתור המבורגר (מוסתר בדסקטופ, יוצג במובייל) */
-.nav-toggle {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  display: none; /* רק במדיה קווארי למובייל זה יהפוך ל-block */
-  cursor: pointer;
-  color: #333;
-  margin-right: 1rem; /* רווח קטן מימין */
-}
-
-/* רשימת ניווט (דסקטופ) */
-.nav-list {
-  display: flex;
-  gap: 1rem;
-  list-style: none;
-}
-
-.nav-list li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.3s;
-  font-size: 1.1rem; /* פונט מעט גדול יותר */
-}
-
-.nav-list li a:hover {
-  color: var(--wine-red);
-}
-
-/* ------------------------------
-   רספונסיביות בסיסית (מובייל)
---------------------------------*/
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: block; /* יוצג על מובייל/טאבלט */
-  }
-  
-  /* מסתירים את הרשימה בדפדפן צר, עד שהמשתמש לוחץ על כפתור ההמבורגר */
-  .nav-list {
-    display: none; /* נחשפת ב-JS */
-    position: absolute;
-    right: 0;      
-    top: 60px;     /* מתחת להדר */
-    width: 220px;  /* גודל dropdown */
-    background-color: var(--white);
+/* המבורגר */
+.hamburger-menu {
+    display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    width: 2.4rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1002;
+    order: -1; /* מעביר את ההמבורגר לצד ימין */
+}
+
+.hamburger-menu span {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: var(--transition);
+}
+
+.hamburger-menu.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* תפריט ניווט */
+.main-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.95);
+    transition: var(--transition);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-nav.active {
+    right: 0;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    z-index: 2;
+}
+
+.nav-menu li a {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    display: inline-block;
+    padding: 1rem 2rem;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.nav-menu li a:hover {
+    border-color: var(--color-primary);
+    background-color: rgba(104, 0, 32, 0.05);
+}
+
+/* כפתורי פעולה */
+.header-actions {
+    display: flex;
+    align-items: center;
     gap: 1rem;
-    padding: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    border: 1px solid #eee;
-    border-radius: 0.25rem;
-    z-index: 9999;
-  }
-  
-  /* עוד טיפה פונטים/התאמות למובייל אם תרצה */
-  .nav-list li a {
-    font-size: 1.2rem;
-  }
 }
 
-/* ------------------------------
-   4. עיצוב פוטר (Footer)
---------------------------------*/
-.main-footer {
-  background-color: #f8f8f8;
-  padding: 1rem 0;
-  text-align: center;
-  margin-top: 2rem;
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: var(--color-white);
+    color: var(--color-white);
+    font-size: 1.8rem;
+    border: 1px solid;
+    transition: var(--transition);
 }
 
-.main-footer .footer-container {
-  display: flex;
-  justify-content: center;
+.donate-button {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
 }
 
-.main-footer .copyright {
-  font-size: 0.9rem;
-  color: #666;
+.donate-button:hover {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+}
+
+.whatsapp-button {
+    background-color: var(--color-whatsapp);
+    border-color: var(--color-whatsapp);
+}
+
+.whatsapp-button:hover {
+    background-color: var(--color-white);
+    color: var(--color-whatsapp);
+}
+
+/* === מקום שומר לגיבור (hero) === */
+.hero-placeholder {
+    margin-top: 7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    background-color: var(--color-gray);
+    padding: 2rem;
+    text-align: center;
+}
+
+.hero-placeholder h1 {
+    font-size: 3.6rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+
+.hero-placeholder p {
+    font-size: 2rem;
+    color: var(--color-gray-dark);
+}
+
+/* === פוטר === */
+.footer {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 2rem 0;
+    margin-top: 5rem;
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.copyright {
+    font-size: 1.4rem;
+}
+
+/* === מדיה קווריז === */
+@media screen and (min-width: 768px) {
+    .hero-placeholder h1 {
+        font-size: 4.8rem;
+    }
+    
+    .hero-placeholder p {
+        font-size: 2.4rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .header-container {
+        padding: 0 4rem;
+    }
+    
+    .nav-menu li a {
+        font-size: 1.8rem;
+    }
 }
