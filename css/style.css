@@ -373,13 +373,13 @@ ul {
 
 /* גדלי הכותרות - אפשר לשחק עם זה */
 .slider-overlay h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: 0.5rem;
   text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
 }
 
 .slider-overlay h2 {
-  font-size: 2rem;
+  font-size: 3rem;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
 }
 
