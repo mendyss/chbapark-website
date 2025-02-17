@@ -1,115 +1,72 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בית חב"ד שכונת הפארק</title>
+    <meta name="description" content="אתר בית חב''ד שכונת הפארק באר שבע - בית חם לכל יהודי. פעילויות קהילתיות, שיעורי תורה, בית כנסת ועוד.">
+    <meta name="keywords" content="בית חב''ד, באר שבע, שכונת הפארק, קהילה יהודית, בית כנסת, שיעורי תורה, פעילויות לילדים, נשים">
+    <meta name="author" content="בית חב''ד שכונת הפארק">
+    <title>בית חב"ד שכונת הפארק באר שבע</title>
     <link rel="stylesheet" href="css/style.css">
-    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    
-    <!-- ======================== HEADER - תפריט ניווט דביק ======================== -->
     <header>
-        <nav class="sticky">
-            <img src="logo.png" alt="לוגו בית חב"ד">
-            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-            <ul class="menu">
-                <li><a href="#about">אודות</a></li>
-                <li><a href="#donations">תרומות</a></li>
-                <li><a href="#contact">צור קשר</a></li>
-                <li><a href="#bar-mitzvah">תכנית בר מצווה</a></li>
-                <li><a href="#synagogue">בית כנסת</a></li>
-                <li><a href="#mezuzah">בדיקת מזוזות</a></li>
-                <li><a href="#mothers-care">פינוק ליולדת</a></li>
-            </ul>
-        </nav>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg" alt="לוגו בית חב''ד שכונת הפארק">
+                </a>
+            </div>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#">אודות</a></li>
+                    <li><a href="#">תרומות</a></li>
+                    <li><a href="#">צור קשר</a></li>
+                    <li><a href="#">תכנית בר מצווה</a></li>
+                    <li><a href="#">בית כנסת</a></li>
+                    <li><a href="#">בדיקת מזוזות</a></li>
+                    <li><a href="#">פינוק ליולדת</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav">
+                <button class="hamburger-menu">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            <div class="header-icons">
+                <a href="https://app.icount.co.il/m/104dc/" target="_blank" class="donate-icon">
+                    <i class="bi bi-heart-fill"></i>
+                </a>
+                <a href="https://wa.me/972503999262" target="_blank" class="whatsapp-icon">
+                    <i class="bi bi-whatsapp"></i>
+                </a>
+            </div>
+        </div>
     </header>
 
-    <!-- ======================== SLIDER - סליידר תמונות ======================== -->
-    <section id="slider">
-        <div class="slide">
-            <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/SYN%20Beer%20Sheva-20.jpg" alt="תמונה 1">
-            <h2>ברוכים הבאים לבית חב"ד שכונת הפארק</h2>
-            <h3>עם כל הלב לכל אחד</h3>
-        </div>
-    </section>
+    <nav class="mobile-dropdown">
+        <ul>
+            <li><a href="#">אודות</a></li>
+            <li><a href="#">תרומות</a></li>
+            <li><a href="#">צור קשר</a></li>
+            <li><a href="#">תכנית בר מצווה</a></li>
+            <li><a href="#">בית כנסת</a></li>
+            <li><a href="#">בדיקת מזוזות</a></li>
+            <li><a href="#">פינוק ליולדת</a></li>
+        </ul>
+    </nav>
 
-    <!-- ======================== PRAYER TIMES - זמני תפילות ושיעורים ======================== -->
-    <section id="prayer-cards">
-        <div class="card">שחרית: 06:15</div>
-        <div class="card">ערבית: 20:00</div>
-        <div class="card">כניסת שבת: 18:00 | צאת שבת: 19:15</div>
-    </section>
 
-    <!-- ======================== SERVICES - כרטיסיות שירותים ======================== -->
-<section id="services">
-    <div class="service">
-        <h3>בית כנסת מפואר</h3>
-        <p>מקום תפילה עם אווירה מיוחדת</p>
-    </div>
-    <div class="service">
-        <h3>בדיקת תפילין ומזוזות</h3>
-        <p>בדיקה חינם לכל תושבי השכונה</p>
-    </div>
-    <div class="service">
-        <h3>מיזם "פינוק ליולדת"</h3>
-        <p>מתנות ועזרה לנשים לאחר לידה</p>
-    </div>
-    <div class="service">
-        <h3>סיוע כלכלי למשפחות</h3>
-        <p>תמיכה וסיוע כלכלי למי שזקוק</p>
-    </div>
-    <div class="service">
-        <h3>תכנית הכנה לבר מצווה</h3>
-        <p>ליווי אישי לנערים לפני בר המצווה</p>
-    </div>
-    <div class="service">
-        <h3>שיעורי תורה</h3>
-        <p>לימוד משותף של גמרא, תניא ועוד</p>
-    </div>
-    <div class="service">
-        <h3>אירועים לכל המשפחה בחגים</h3>
-        <p>פעילויות חווייתיות בחגים</p>
-    </div>
-    <div class="service">
-        <h3>קייטנת חב"ד בקיץ</h3>
-        <p>פעילויות קיץ מיוחדות לילדים</p>
-    </div>
-    <div class="service">
-        <h3>שירות 'רב עד הבית'</h3>
-        <p>ליווי רוחני לכל אירועי מעגל החיים</p>
-    </div>
-    <div class="service">
-        <h3>פעילות במוסדות חינוך</h3>
-        <p>חיבור הילדים לערכים יהודיים</p>
-    </div>
-    <div class="service">
-        <h3>ערבי נשים</h3>
-        <p>מפגשים מעצימים לנשים</p>
-    </div>
-</section>
-    <!-- ======================== CTA - כפתורי קריאה לפעולה ======================== -->
-    <section id="cta-buttons">
-        <button onclick="window.location.href='https://bit.ly/WhatsappUpdatesChabad'">צור קשר בוואטסאפ</button>
-        <button onclick="window.location.href='https://app.icount.co.il/m/104dc/'">לתרומה</button>
-    </section>
-
-    <!-- ======================== TESTIMONIALS - עדויות ======================== -->
-    <section id="testimonials">
-        <blockquote>״בית חב"ד תמיד כאן בשבילי!״ - משה כהן</blockquote>
-        <blockquote>״הלימוד השבועי לנשים שינה לי את החיים!״ - שרה לוי</blockquote>
-    </section>
-
-    <!-- ======================== MAP - מפה אינטראקטיבית ======================== -->
-    <section id="map">
-        <iframe src="https://maps.google.com/..." width="100%" height="300"></iframe>
-    </section>
-
-    <!-- ======================== FOOTER - פוטר ======================== -->
     <footer>
-        <p>© כל הזכויות שמורות לבית חב"ד שכונת הפארק</p>
+        <div class="footer-container">
+            <p>© כל הזכויות שמורות לבית חב"ד שכונת הפארק באר שבע. תשפ"ה</p>
+        </div>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
