@@ -65,3 +65,16 @@ actionButtons.forEach(button => {
         button.style.transform = 'scale(1)';
     });
 });
+// ======== [START] SLIDER SCRIPT ========
+document.addEventListener("DOMContentLoaded", function() {
+  const slides = document.querySelectorAll(".slide");
+  let currentSlide = 0;
+  const slideInterval = setInterval(nextSlide, 2000); // החלפה כל 2 שניות
+
+  function nextSlide() {
+    slides[currentSlide].classList.remove("active");
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add("active");
+  }
+});
+// ======== [END] SLIDER SCRIPT ========
