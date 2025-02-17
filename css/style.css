@@ -408,7 +408,7 @@ ul {
   min-width: 220px;  /* רוחב בסיסי לכרטיסייה אחת */
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* הצללה חזקה יותר */
   padding: 1rem;
   flex-shrink: 0; /* כדי שלא יצטמצמו יותר מדי */
   text-align: center;
