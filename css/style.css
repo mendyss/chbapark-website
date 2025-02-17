@@ -67,23 +67,28 @@ body {
 
 /* הקונטיינר הפנימי של ההדר */
 .header-container {
+  /* שמנו direction: ltr כדי שהאלמנט הראשון (לוגו) יישב משמאל */
+  direction: ltr;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
 }
 
-/* לוגו (עכשיו בשמאל) */
+/* לוגו (מצד שמאל) */
 .logo-left .logo-image {
   height: 50px;
-  /* ניתן להתאים גודל לפי העיצוב הרצוי */
-  object-fit: contain;
+  object-fit: contain; /* לשיקולך */
 }
 
+/* עיטוף צד ימין (אייקונים + תפריט) אם קיים - אפשר ליצור .header-right { ... } ב־HTML
+   אבל אם אין לך DIV כזה, אפשר להתייחס ישר ל- .header-icons + nav */
+   
 /* ניווט */
 .main-nav {
   display: flex;
   align-items: center;
+  gap: 0.5rem; /* מרווח בין הכפתור המבורגר לרשימה */
 }
 
 /* כפתור המבורגר (לא מוצג בדסקטופ רחב) */
@@ -91,8 +96,9 @@ body {
   background: none;
   border: none;
   font-size: 1.5rem;
-  display: none; /* יוצג רק במובייל ב-media query */
+  display: none;
   cursor: pointer;
+  color: #333;
 }
 
 /* רשימת ניווט (דסקטופ) */
@@ -107,7 +113,7 @@ body {
   color: #333;
   font-weight: 500;
   transition: color 0.3s;
-  font-size: 1.1rem; /* פונט טיפה יותר גדול */
+  font-size: 1.1rem; /* טיפה יותר גדול */
 }
 
 .nav-list li a:hover {
@@ -117,21 +123,23 @@ body {
 /* אייקונים בהדר */
 .header-icons {
   display: flex;
-  gap: 0.75rem; /* יותר רווח בין הכפתורים */
+  align-items: center;
+  gap: 0.75rem;
 }
 
-/* כפתורים (אייקונים) עם מסגרת דקה */
+/* כפתורים (אייקונים) עגולים עם מסגרת דקה */
 .icon-link {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  width: 42px;     /* גודל אחיד לכפתור (רוחב + גובה) */
+  height: 42px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid #333;
-  border-radius: 0.25rem;
+  border-radius: 50%;         /* עיגול מלא */
+  border: 1px solid #333;     /* מסגרת דקה */
   transition: all 0.3s;
   color: #333;
-  text-decoration: none; /* ללא קו תחתון */
+  text-decoration: none;
 }
 
 .icon-link:hover {
@@ -166,25 +174,25 @@ body {
     display: block; /* יוצג על מובייל/טאבלט */
   }
 
-  /* תפריט הנפתח במובייל יתפרס על כל המסך */
+  /* תפריט נפתח על כל המסך במובייל */
   .nav-list {
-    display: none; /* תוצג רק כאשר נפתח את התפריט המבורגר ב-JS */
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: fixed;
     top: 0;
+    /* ב-LTR זה right: 0; ב-RTL ייתכן תרצה left: 0 - אבל יש לנו direction: ltr */
     right: 0;
     width: 100%;
-    height: 100vh; /* תופס את כל גובה המסך */
+    height: 100vh;
     background-color: var(--white);
     z-index: 9999;
     gap: 2rem;
     padding: 2rem;
-    box-shadow: none; /* אין צורך בצל */
   }
 
-  /* מגדיל את הפונט עוד טיפה במובייל */
+  /* מגדילים עוד את הפונט במובייל? לשיקולך */
   .nav-list li a {
     font-size: 1.2rem;
   }
