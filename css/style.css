@@ -220,12 +220,12 @@ ul {
 }
 
 .donate-button {
-    background-color: var(--color-primary);
+    background-color: var(--color-white);
     border-color: var(--color-primary);
 }
 
 .donate-button:hover {
-    background-color: var(--color-white);
+    background-color: var(--color-primary);
     color: var(--color-primary);
 }
 
