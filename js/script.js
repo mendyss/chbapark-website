@@ -65,16 +65,20 @@ actionButtons.forEach(button => {
         button.style.transform = 'scale(1)';
     });
 });
-// ======== [START] SLIDER SCRIPT ========
-document.addEventListener("DOMContentLoaded", function() {
-  const slides = document.querySelectorAll(".slide");
+=== סליידר ===
+document.addEventListener('DOMContentLoaded', function() {
   let currentSlide = 0;
-  const slideInterval = setInterval(nextSlide, 3000); // החלפה כל 2 שניות
-
-  function nextSlide() {
-    slides[currentSlide].classList.remove("active");
+  const slides = document.querySelectorAll('.slide');
+  
+  function changeSlide() {
+    slides.forEach(slide => slide.classList.remove('active'));
     currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add("active");
+    slides[currentSlide].classList.add('active');
   }
+  
+  // תחילה, התמונה הראשונה מוצגת
+  slides[0].classList.add('active');
+  
+  // החלפת תמונות כל 2 שניות
+  setInterval(changeSlide, 2000);
 });
-// ======== [END] SLIDER SCRIPT ========
