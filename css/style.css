@@ -67,76 +67,38 @@ body {
 
 /* הקונטיינר הפנימי של ההדר */
 .header-container {
-  /* שמנו direction: ltr כדי שהאלמנט הראשון (לוגו) יישב משמאל */
-  direction: ltr;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
 }
 
-/* לוגו (מצד שמאל) */
+/* לוגו משמאל */
 .logo-left .logo-image {
   height: 50px;
-  object-fit: contain; /* לשיקולך */
+  object-fit: contain;
 }
 
-/* עיטוף צד ימין (אייקונים + תפריט) אם קיים - אפשר ליצור .header-right { ... } ב־HTML
-   אבל אם אין לך DIV כזה, אפשר להתייחס ישר ל- .header-icons + nav */
-   
-/* ניווט */
-.main-nav {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem; /* מרווח בין הכפתור המבורגר לרשימה */
-}
+/* עיטוף האייקונים והניווט (אם אתה משתמש ב-div נפרד, ודא שהוא בתוך .header-container) */
+/* לדוגמה: <div class="header-right"> ... </div> */
+/* אבל זה לא חובה - אפשר שהאייקונים והניווט יהיו ישירות ב-header-container */
 
-/* כפתור המבורגר (לא מוצג בדסקטופ רחב) */
-.nav-toggle {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  display: none;
-  cursor: pointer;
-  color: #333;
-}
-
-/* רשימת ניווט (דסקטופ) */
-.nav-list {
-  display: flex;
-  gap: 1rem;
-  list-style: none;
-}
-
-.nav-list li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.3s;
-  font-size: 1.1rem; /* טיפה יותר גדול */
-}
-
-.nav-list li a:hover {
-  color: var(--wine-red);
-}
-
-/* אייקונים בהדר */
 .header-icons {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-/* כפתורים (אייקונים) עגולים עם מסגרת דקה */
+/* אייקונים עגולים */
 .icon-link {
   font-size: 1.4rem;
-  width: 42px;     /* גודל אחיד לכפתור (רוחב + גובה) */
+  width: 42px;
   height: 42px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;         /* עיגול מלא */
-  border: 1px solid #333;     /* מסגרת דקה */
+  border-radius: 50%;
+  border: 1px solid #333;
   transition: all 0.3s;
   color: #333;
   text-decoration: none;
@@ -166,33 +128,69 @@ body {
   color: #fff;
 }
 
+/* ניווט ראשי */
+.main-nav {
+  display: flex;
+  align-items: center;
+  position: relative; /* בסיס למיקום dropdown */
+}
+
+/* כפתור המבורגר (מוסתר בדסקטופ, יוצג במובייל) */
+.nav-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  display: none; /* רק במדיה קווארי למובייל זה יהפוך ל-block */
+  cursor: pointer;
+  color: #333;
+  margin-right: 1rem; /* רווח קטן מימין */
+}
+
+/* רשימת ניווט (דסקטופ) */
+.nav-list {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+  font-size: 1.1rem; /* פונט מעט גדול יותר */
+}
+
+.nav-list li a:hover {
+  color: var(--wine-red);
+}
+
 /* ------------------------------
-   רספונסיביות בסיסית
+   רספונסיביות בסיסית (מובייל)
 --------------------------------*/
 @media (max-width: 768px) {
   .nav-toggle {
     display: block; /* יוצג על מובייל/טאבלט */
   }
-
-  /* תפריט נפתח על כל המסך במובייל */
+  
+  /* מסתירים את הרשימה בדפדפן צר, עד שהמשתמש לוחץ על כפתור ההמבורגר */
   .nav-list {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    /* ב-LTR זה right: 0; ב-RTL ייתכן תרצה left: 0 - אבל יש לנו direction: ltr */
-    right: 0;
-    width: 100%;
-    height: 100vh;
+    display: none; /* נחשפת ב-JS */
+    position: absolute;
+    right: 0;      
+    top: 60px;     /* מתחת להדר */
+    width: 220px;  /* גודל dropdown */
     background-color: var(--white);
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    border: 1px solid #eee;
+    border-radius: 0.25rem;
     z-index: 9999;
-    gap: 2rem;
-    padding: 2rem;
   }
-
-  /* מגדילים עוד את הפונט במובייל? לשיקולך */
+  
+  /* עוד טיפה פונטים/התאמות למובייל אם תרצה */
   .nav-list li a {
     font-size: 1.2rem;
   }
