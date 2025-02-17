@@ -5,8 +5,9 @@ body {
     padding: 0;
     box-sizing: border-box;
     direction: rtl;
-    background-color: #f8f8f8; /* Light grey background */
-    color: #333; /* Dark grey text for readability */
+    background-color: #f8f8f8;
+    color: #333;
+    line-height: 1.6; /* Improved line height for readability */
 }
 
 /* ======================== Define Font Faces - הגדרת פונטים מקומיים ======================== */
@@ -31,6 +32,10 @@ body {
     --orange: rgb(245, 140, 40);
     --white: rgb(255, 255, 255);
     --grey: #ccc;
+    --whatsapp-green: #25d366; /* צבע ירוק וואטסאפ */
+    --whatsapp-hover-green: #128c7e; /* צבע ירוק וואטסאפ בה hover */
+    --donate-orange: var(--orange); /* צבע כתום תרומה - מותג */
+    --donate-hover-wine-red: var(--wine-red); /* צבע אדום יין תרומה בה hover - מותג */
 }
 
 /* ======================== Header Styles - עיצוב ההדר ======================== */
@@ -45,17 +50,17 @@ header {
 
 .header-container {
     display: flex;
-    justify-content: space-between; /* שמאל ימין */
+    justify-content: space-between;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    direction: rtl; /* יישור לימין (RTL) */
+    direction: rtl;
 }
 
 .logo {
-    margin-right: auto; /* דחיפת הלוגו לימין */
-    margin-left: 0; /* ביטול margin משמאל אם קיים */
+    margin-right: auto;
+    margin-left: 0;
 }
 
 
@@ -64,7 +69,6 @@ header {
 }
 
 /* ======================== Desktop Navigation - תפריט ניווט בדסקטופ ======================== */
-
 .desktop-nav ul {
     list-style: none;
     padding: 0;
@@ -73,7 +77,7 @@ header {
 }
 
 .desktop-nav li {
-    margin-right: 25px; /* Spacing between nav items */
+    margin-right: 25px;
 }
 
 .desktop-nav li:last-child {
@@ -82,42 +86,42 @@ header {
 
 .desktop-nav a {
     text-decoration: none;
-    color: #555; /* Medium grey for nav links */
+    color: #555;
     font-weight: 500;
-    transition: color 0.3s ease; /* Smooth color transition on hover */
-    font-family: 'FB Hachaluzim Medium', sans-serif; /* Example of using Medium font for nav links */
+    transition: color 0.3s ease;
+    font-family: 'FB Hachaluzim Medium', sans-serif;
 }
 
 .desktop-nav a:hover {
-    color: var(--orange); /* Orange color on hover */
+    color: var(--orange);
 }
 
 /* ======================== Mobile Navigation - תפריט ניווט במובייל ======================== */
 .mobile-nav {
-    display: none; /* Hidden by default on desktop */
+    display: none;
 }
 
 .hamburger-menu {
     background: none;
     border: none;
-    font-size: 2rem; /* גודל אייקון המבורגר - קצת יותר גדול */
-    color: var(--wine-red); /*  צבע אייקון המבורגר - אדום יין ממותג  */
+    font-size: 2rem;
+    color: var(--wine-red);
     cursor: pointer;
 }
 
 .mobile-dropdown {
-    display: none; /* Hidden by default */
+    display: none;
     position: absolute;
-    top: 100%; /* Position below header */
+    top: 100%;
     right: 0;
     background-color: var(--white);
-    width: 200px; /* Adjust as needed */
+    width: 200px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     padding: 15px;
 }
 
 .mobile-dropdown.open {
-    display: block; /* Show dropdown when open class is added */
+    display: block;
 }
 
 .mobile-dropdown ul {
@@ -128,7 +132,7 @@ header {
 
 .mobile-dropdown li {
     padding: 10px 0;
-    border-bottom: 1px solid #eee; /* Light border to separate items */
+    border-bottom: 1px solid #eee;
 }
 
 .mobile-dropdown li:last-child {
@@ -138,60 +142,60 @@ header {
 .mobile-dropdown a {
     text-decoration: none;
     color: #555;
-    display: block; /* Make links fill list item width */
-    font-family: 'FB Hachaluzim Medium', sans-serif; /* Example of using Medium font for mobile nav links */
+    display: block;
+    font-family: 'FB Hachaluzim Medium', sans-serif;
 }
-/* ======================== Header Icons - אייקוני ההדר ======================== */
 
+/* ======================== Header Icons - אייקוני ההדר ======================== */
 .header-icons {
     display: flex;
-    gap: 15px; /* Spacing between icons */
+    gap: 15px;
 }
 
 .header-icons a {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 35px; /* Icon container size */
+    width: 35px;
     height: 35px;
-    border-radius: 50%; /* Circular shape */
+    border-radius: 50%;
     text-decoration: none;
-    font-size: 1.2rem; /* גודל אייקונים - קצת יותר גדול */
-    transition: background-color 0.3s ease; /* Smooth background transition */
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
 }
 
 /* עיצוב אייקון וואטסאפ */
 .whatsapp-icon {
-    background-color: #25d366; /* צבע ירוק לוואטסאפ */
+    background-color: var(--whatsapp-green); /* צבע ירוק וואטסאפ */
 }
 
 .whatsapp-icon:hover {
-    background-color: #128c7e; /* צבע ירוק כהה יותר בה hover */
+    background-color: var(--whatsapp-hover-green); /* צבע ירוק וואטסאפ בה hover */
 }
 
 .whatsapp-icon i {
-    color: var(--white); /* צבע אייקון לבן */
+    color: var(--white);
 }
 
 
 /* עיצוב אייקון תרומה */
 .donate-icon {
-    background-color: var(--orange); /* צבע כתום לתרומה */
+    background-color: var(--donate-orange); /* צבע כתום תרומה - מותג */
 }
 
 .donate-icon:hover {
-    background-color: var(--wine-red); /* צבע אדום יין בה hover */
+    background-color: var(--donate-hover-wine-red); /* צבע אדום יין תרומה בה hover - מותג */
 }
 
 .donate-icon i {
-    color: var(--white); /* צבע אייקון לבן */
+    color: var(--white);
 }
 
-/* ======================== Footer Styles - עיצוב הפוטר ======================== */
 
+/* ======================== Footer Styles - עיצוב הפוטר ======================== */
 footer {
-    background-color: #333; /* Dark footer background */
-    color: var(--white); /* White text color */
+    background-color: #333;
+    color: var(--white);
     text-align: center;
     padding: 20px 0;
     position:relative;
@@ -208,18 +212,18 @@ footer {
 /* ======================== Media Query for Mobile Devices - התאמה למובייל ======================== */
 @media (max-width: 768px) {
     .desktop-nav {
-        display: none; /* Hide desktop nav on mobile */
+        display: none;
     }
     .mobile-nav {
-        display: block; /* Show mobile nav on mobile */
+        display: block;
     }
     .header-container {
-        flex-direction: row-reverse; /* Adjust icon and logo order on mobile */
+        flex-direction: row-reverse;
     }
     .logo {
-        margin-left: auto; /* Push logo to the right on mobile */
+        margin-left: auto;
     }
     .header-icons {
-        margin-right: auto; /* Push icons to the left on mobile */
+        margin-right: auto;
     }
 }
