@@ -37,26 +37,34 @@ body {
 header {
     background-color: var(--white);
     padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    position: sticky; /* Make header sticky */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
     top: 0;
-    z-index: 100; /* Ensure header stays on top */
+    z-index: 100;
 }
 
 .header-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* שמאל ימין */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    direction: rtl; /* יישור לימין (RTL) */
 }
 
+.logo {
+    margin-right: auto; /* דחיפת הלוגו לימין */
+    margin-left: 0; /* ביטול margin משמאל אם קיים */
+}
+
+
 .logo img {
-    height: 50px; /* Adjust logo size as needed */
+    height: 50px;
 }
 
 /* ======================== Desktop Navigation - תפריט ניווט בדסקטופ ======================== */
+
 .desktop-nav ul {
     list-style: none;
     padding: 0;
