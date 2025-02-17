@@ -65,6 +65,7 @@ actionButtons.forEach(button => {
         button.style.transform = 'scale(1)';
     });
 });
+
 // ======== [START] SLIDER SCRIPT ========
 document.addEventListener("DOMContentLoaded", function() {
   const slides = document.querySelectorAll(".slide");
