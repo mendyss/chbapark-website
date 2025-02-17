@@ -15,13 +15,23 @@
     --transition: all 0.3s ease;
 }
 
+/* ------------------------------
+   1. טעינת גופנים
+--------------------------------*/
 @font-face {
-    font-family: 'FB Hachaluzim';
-    src: url('../fonts/FBHachaluzim-Regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'HachaluzimRegular';
+  src: url('../fonts/FBHACHALUZIM-REGULAR.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
+
+@font-face {
+  font-family: 'HachaluzimMedium';
+  src: url('../fonts/FBHACHALUZIM-MEDIUM.OTF') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
 
 * {
     margin: 0;
