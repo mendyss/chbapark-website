@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+<!-- ======== [START] HEAD SECTION ======== -->
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,10 @@
   <!-- תיאור קצר ומילות מפתח (Meta Description & Keywords) -->
   <meta name="description" content="בית חב״ד שכונת הפארק בבאר שבע - כל הלב לכל אחד. מידע על פעילות, שירותים ותרומות.">
   <meta name="keywords" content="חב״ד, שכונת הפארק, באר שבע, בית כנסת, תרומות, יהדות, בית חם, אירועים קהילתיים">
-
+  
+  <!-- הוספת Meta לוגו (לשיתוף ברשתות חברתיות, לדוגמה) -->
+  <meta property="og:image" content="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg">
+  
   <title>בית חב"ד שכונת הפארק</title>
 
   <!-- חיבור לקובץ CSS ראשי -->
@@ -16,30 +20,58 @@
 
   <!-- חיבור לספריית Bootstrap Icons (אייקונים) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  
+  <!-- (אופציונלי) אייקון טאבים/דפדפן (favicon) -->
+  <!-- <link rel="icon" href="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg" type="image/svg+xml"> -->
 
 </head>
-<body>
+<!-- ======== [END] HEAD SECTION ======== -->
 
-  <!-- ======== Header (הדר) ======== -->
-  <header class="main-header">
-    <div class="container header-container">
-      <!-- לוגו (קישור לעמוד הבית) -->
-      <a href="index.html" class="logo-right">
-        <img 
-          src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg" 
-          alt="לוגו בית חב״ד" 
-          class="logo-image"
-        >
-      </a>
+  <!-- ======== [START] HEADER SECTION ======== -->
+<header class="main-header">
+  <div class="container header-container">
+    
+    <!-- לוגו בצד שמאל -->
+    <a href="index.html" class="logo-left">
+      <img 
+        src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/logo%20trans.svg" 
+        alt="לוגו בית חב״ד" 
+        class="logo-image"
+      >
+    </a>
+    
+    <!-- עיטוף צד ימין: אייקונים + תפריט -->
+    <div class="header-right">
       
-      <!-- תפריט ניווט (דסקטופ + המבורגר במובייל) -->
+      <!-- אייקוני קישורים (תרומה באדום, וואטסאפ בירוק) -->
+      <div class="header-icons">
+        <a 
+          href="https://app.icount.co.il/m/104dc/" 
+          target="_blank" 
+          class="icon-link icon-donation" 
+          aria-label="תרומה"
+        >
+          <i class="bi bi-heart-fill"></i>
+        </a>
+        <a 
+          href="https://wa.me/972503999262" 
+          target="_blank" 
+          class="icon-link icon-whatsapp" 
+          aria-label="וואטסאפ"
+        >
+          <i class="bi bi-whatsapp"></i>
+        </a>
+      </div>
+      
+      <!-- תפריט ניווט + כפתור המבורגר -->
       <nav class="main-nav">
-        <!-- אייקון תפריט המבורגר שיוצג רק במסכים צרים -->
+        
+        <!-- כפתור המבורגר מצד ימין -->
         <button class="nav-toggle" aria-label="Toggle Navigation">
           <i class="bi bi-list"></i>
         </button>
         
-        <!-- רשימת קישורים, תוצג בדסקטופ -->
+        <!-- רשימת קישורים (תהיה מוסתרת במובייל אלא אם נלחץ על המבורגר) -->
         <ul class="nav-list">
           <li><a href="#">אודות</a></li>
           <li><a href="#">תרומות</a></li>
@@ -50,29 +82,11 @@
           <li><a href="#">פינוק ליולדת</a></li>
         </ul>
       </nav>
-
-      <!-- אייקוני קישורים (תרומה, וואטסאפ) -->
-      <div class="header-icons">
-        <a 
-          href="https://app.icount.co.il/m/104dc/" 
-          target="_blank" 
-          class="icon-link" 
-          aria-label="תרומה"
-        >
-          <i class="bi bi-heart-fill"></i>
-        </a>
-        <a 
-          href="https://wa.me/972503999262" 
-          target="_blank" 
-          class="icon-link" 
-          aria-label="וואטסאפ"
-        >
-          <i class="bi bi-whatsapp"></i>
-        </a>
-      </div>
-    </div>
-  </header>
-  <!-- ======== End of Header ======== -->
+      
+    </div><!-- .header-right -->
+  </div><!-- .header-container -->
+</header>
+<!-- ======== [END] HEADER SECTION ======== -->
 
 
   <!-- תוכן האתר יגיע כאן בהמשך (סליידר, כרטיסיות, כפתורים וכו') -->
