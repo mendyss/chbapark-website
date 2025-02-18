@@ -436,211 +436,191 @@ ul {
 }
 /* ======== [END] TIMES CARDS STYLES ======== */
 
-/* ======== [START] SERVICES GRID STYLES ======== */
+/* סגנון כרטיסיות השירותים */
+.services-section {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+}
+
+.section-title {
+    text-align: center;
+    font-family: 'FB Hachaluzim', sans-serif;
+    color: #680020; /* אדום יין */
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+    position: relative;
+}
+
+.section-title:after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #680020, #f58c28); /* אדום יין לכתום */
+    margin: 20px auto 0;
+    border-radius: 2px;
+}
+
 .services-grid {
-  margin: 3rem 0;
-  text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-.section-title {
-  font-size: 2rem;
-  color: var(--wine-red);
-  margin-bottom: 2rem;
-}
-
-/* עוטף את כל הכרטיסיות בגריד רספונסיבי */
-.services-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-}
-
-/* כל כרטיסייה */
 .service-card {
-  background: #fff;
-  padding: 2rem 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px 25px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
+    border: 1px solid #eaeaea;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-/* בעת ריחוף הכרטיסייה תעלה מעט ותתחזק הצללה */
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 0;
+    background: linear-gradient(to bottom, #680020, #f58c28); /* אדום יין לכתום */
+    transition: height 0.4s ease;
+}
+
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* אייקון בתוך כרטיסייה */
-.icon-container {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 1rem; /* למרכז האייקון ולתת רווח מלמטה */
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--wine-red, #680020); /* עיגול בצבע בורדו */
-  color: #fff;                         /* אייקון לבן */
-  font-size: 2rem;                    /* גודל האייקון */
+.service-card:hover::before {
+    height: 100%;
 }
 
-/* כותרת השירות */
-.service-card h3 {
-  font-size: 1.4rem;
-  color: var(--wine-red);
-  margin-bottom: 0.5rem;
+.card-icon {
+    margin-bottom: 20px;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: all 0.3s ease;
 }
 
-/* תאור השירות */
-.service-card p {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 1rem;
-  line-height: 1.5;
+.card-icon i {
+    font-size: 38px;
+    color: #f58c28; /* כתום */
+    transition: all 0.3s ease;
 }
 
-/* קישור "לפרטים נוספים" */
-.service-link {
-  display: inline-block;
-  font-weight: bold;
-  text-decoration: none;
-  color: var(--wine-red);
-  border: 2px solid var(--wine-red);
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+.service-card:hover .card-icon i {
+    color: #680020; /* אדום יין */
+    transform: scale(1.1);
 }
 
-/* בעת מעבר עכבר על הקישור - רקע בורדו, טקסט לבן */
-.service-link:hover {
-  background: var(--wine-red);
-  color: #fff;
-}
-/* ======== [END] SERVICES GRID STYLES ======== */
-
-
-/* ======== [START] FLIP CARDS + SIDE BAR STYLES ======== */
-
-/* עיצוב כללי לאזור השירותים */
-.services-flip {
-  margin: 3rem 0;
-  text-align: center;
+.card-title {
+    font-family: 'FB Hachaluzim', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #680020; /* אדום יין */
+    transition: all 0.3s ease;
 }
 
-.section-title {
-  font-size: 2rem;
-  color: var(--wine-red);
-  margin-bottom: 2rem;
+.card-description {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
 }
 
-/* גריד רספונסיבי של הכרטיסים */
-.flip-cards-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-  width: 100%;
+.card-link {
+    display: inline-block;
+    color: #f58c28; /* כתום */
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 5px 0;
+    position: relative;
 }
 
-/* הורה של שני הצדדים (Front + Back) */
-.flip-card {
-  perspective: 1000px; /* נדרש לתלת־ממד */
+.card-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #680020; /* אדום יין */
+    transition: width 0.3s ease;
 }
 
-/* האלמנט הפנימי שמתהפך */
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 300px; /* ניתן להתאים את הגובה לכרטיסים שלך */
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
+.service-card:hover .card-link {
+    color: #680020; /* אדום יין */
 }
 
-/* הופך את הכרטיס כשעוברים עם העכבר */
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
+.service-card:hover .card-link::after {
+    width: 100%;
 }
 
-/* שני הצדדים */
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  top: 0;
-  right: 0; /* או left:0; תלוי בכיוון העיצוב */
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden; /* מסתיר את הצד ההפוך */
-  background: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
+/* אנימציית פעימה למספרים או אייקונים */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
-/* הצד האחורי מסתובב ב-180 מעלות */
-.flip-card-back {
-  transform: rotateY(180deg);
+/* רספונסיביות */
+@media (max-width: 1200px) {
+    .services-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
 }
 
-/* כותרת בחלק הקדמי */
-.flip-card-front h3 {
-  font-size: 1.2rem;
-  color: var(--wine-red);
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+    
+    .service-card {
+        padding: 25px 20px;
+    }
+    
+    .card-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .card-icon i {
+        font-size: 32px;
+    }
+    
+    .card-title {
+        font-size: 1.2rem;
+    }
 }
 
-/* טקסט בצד האחורי */
-.flip-card-back p {
-  font-size: 1rem;
-  color: #444;
-  line-height: 1.4;
-  margin-bottom: 0.75rem;
+@media (max-width: 480px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-card {
+        max-width: 320px;
+        margin: 0 auto;
+    }
 }
-
-/* קישור בצד האחורי */
-.flip-link {
-  display: inline-block;
-  text-decoration: none;
-  color: var(--wine-red);
-  border: 1px solid var(--wine-red);
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s;
-}
-.flip-link:hover {
-  background-color: var(--wine-red);
-  color: #fff;
-}
-
-/* אייקון בחלק הקדמי */
-.flip-icon-container {
-  font-size: 2.5rem;
-  color: #fff;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: var(--wine-red);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-/* "קו מודגש" בצד של כל צד (פס בורדו) */
-.with-bar {
-  position: relative;
-}
-.with-bar::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  /* אם תרצה את הפס בצד שמאל, החלף ל'left' */
-  right: 0;
-  width: 8px;
-  height: 100%;
-  background: var(--wine-red);
-  border-radius: 0 12px 12px 0; /* פינות מעוגלות רק בצד הפנימי */
-}
-/* ======== [END] FLIP CARDS + SIDE BAR STYLES ======== */
