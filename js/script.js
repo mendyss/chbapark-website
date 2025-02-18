@@ -195,44 +195,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const timeCards = document.querySelectorAll('.time-card');
     timeCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
-            // תוספת קלאס hover
             this.classList.add('hover');
         });
         
         card.addEventListener('mouseleave', function() {
-            // הסרת קלאס hover
             this.classList.remove('hover');
         });
     });
 
-
-
-
-    // פונקציה להוספת זמני שבת אוטומטיים (דוגמה)
-    fetchShabbatTimes();
+    // הסרנו את הקריאה הפנימית ל- fetchShabbatTimes();
+    // אם תרצה, תוכל לקרוא כאן לפונקציה משלך בהמשך
 });
 
-// פונקציה לקבלת זמני שבת אוטומטיים
-function fetchShabbatTimes() {
-    // ניתן להשתמש ב-API כגון Hebcal API לקבלת זמני שבת מדויקים
-    // לצורך הדוגמה, אנחנו פשוט נציג זמנים קבועים
+// הסרנו/הערנו את הפונקציה fetchShabbatTimes
+// function fetchShabbatTimes() {
+//   ...
+// }
     
-    setTimeout(() => {
-        const candleTimeElement = document.getElementById('candleTime');
-        const havdalahTimeElement = document.getElementById('havdalahTime');
-        
-        if (candleTimeElement && havdalahTimeElement) {
-            // בדוגמה זו, הזמנים קבועים - ניתן להחליף בקריאת API אמיתית
-            candleTimeElement.textContent = '17:30';
-            havdalahTimeElement.textContent = '18:45';
-            
-            // הוספת אפקט להדגשת העדכון
-            candleTimeElement.classList.add('updated');
-            havdalahTimeElement.classList.add('updated');
-        }
-    }, 1000); // דימוי טעינה של שנייה
-}
-
 // פונקציה לבדיקה האם גלילה אפשרית ולהצגת/הסתרת כפתורים בהתאם
 function updateScrollButtons() {
     const cardsWrapper = document.querySelector('.cards-wrapper');
@@ -262,6 +241,14 @@ window.addEventListener('resize', updateScrollButtons);
 
 // עדכון מצב כפתורים בעת גלילה
 document.querySelector('.cards-wrapper')?.addEventListener('scroll', updateScrollButtons);
+
+
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   // Hebcal API עבור באר שבע, פרמטרים כמו b=20 (הדלקה 20 דק' לפני השקיעה), ועוד
   const hebcalUrl = "https://www.hebcal.com/shabbat?cfg=json&geo=geoname&geonameid=295530&b=20&M=on&ue=off&lg=he-x-NoNikud";
