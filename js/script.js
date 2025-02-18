@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener("DOMContentLoaded", () => {
   // Hebcal API עבור באר שבע, עברית
-  const hebcalUrl = ('https://www.hebcal.com/shabbat?cfg=i2&geonameid=295530&ue=off&b=20&M=on&lg=he-x-NoNikud&tgt=_top')
+  const hebcalUrl = "https://www.hebcal.com/shabbat?cfg=i2&geonameid=295530&ue=off&b=20&M=on&lg=he-x-NoNikud&tgt=_top"
 
   fetch(hebcalUrl)
     .then(res => res.json())
