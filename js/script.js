@@ -153,6 +153,115 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// קוד JavaScript עבור כרטיסיות זמנים
+document.addEventListener('DOMContentLoaded', function() {
+    const cardsWrapper = document.querySelector('.cards-wrapper');
+
+    // הוספת כפתורי גלילה
+    const navButtons = document.createElement('div');
+    navButtons.className = 'cards-nav';
+    navButtons.innerHTML = `
+        <button class="scroll-btn scroll-right" aria-label="גלול ימינה">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+        <button class="scroll-btn scroll-left" aria-label="גלול שמאלה">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+    `;
+    
+    // הוספת הכפתורים לאחר cardsWrapper
+    const timesCardsSection = document.querySelector('.times-cards');
+    timesCardsSection.appendChild(navButtons);
+
+    // הגדרת פונקציונליות הגלילה
+    const scrollLeftBtn = document.querySelector('.scroll-left');
+    const scrollRightBtn = document.querySelector('.scroll-right');
+    
+    scrollLeftBtn.addEventListener('click', () => {
+        cardsWrapper.scrollBy({
+            left: -300,
+            behavior: 'smooth'
+        });
+    });
+    
+    scrollRightBtn.addEventListener('click', () => {
+        cardsWrapper.scrollBy({
+            left: 300,
+            behavior: 'smooth'
+        });
+    });
+
+    // אפקט מעבר עבור הכרטיסיות
+    const timeCards = document.querySelectorAll('.time-card');
+    timeCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            // תוספת קלאס hover
+            this.classList.add('hover');
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            // הסרת קלאס hover
+            this.classList.remove('hover');
+        });
+    });
+
+
+
+
+    // פונקציה להוספת זמני שבת אוטומטיים (דוגמה)
+    fetchShabbatTimes();
+});
+
+// פונקציה לקבלת זמני שבת אוטומטיים
+function fetchShabbatTimes() {
+    // ניתן להשתמש ב-API כגון Hebcal API לקבלת זמני שבת מדויקים
+    // לצורך הדוגמה, אנחנו פשוט נציג זמנים קבועים
+    
+    setTimeout(() => {
+        const candleTimeElement = document.getElementById('candleTime');
+        const havdalahTimeElement = document.getElementById('havdalahTime');
+        
+        if (candleTimeElement && havdalahTimeElement) {
+            // בדוגמה זו, הזמנים קבועים - ניתן להחליף בקריאת API אמיתית
+            candleTimeElement.textContent = '17:30';
+            havdalahTimeElement.textContent = '18:45';
+            
+            // הוספת אפקט להדגשת העדכון
+            candleTimeElement.classList.add('updated');
+            havdalahTimeElement.classList.add('updated');
+        }
+    }, 1000); // דימוי טעינה של שנייה
+}
+
+// פונקציה לבדיקה האם גלילה אפשרית ולהצגת/הסתרת כפתורים בהתאם
+function updateScrollButtons() {
+    const cardsWrapper = document.querySelector('.cards-wrapper');
+    const scrollLeftBtn = document.querySelector('.scroll-left');
+    const scrollRightBtn = document.querySelector('.scroll-right');
+    
+    if (cardsWrapper) {
+        // בדיקה האם יש צורך בכפתורי גלילה (האם התוכן רחב יותר מהמיכל)
+        const hasHorizontalScroll = cardsWrapper.scrollWidth > cardsWrapper.clientWidth;
+        
+        if (scrollLeftBtn && scrollRightBtn) {
+            if (hasHorizontalScroll) {
+                scrollLeftBtn.style.display = cardsWrapper.scrollLeft > 0 ? 'flex' : 'none';
+                scrollRightBtn.style.display = 
+                    cardsWrapper.scrollLeft < (cardsWrapper.scrollWidth - cardsWrapper.clientWidth - 5) ? 'flex' : 'none';
+            } else {
+                scrollLeftBtn.style.display = 'none';
+                scrollRightBtn.style.display = 'none';
+            }
+        }
+    }
+}
+
+// עדכון מצב כפתורי הגלילה בטעינה ובשינוי גודל החלון
+window.addEventListener('load', updateScrollButtons);
+window.addEventListener('resize', updateScrollButtons);
+
+// עדכון מצב כפתורים בעת גלילה
+document.querySelector('.cards-wrapper')?.addEventListener('scroll', updateScrollButtons);
 document.addEventListener("DOMContentLoaded", () => {
   // Hebcal API עבור באר שבע, פרמטרים כמו b=20 (הדלקה 20 דק' לפני השקיעה), ועוד
   const hebcalUrl = "https://www.hebcal.com/shabbat?cfg=json&geo=geoname&geonameid=295530&b=20&M=on&ue=off&lg=he-x-NoNikud";
