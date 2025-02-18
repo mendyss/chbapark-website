@@ -391,7 +391,7 @@ ul {
     margin: 40px auto; /* מרכז את התוכן (auto) */
     padding: 10px 20px; /* רווח אופקי משני הצדדים */
 
-    height: 25vh;       /* גובה כ ~25% מהמסך */
+    height: 26vh;       /* גובה כ ~26% מהמסך */
     direction: rtl;
     position: relative;
     overflow: hidden;
@@ -493,9 +493,9 @@ ul {
 /* טקסט בכרטיסיה - גודל גדול יותר */
 .time-card p {
     color: #555;
-    font-size: 1.8rem;
+    font-size: 2.4rem;
     margin-bottom: 12px;
-    line-height: 1.6;
+    line-height: 1.3;
     direction: rtl;
 }
 .time-card p:last-child {
