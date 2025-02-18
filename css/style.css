@@ -382,34 +382,52 @@ ul {
 }
 /* ======== [END] SLIDER STYLES ======== */
 
-/* סגנון כרטיסיות זמנים */
+/* ======== [START] TIMES CARDS SECTION ======== */
+
+/* .times-cards משמשת כ"container" עם רוחב מקסימלי */
 .times-cards {
-    padding: 60px 0;
+    width: 100%;
+    max-width: 1140px; /* רוחב מקסימלי (בדומה ל־Bootstrap) */
+    margin: 40px auto; /* מרכז את התוכן (auto) */
+    padding: 10px 20px; /* רווח אופקי משני הצדדים */
+
+    height: 20vh;       /* גובה כ ~20% מהמסך */
     direction: rtl;
     position: relative;
     overflow: hidden;
-    margin: 40px auto;
 }
 
+/* עוטף הכרטיסיות */
 .cards-wrapper {
     display: flex;
     gap: 20px;
     overflow-x: auto;
     scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
-    padding: 20px 5px 5px;
-    margin: 0 -15px;
+
+    /* אין margin שלילי יותר */
+    margin: 0;
+    padding: 10px 5px 5px;
     position: relative;
+
+    /* פס גלילה עדין */
+    scrollbar-width: thin; /* Firefox */
 }
 
+/* עיצוב פס גלילה ב-WebKit (Chrome/Edge/Safari) */
 .cards-wrapper::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
+    height: 6px; /* גובה פס הגלילה */
+    background: #f1f1f1; /* רקע אפור בהיר */
+}
+.cards-wrapper::-webkit-scrollbar-thumb {
+    background: #ccc; /* צבע האגודל של הפס */
+    border-radius: 3px;
 }
 
+/* כרטיסיות בודדות */
 .time-card {
     background-color: #fff;
     min-width: 280px;
-    padding: 30px 25px;
+    padding: 20px 15px;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     text-align: center;
@@ -417,11 +435,13 @@ ul {
     border: 1px solid #eaeaea;
     position: relative;
     overflow: hidden;
+
     transform: translateY(0);
     animation: fadeInUp 0.8s ease forwards;
     opacity: 0;
 }
 
+/* אנימציית כניסה בהדרגה */
 .time-card:nth-child(1) { animation-delay: 0.1s; }
 .time-card:nth-child(2) { animation-delay: 0.2s; }
 .time-card:nth-child(3) { animation-delay: 0.3s; }
@@ -438,24 +458,26 @@ ul {
     transition: height 0.4s ease;
 }
 
+/* אפקט ריחוף */
 .time-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
-
 .time-card:hover::before {
     height: 100%;
 }
 
+/* כותרת הכרטיסיה */
 .time-card h3 {
     font-family: 'FB Hachaluzim', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.8rem; /* טקסט גדול יותר */
     margin-bottom: 20px;
     color: #680020; /* אדום יין */
     position: relative;
     padding-bottom: 12px;
 }
 
+/* קו מעוצב מתחת לכותרת */
 .time-card h3::after {
     content: '';
     position: absolute;
@@ -464,25 +486,50 @@ ul {
     transform: translateX(-50%);
     width: 50px;
     height: 3px;
-    background: linear-gradient(to right, #680020, #f58c28); /* אדום יין לכתום */
+    background: linear-gradient(to right, #680020, #f58c28);
     border-radius: 2px;
 }
 
+/* טקסט בכרטיסיה - גודל גדול יותר */
 .time-card p {
     color: #555;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     margin-bottom: 12px;
     line-height: 1.6;
     direction: rtl;
 }
-
 .time-card p:last-child {
     margin-bottom: 0;
 }
 
+/* כפתורי גלילה ימינה/שמאלה */
+.cards-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+.scroll-btn {
+    background-color: rgba(104, 0, 32, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.scroll-btn:hover {
+    background-color: #680020;
+    color: white;
+}
+.scroll-btn i {
+    font-size: 1.2rem;
+}
 
-
-/* אנימציות */
+/* אנימציית Fade-In-Up */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -498,15 +545,15 @@ ul {
 @media (max-width: 768px) {
     .time-card {
         min-width: 240px;
-        padding: 25px 20px;
+        padding: 20px 15px;
     }
     
     .time-card h3 {
-        font-size: 1.3rem;
+        font-size: 1.6rem;
     }
     
     .time-card p {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 }
 
@@ -522,10 +569,10 @@ ul {
 
 @media (min-width: 1200px) {
     .times-cards {
-        max-width: 1140px;
+        /* שמרנו max-width 1140px למבנה הקיים */
     }
 }
-/* ======== [END] כרטיסיות זמנים ======== */
+/* ======== [END] TIMES CARDS SECTION ======== */
 
 
 /* סגנון כרטיסיות השירותים */
