@@ -352,7 +352,7 @@ ul {
     margin: 40px auto; /* מרכז את התוכן (auto) */
     padding: 10px 20px; /* רווח אופקי משני הצדדים */
 
-    height: 26vh;       /* גובה כ ~26% מהמסך */
+    height: 25vh;       /* גובה כ ~26% מהמסך */
     direction: rtl;
     position: relative;
     overflow: hidden;
