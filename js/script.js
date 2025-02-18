@@ -154,20 +154,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Hebcal API עבור באר שבע, עברית
-  const hebcalUrl = "https://www.hebcal.com/shabbat?cfg=i2&geonameid=295530&ue=off&b=20&M=on&lg=he-x-NoNikud&tgt=_top"
+  // Hebcal API עבור באר שבע, פרמטרים כמו b=20 (הדלקה 20 דק' לפני השקיעה), ועוד
+  const hebcalUrl = "https://www.hebcal.com/shabbat?cfg=json&geo=geoname&geonameid=295530&b=20&M=on&ue=off&lg=he-x-NoNikud";
 
   fetch(hebcalUrl)
     .then(res => res.json())
     .then(data => {
-      // איתור הפרשה, הדלקת נרות, הבדלה:
+      // איתור פרשה, הדלקת נרות והבדלה
       const parshaItem = data.items.find(item => item.category === "parashat");
       const candlesItem = data.items.find(item => item.category === "candles");
       const havdalahItem = data.items.find(item => item.category === "havdalah");
 
-      // 1) פרשת השבוע (לדוגמה: "פרשת שמות")
+      // 1) שם הפרשה
       let parshaName = parshaItem ? parshaItem.title : ""; 
-      // אם אין מידע, נשתמש בטקסט חלופי
       if (!parshaName) {
         parshaName = "לא ידועה";
       }
@@ -175,37 +174,30 @@ document.addEventListener("DOMContentLoaded", () => {
       // 2) הדלקת נרות
       let candleTime = "לא זמין";
       if (candlesItem) {
-        // candlesItem.title: "הדלקת נרות: 17:24" 
-        // נפריד למילים (או עם split(":") בצורה מפורטת)
+        // לדוגמה: candlesItem.title = "הדלקת נרות: 17:24"
         const splitted = candlesItem.title.split(" ");
-        // splitted לדוגמה = ["הדלקת", "נרות:", "17:24"]
         candleTime = splitted[splitted.length - 1]; // "17:24"
       }
 
       // 3) צאת שבת
       let havdalahTime = "לא זמין";
       if (havdalahItem) {
-        // havdalahItem.title: "צאת שבת: 18:20"
+        // לדוגמה: havdalahItem.title = "צאת שבת: 18:20"
         const splitted = havdalahItem.title.split(" ");
-        // splitted לדוגמה = ["צאת", "שבת:", "18:20"]
         havdalahTime = splitted[splitted.length - 1]; // "18:20"
       }
 
-      // עדכון ה־HTML
+      // עדכון האלמנטים ב־HTML
       const shabbatTitle = document.getElementById("shabbatTitle");
       const candleElem = document.getElementById("candleTime");
       const havdalahElem = document.getElementById("havdalahTime");
       
-      // כותרת הפרשה
       shabbatTitle.textContent = `זמני השבת ${parshaName}`;
-      // כניסת שבת
       candleElem.textContent = `כניסת שבת ${candleTime}`;
-      // צאת שבת
       havdalahElem.textContent = `צאת שבת ${havdalahTime}`;
     })
     .catch(err => {
       console.error("שגיאה בטעינת Hebcal:", err);
-      // במקרה של שגיאה, נכניס טקסט חלופי
       document.getElementById("shabbatTitle").textContent = "זמני השבת (לא זמין)";
       document.getElementById("candleTime").textContent = "כניסת שבת לא זמין";
       document.getElementById("havdalahTime").textContent = "צאת שבת לא זמין";
