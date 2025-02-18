@@ -151,3 +151,33 @@ document.addEventListener('DOMContentLoaded', function() {
         handleScroll(); // בדיקה ראשונית בטעינת הדף
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const hebcalUrl = "https://www.hebcal.com/shabbat?cfg=json&geonameid=295530&M=on&lg=he";
+
+  fetch(hebcalUrl)
+    .then(response => response.json())
+    .then(data => {
+      // מערך אירועים items
+      let candleLighting = data.items.find(item => item.category === "candles");
+      let havdalah = data.items.find(item => item.category === "havdalah");
+
+      if (candleLighting) {
+        // candleLighting.title = "הדלקת נרות: 17:30" למשל
+        const candleTimeVal = candleLighting.title.split(":")[1]?.trim() || "N/A";
+        document.getElementById("candleTime").textContent = candleTimeVal;
+      }
+
+      if (havdalah) {
+        // havdalah.title = "צאת שבת: 18:20" למשל
+        const havTimeVal = havdalah.title.split(":")[1]?.trim() || "N/A";
+        document.getElementById("havdalahTime").textContent = havTimeVal;
+      }
+    })
+    .catch(err => {
+      console.error("Hebcal API error:", err);
+      document.getElementById("candleTime").textContent = "לא זמין";
+      document.getElementById("havdalahTime").textContent = "לא זמין";
+    });
+});
