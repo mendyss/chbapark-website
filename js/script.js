@@ -66,18 +66,88 @@ actionButtons.forEach(button => {
     });
 });
 
-// ======== [START] SLIDER SCRIPT ========
-document.addEventListener("DOMContentLoaded", function() {
-  const slides = document.querySelectorAll(".slide");
-  let currentSlide = 0;
 
-  // אם יש יותר מתמונה אחת, הפעל החלפה אוטומטית
-  if (slides.length > 1) {
-    setInterval(() => {
-      slides[currentSlide].classList.remove("active");
-      currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add("active");
-    }, 2000); // החלפה כל 2 שניות
-  }
+
+// קוד JavaScript עבור אנימציות כרטיסיות השירותים
+document.addEventListener('DOMContentLoaded', function() {
+    // אנימציית כניסה לכרטיסיות
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    // בדיקה האם IntersectionObserver נתמך בדפדפן
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const delay = parseInt(card.getAttribute('data-delay'));
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, delay);
+                    
+                    // הפסקת מעקב אחרי הכרטיסייה לאחר שהיא נראית
+                    observer.unobserve(card);
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.1
+        });
+        
+        serviceCards.forEach(card => {
+            observer.observe(card);
+        });
+    } else {
+        // פתרון חלופי למקרה שהדפדפן לא תומך ב-IntersectionObserver
+        serviceCards.forEach(card => {
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, parseInt(card.getAttribute('data-delay')));
+        });
+    }
+    
+    // אפקט hover מתקדם לכרטיסיות
+    serviceCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            // אפקט פעימה לאייקון
+            const icon = this.querySelector('.card-icon i');
+            icon.style.animation = 'pulse 0.8s infinite';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            // הפסקת אנימציית הפעימה
+            const icon = this.querySelector('.card-icon i');
+            icon.style.animation = '';
+        });
+    });
+    
+    // פונקציה לבדיקה אם אלמנט נמצא בתצוגה
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+    
+    // בדיקה האם הכרטיסיות בתצוגה בעת גלילה (פתרון חלופי)
+    if (!('IntersectionObserver' in window)) {
+        function handleScroll() {
+            serviceCards.forEach(card => {
+                if (isElementInViewport(card) && card.style.opacity !== '1') {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, parseInt(card.getAttribute('data-delay')));
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // בדיקה ראשונית בטעינת הדף
+    }
 });
-// ======== [END] SLIDER SCRIPT ========
