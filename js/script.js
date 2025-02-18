@@ -153,31 +153,61 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
+  // Hebcal API עבור באר שבע, עברית
   const hebcalUrl = "https://www.hebcal.com/shabbat?cfg=json&geonameid=295530&M=on&lg=he";
 
   fetch(hebcalUrl)
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
-      // מערך אירועים items
-      let candleLighting = data.items.find(item => item.category === "candles");
-      let havdalah = data.items.find(item => item.category === "havdalah");
+      // איתור הפרשה, הדלקת נרות, הבדלה:
+      const parshaItem = data.items.find(item => item.category === "parashat");
+      const candlesItem = data.items.find(item => item.category === "candles");
+      const havdalahItem = data.items.find(item => item.category === "havdalah");
 
-      if (candleLighting) {
-        // candleLighting.title = "הדלקת נרות: 17:30" למשל
-        const candleTimeVal = candleLighting.title.split(":")[1]?.trim() || "N/A";
-        document.getElementById("candleTime").textContent = candleTimeVal;
+      // 1) פרשת השבוע (לדוגמה: "פרשת שמות")
+      let parshaName = parshaItem ? parshaItem.title : ""; 
+      // אם אין מידע, נשתמש בטקסט חלופי
+      if (!parshaName) {
+        parshaName = "לא ידועה";
       }
 
-      if (havdalah) {
-        // havdalah.title = "צאת שבת: 18:20" למשל
-        const havTimeVal = havdalah.title.split(":")[1]?.trim() || "N/A";
-        document.getElementById("havdalahTime").textContent = havTimeVal;
+      // 2) הדלקת נרות
+      let candleTime = "לא זמין";
+      if (candlesItem) {
+        // candlesItem.title: "הדלקת נרות: 17:24" 
+        // נפריד למילים (או עם split(":") בצורה מפורטת)
+        const splitted = candlesItem.title.split(" ");
+        // splitted לדוגמה = ["הדלקת", "נרות:", "17:24"]
+        candleTime = splitted[splitted.length - 1]; // "17:24"
       }
+
+      // 3) צאת שבת
+      let havdalahTime = "לא זמין";
+      if (havdalahItem) {
+        // havdalahItem.title: "צאת שבת: 18:20"
+        const splitted = havdalahItem.title.split(" ");
+        // splitted לדוגמה = ["צאת", "שבת:", "18:20"]
+        havdalahTime = splitted[splitted.length - 1]; // "18:20"
+      }
+
+      // עדכון ה־HTML
+      const shabbatTitle = document.getElementById("shabbatTitle");
+      const candleElem = document.getElementById("candleTime");
+      const havdalahElem = document.getElementById("havdalahTime");
+      
+      // כותרת הפרשה
+      shabbatTitle.textContent = `זמני השבת ${parshaName}`;
+      // כניסת שבת
+      candleElem.textContent = `כניסת שבת ${candleTime}`;
+      // צאת שבת
+      havdalahElem.textContent = `צאת שבת ${havdalahTime}`;
     })
     .catch(err => {
-      console.error("Hebcal API error:", err);
-      document.getElementById("candleTime").textContent = "לא זמין";
-      document.getElementById("havdalahTime").textContent = "לא זמין";
+      console.error("שגיאה בטעינת Hebcal:", err);
+      // במקרה של שגיאה, נכניס טקסט חלופי
+      document.getElementById("shabbatTitle").textContent = "זמני השבת (לא זמין)";
+      document.getElementById("candleTime").textContent = "כניסת שבת לא זמין";
+      document.getElementById("havdalahTime").textContent = "צאת שבת לא זמין";
     });
 });
