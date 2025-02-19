@@ -463,32 +463,6 @@ ul {
     margin-bottom: 0;
 }
 
-/* כפתורי גלילה ימינה/שמאלה */
-.cards-nav {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    gap: 10px;
-}
-.scroll-btn {
-    background-color: rgba(104, 0, 32, 0.1);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.scroll-btn:hover {
-    background-color: #680020;
-    color: white;
-}
-.scroll-btn i {
-    font-size: 1.2rem;
-}
 
 /* אנימציית Fade-In-Up */
 @keyframes fadeInUp {
@@ -621,7 +595,7 @@ ul {
 }
 
 .card-icon i {
-    font-size: 38px;
+    font-size: 45px;
     color: #f58c28; /* כתום */
     transition: all 0.3s ease;
 }
