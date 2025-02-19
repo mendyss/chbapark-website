@@ -157,22 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const cardsWrapper = document.querySelector('.cards-wrapper');
 
-    // הוספת כפתורי גלילה
-    const navButtons = document.createElement('div');
-    navButtons.className = 'cards-nav';
-    navButtons.innerHTML = `
-        <button class="scroll-btn scroll-right" aria-label="גלול ימינה">
-            <i class="bi bi-chevron-right"></i>
-        </button>
-        <button class="scroll-btn scroll-left" aria-label="גלול שמאלה">
-            <i class="bi bi-chevron-left"></i>
-        </button>
-    `;
     
-    // הוספת הכפתורים לאחר cardsWrapper
-    const timesCardsSection = document.querySelector('.times-cards');
-    timesCardsSection.appendChild(navButtons);
-
     // הגדרת פונקציונליות הגלילה
     const scrollLeftBtn = document.querySelector('.scroll-left');
     const scrollRightBtn = document.querySelector('.scroll-right');
