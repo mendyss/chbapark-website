@@ -212,40 +212,6 @@ document.addEventListener('DOMContentLoaded', function() {
 //   ...
 // }
     
-// פונקציה לבדיקה האם גלילה אפשרית ולהצגת/הסתרת כפתורים בהתאם
-function updateScrollButtons() {
-    const cardsWrapper = document.querySelector('.cards-wrapper');
-    const scrollLeftBtn = document.querySelector('.scroll-left');
-    const scrollRightBtn = document.querySelector('.scroll-right');
-    
-    if (cardsWrapper) {
-        // בדיקה האם יש צורך בכפתורי גלילה (האם התוכן רחב יותר מהמיכל)
-        const hasHorizontalScroll = cardsWrapper.scrollWidth > cardsWrapper.clientWidth;
-        
-        if (scrollLeftBtn && scrollRightBtn) {
-            if (hasHorizontalScroll) {
-                scrollLeftBtn.style.display = cardsWrapper.scrollLeft > 0 ? 'flex' : 'none';
-                scrollRightBtn.style.display = 
-                    cardsWrapper.scrollLeft < (cardsWrapper.scrollWidth - cardsWrapper.clientWidth - 5) ? 'flex' : 'none';
-            } else {
-                scrollLeftBtn.style.display = 'none';
-                scrollRightBtn.style.display = 'none';
-            }
-        }
-    }
-}
-
-// עדכון מצב כפתורי הגלילה בטעינה ובשינוי גודל החלון
-window.addEventListener('load', updateScrollButtons);
-window.addEventListener('resize', updateScrollButtons);
-
-// עדכון מצב כפתורים בעת גלילה
-document.querySelector('.cards-wrapper')?.addEventListener('scroll', updateScrollButtons);
-
-
-
-
-
 
 
 
