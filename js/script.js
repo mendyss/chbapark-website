@@ -251,3 +251,62 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
+/* עדויות וגלריה */
+document.addEventListener('DOMContentLoaded', function() {
+    // עדויות
+    const testimonialsTrack = document.querySelector('.testimonials-track');
+    const testimonials = document.querySelectorAll('.testimonial-card');
+    let currentTestimonial = 0;
+
+    function slideTestimonials() {
+        testimonialsTrack.style.transform = `translateX(${-currentTestimonial * 100}%)`;
+    }
+
+    setInterval(() => {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        slideTestimonials();
+    }, 5000);
+
+    // גלריית תמונות
+    const galleryTrack = document.querySelector('.gallery-track');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const dotsContainer = document.querySelector('.gallery-dots');
+    let currentSlide = 0;
+
+    // יצירת נקודות ניווט
+    galleryItems.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    function updateDots() {
+        document.querySelectorAll('.dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    function goToSlide(index) {
+        currentSlide = index;
+        galleryTrack.style.transform = `translateX(${-currentSlide * 100}%)`;
+        updateDots();
+    }
+
+    document.querySelector('.prev').addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + galleryItems.length) % galleryItems.length;
+        goToSlide(currentSlide);
+    });
+
+    document.querySelector('.next').addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % galleryItems.length;
+        goToSlide(currentSlide);
+    });
+
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % galleryItems.length;
+        goToSlide(currentSlide);
+    }, 4000);
+});
