@@ -700,6 +700,32 @@ ul {
 }
 
 
+/* גלריה למטה */
+
+.gallery-nav.next {
+    right: 20px;
+}
+
+.gallery-dots {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+}
+
+.dot.active {
+    background: white;
+}
 /* === פוטר === */
 .footer {
     background-color: var(--color-primary);
