@@ -252,61 +252,56 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// ניסיון להניע את הכרטיסיות גלילה אוטומטית. 
+// גלילה אוטמטית
 document.addEventListener('DOMContentLoaded', function() {
     const cardsWrapper = document.querySelector('.cards-wrapper');
-    let scrollPosition = 0;
-    let scrollDirection = 1; // 1 לימין, -1 לשמאל
-    let isScrolling = false;
-    
-    function autoScroll() {
-        if (!isScrolling) return;
 
-        scrollPosition += 0.5 * scrollDirection; // מהירות איטית מאוד
-        cardsWrapper.scrollLeft = scrollPosition;
-
-        if (scrollPosition >= cardsWrapper.scrollWidth - cardsWrapper.clientWidth || scrollPosition <= 0) {
-            scrollDirection *= -1; // משנה כיוון
-        }
-
-        requestAnimationFrame(autoScroll);
+    // פונקציה לבדיקה אם זה מכשיר מובייל (לפי רוחב מסך)
+    function isMobileDevice() {
+        return window.innerWidth < 768; // נניח ש-768px ומטה זה מובייל, אפשר להתאים
     }
 
-    // התחלת הגלילה כשמתקרבים לאלמנט
-    cardsWrapper.addEventListener('mouseenter', () => {
-        isScrolling = true;
-        autoScroll();
-    });
-
-    // עצירת הגלילה כשמתרחקים מהאלמנט
-    cardsWrapper.addEventListener('mouseleave', () => {
-        isScrolling = false;
-    });
-
-    // מאפשר גלילה ידנית
-    cardsWrapper.addEventListener('scroll', function() {
-        scrollPosition = this.scrollLeft;
-    });
-
-    // הנעה ראשונית לגלילה אוטומטית כשהדף נטען
-    setTimeout(() => {
-        isScrolling = true;
-        autoScroll();
-    }, 2000); // התחל אחרי 3 שניות, כדי לתת למשתמשים להבחין בתוכן
-
-    // עדכון הגדרת כפתורי הגלילה
-    function updateScrollButtons() {
-        // מאחר ולא רוצים כפתורים, פשוט נוודא שהגלילה עובדת כמו שצריך
-        const hasHorizontalScroll = cardsWrapper.scrollWidth > cardsWrapper.clientWidth;
-        if (!hasHorizontalScroll) {
-            isScrolling = false; // אם אין תוכן לגלילה, עוצרים את הגלילה האוטומטית
+    // פונקציית גלילה אוטומטית עדינה
+    function autoScrollCards() {
+        if (!isMobileDevice()) {
+            return; // אם זה לא מובייל, לא לבצע גלילה אוטומטית
         }
+
+        const startPosition = cardsWrapper.scrollLeft;
+        const targetPosition = 150; // כמות הגלילה, אפשר להתאים
+        const duration = 2000; // זמן האנימציה במילישניות (2 שניות), אפשר להתאים
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (startTime === null) {
+                startTime = currentTime;
+            }
+
+            const timeElapsed = currentTime - startTime;
+            const scrollProgress = Math.min(timeElapsed / duration, 1); // בין 0 ל-1
+            cardsWrapper.scrollLeft = startPosition + (targetPosition - startPosition) * scrollProgress;
+
+            if (scrollProgress < 1) {
+                requestAnimationFrame(animation); // המשך האנימציה עד הסוף
+            }
+        }
+
+        requestAnimationFrame(animation); // התחלת האנימציה
     }
 
-    // עדכון מצב כפתורים בעת גלילה
-    cardsWrapper.addEventListener('scroll', updateScrollButtons);
+    autoScrollCards(); // הפעלת הגלילה האוטומטית בטעינת הדף
 
-    // עדכון בעת טעינת הדף ושינוי גודל החלון
-    window.addEventListener('load', updateScrollButtons);
-    window.addEventListener('resize', updateScrollButtons);
+    // ... שאר הקוד שלך (אפקט מעבר, וכו') ...
+
+    // אפקט מעבר עבור הכרטיסיות (נשאר כמו שהיה)
+    const timeCards = document.querySelectorAll('.time-card');
+    timeCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.classList.add('hover');
+        });
+        card.addEventListener('mouseleave', function() {
+            this.classList.remove('hover');
+        });
+    });
 });
+
