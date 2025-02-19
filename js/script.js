@@ -250,3 +250,63 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("havdalahTime").textContent = "צאת שבת לא זמין";
     });
 });
+
+
+// ניסיון להניע את הכרטיסיות גלילה אוטומטית. 
+document.addEventListener('DOMContentLoaded', function() {
+    const cardsWrapper = document.querySelector('.cards-wrapper');
+    let scrollPosition = 0;
+    let scrollDirection = 1; // 1 לימין, -1 לשמאל
+    let isScrolling = false;
+    
+    function autoScroll() {
+        if (!isScrolling) return;
+
+        scrollPosition += 0.5 * scrollDirection; // מהירות איטית מאוד
+        cardsWrapper.scrollLeft = scrollPosition;
+
+        if (scrollPosition >= cardsWrapper.scrollWidth - cardsWrapper.clientWidth || scrollPosition <= 0) {
+            scrollDirection *= -1; // משנה כיוון
+        }
+
+        requestAnimationFrame(autoScroll);
+    }
+
+    // התחלת הגלילה כשמתקרבים לאלמנט
+    cardsWrapper.addEventListener('mouseenter', () => {
+        isScrolling = true;
+        autoScroll();
+    });
+
+    // עצירת הגלילה כשמתרחקים מהאלמנט
+    cardsWrapper.addEventListener('mouseleave', () => {
+        isScrolling = false;
+    });
+
+    // מאפשר גלילה ידנית
+    cardsWrapper.addEventListener('scroll', function() {
+        scrollPosition = this.scrollLeft;
+    });
+
+    // הנעה ראשונית לגלילה אוטומטית כשהדף נטען
+    setTimeout(() => {
+        isScrolling = true;
+        autoScroll();
+    }, 2000); // התחל אחרי 3 שניות, כדי לתת למשתמשים להבחין בתוכן
+
+    // עדכון הגדרת כפתורי הגלילה
+    function updateScrollButtons() {
+        // מאחר ולא רוצים כפתורים, פשוט נוודא שהגלילה עובדת כמו שצריך
+        const hasHorizontalScroll = cardsWrapper.scrollWidth > cardsWrapper.clientWidth;
+        if (!hasHorizontalScroll) {
+            isScrolling = false; // אם אין תוכן לגלילה, עוצרים את הגלילה האוטומטית
+        }
+    }
+
+    // עדכון מצב כפתורים בעת גלילה
+    cardsWrapper.addEventListener('scroll', updateScrollButtons);
+
+    // עדכון בעת טעינת הדף ושינוי גודל החלון
+    window.addEventListener('load', updateScrollButtons);
+    window.addEventListener('resize', updateScrollButtons);
+});
