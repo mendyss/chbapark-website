@@ -136,5 +136,20 @@
             nav.classList.toggle('hidden');
         }
     </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("partials/header.html")
+        .then(response => response.text())
+        .then(data => {
+            document.body.insertAdjacentHTML("afterbegin", data);
+        });
+
+    fetch("partials/footer.html")
+        .then(response => response.text())
+        .then(data => {
+            document.body.insertAdjacentHTML("beforeend", data);
+        });
+});
+</script>
 </body>
 </html>
