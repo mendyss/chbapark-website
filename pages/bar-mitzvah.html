@@ -645,5 +645,20 @@ src="https://www.facebook.com/tr?id=1814332062385071&ev=PageView&noscript=1" />
             <p class="copyright">© כל הזכויות שמורות לבית חב"ד שכונת הפארק באר שבע. תשפ"ה</p>
         </div>
     </footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("partials/header.html")
+        .then(response => response.text())
+        .then(data => {
+            document.body.insertAdjacentHTML("afterbegin", data);
+        });
+
+    fetch("partials/footer.html")
+        .then(response => response.text())
+        .then(data => {
+            document.body.insertAdjacentHTML("beforeend", data);
+        });
+});
+</script>
 </body>
 </html>
