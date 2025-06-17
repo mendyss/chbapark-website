@@ -33,63 +33,74 @@
     <script>
    // פונקציה זו רצה אוטומטית כשהדף נטען
 document.addEventListener('DOMContentLoaded', function() {
-    fetchZmanim();
+    // קוראים לשתי הפונקציות כדי להביא את המידע
     fetchParasha();
+    fetchZmanim();
 });
-
-// פונקציה להבאת והצגת זמני היום
-function fetchZmanim() {
-    // ה-ID של באר שבע. אפשר לשנות לכל עיר אחרת
-    const geonameid = '295530'; 
-    const zmanimUrl = `https://www.hebcal.com/zmanim?cfg=json&geonameid=${geonameid}`;
-
-    // פקודת fetch היא ה"מלצר" שיוצא למטבח (ל-API)
-    fetch(zmanimUrl)
-        .then(response => response.json()) // כשהתשובה מגיעה, המר אותה לאובייקט JSON
-        .then(data => {
-            // כשיש לנו את הנתונים, נכניס אותם ל-HTML
-            console.log("קיבלנו זמנים:", data); // (לצורך בדיקה בקונסול של הדפדפן)
-
-            // עדכון המיקום
-            document.getElementById('location').textContent = data.location.title;
-            
-            // עדכון הזמנים
-            // הערה: התאריכים מגיעים בפורמט ISO. אנו חותכים רק את השעה.
-            document.getElementById('alot_hashachar').textContent = new Date(data.times.alot_hashachar).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
-            document.getElementById('sunrise').textContent = new Date(data.times.sunrise).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
-            document.getElementById('sof_zman_ksh').textContent = new Date(data.times.sof_zman_krishm_ma).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
-            document.getElementById('chatzot').textContent = new Date(data.times.chatzot).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
-            document.getElementById('sunset').textContent = new Date(data.times.sunset).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
-            document.getElementById('tzeit_hakochavim').textContent = new Date(data.times.tzeit_hakochavim).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
-        })
-        .catch(error => {
-            // טיפול בשגיאות אם ה-API לא עובד
-            console.error('שגיאה בהבאת זמני היום:', error);
-            document.getElementById('location').textContent = "שגיאה בטעינת הנתונים";
-        });
-}
 
 // פונקציה להבאת והצגת פרשת השבוע
 function fetchParasha() {
-    const parashaUrl = 'https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=off&mod=off&nx=off&gy=2024&gm=6&gd=17&gd=17';
+    const parashaUrl = 'https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&c=on';
 
     fetch(parashaUrl)
         .then(response => response.json())
         .then(data => {
-            console.log("קיבלנו אירועים:", data);
+            // הדבר הכי חשוב למפתח: לראות את המידע הגולמי שהתקבל
+            console.log("תשובה גולמית עבור פרשה:", data);
+
+            // לוגיקה משופרת: נסנן את כל הפריטים שהם פרשה, וניקח את הראשון
+            const parashaItems = data.items.filter(item => item.category === 'parashat');
             
-            // נמצא את הפריט הראשון שהוא פרשת השבוע
-            const parashaItem = data.items.find(item => item.category === 'parashat');
-            
-            if (parashaItem) {
-                document.getElementById('parasha_title').textContent = parashaItem.title;
+            if (parashaItems.length > 0) {
+                document.getElementById('parasha_title').textContent = parashaItems[0].title;
             } else {
-                document.getElementById('parasha_title').textContent = "פרשת השבוע לא נמצאה";
+                document.getElementById('parasha_title').textContent = "לא נמצאה פרשה לחודש זה";
             }
         })
         .catch(error => {
             console.error('שגיאה בהבאת פרשת השבוע:', error);
             document.getElementById('parasha_title').textContent = "שגיאה בטעינת הפרשה";
+        });
+}
+
+// פונקציה להבאת והצגת זמני היום
+function fetchZmanim() {
+    const geonameid = '295530'; // ID של באר שבע
+    const zmanimUrl = `https://www.hebcal.com/zmanim?cfg=json&geonameid=${geonameid}`;
+
+    fetch(zmanimUrl)
+        .then(response => response.json())
+        .then(data => {
+            // הדפסת המידע הגולמי לקונסול לצורך בדיקה
+            console.log("תשובה גולמית עבור זמנים:", data);
+
+            // עדכון המיקום
+            if (data.location && data.location.title) {
+                document.getElementById('location').textContent = data.location.title;
+            }
+
+            // עדכון הזמנים עם בדיקה שכל שדה קיים לפני השימוש בו
+            const times = data.times;
+            if (times) {
+                // פונקציה פנימית לעדכון בטוח של שעה
+                const updateTime = (elementId, timeValue) => {
+                    const element = document.getElementById(elementId);
+                    if (element && timeValue) {
+                        element.textContent = new Date(timeValue).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+                    }
+                };
+
+                updateTime('alot_hashachar', times.alot_hashachar);
+                updateTime('sunrise', times.sunrise);
+                updateTime('sof_zman_ksh', times.sof_zman_krishm_ma);
+                updateTime('chatzot', times.chatzot);
+                updateTime('sunset', times.sunset);
+                updateTime('tzeit_hakochavim', times.tzeit_hakochavim);
+            }
+        })
+        .catch(error => {
+            console.error('שגיאה בהבאת זמני היום:', error);
+            document.getElementById('location').textContent = "שגיאה בטעינת הזמנים";
         });
 }
 
