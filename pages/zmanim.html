@@ -31,7 +31,79 @@
     </ul>
 
     <script>
-        // כאן יבוא הקוד שלנו
+        // פונקציה זו רצה אוטומטית כשהדף נטען
+document.addEventListener('DOMContentLoaded', function() {
+    // קוראים לשתי הפונקציות כדי להביא את המידע
+    fetchZmanim();
+    fetchParasha();
+});
+
+// פונקציה להבאת והצגת זמני היום
+function fetchZmanim() {
+    // ה-ID של באר שבע. אפשר לשנות לכל עיר אחרת
+    const geonameid = '295530'; 
+    // כתובת ה-API לזמנים
+    const zmanimUrl = `https://www.hebcal.com/zmanim?cfg=json&geonameid=${geonameid}`;
+
+    fetch(zmanimUrl)
+        .then(response => {
+            // נוודא שהתשובה תקינה מהשרת
+            if (!response.ok) {
+                throw new Error('בעיית רשת בקבלת הזמנים');
+            }
+            return response.json(); // המר את התשובה לאובייקט JSON
+        })
+        .then(data => {
+            // עדכון המיקום בדף
+            document.getElementById('location').textContent = data.location.title;
+            
+            // עדכון הזמנים בדף
+            // הפונקציה toLocaleTimeString ממירה את התאריך המלא לשעה קריאה בעברית
+            document.getElementById('alot_hashachar').textContent = new Date(data.times.alot_hashachar).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('sunrise').textContent = new Date(data.times.sunrise).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('sof_zman_ksh').textContent = new Date(data.times.sof_zman_krishm_ma).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('chatzot').textContent = new Date(data.times.chatzot).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('sunset').textContent = new Date(data.times.sunset).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('tzeit_hakochavim').textContent = new Date(data.times.tzeit_hakochavim).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
+        })
+        .catch(error => {
+            // טיפול בשגיאות אם ה-API לא עובד או אם יש בעיית רשת
+            console.error('שגיאה בהבאת זמני היום:', error);
+            // נציג הודעת שגיאה למשתמש
+            document.getElementById('location').textContent = "נכשל בטעינת הזמנים";
+        });
+}
+
+// פונקציה להבאת והצגת פרשת השבוע
+function fetchParasha() {
+    // כתובת API נכונה שמביאה את האירועים לחודש הנוכחי (כולל פרשה)
+    // הוספתי c=on כדי לקבל גם זמני הדלקת נרות
+    const parashaUrl = 'https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=off&mod=off&nx=off&c=on';
+
+    fetch(parashaUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('בעיית רשת בקבלת הפרשה');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // נמצא את הפריט הראשון שהוא פרשת השבוע מתוך כל האירועים
+            const parashaItem = data.items.find(item => item.category === 'parashat');
+            
+            if (parashaItem) {
+                document.getElementById('parasha_title').textContent = parashaItem.title;
+            } else {
+                document.getElementById('parasha_title').textContent = "פרשת השבוע לא נמצאה כרגע";
+            }
+        })
+        .catch(error => {
+            console.error('שגיאה בהבאת פרשת השבוע:', error);
+            document.getElementById('parasha_title').textContent = "נכשל בטעינת הפרשה";
+        });
+}
+
+
     </script>
 
 </body>
