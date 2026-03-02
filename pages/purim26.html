@@ -4,644 +4,441 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>מוקדי קריאת מגילה – שכונת הפארק באר שבע</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --purple: #6B21A8;
-    --purple-light: #9333EA;
-    --gold: #F59E0B;
-    --gold-light: #FDE68A;
-    --blue-night: #1E1B4B;
-    --bg: #FFF7ED;
-    --card-bg: #ffffff;
-    --text: #1C1917;
-    --text-muted: #78716C;
-    --night-color: #312E81;
-    --day-color: #92400E;
-    --radius: 16px;
-    --shadow: 0 4px 24px rgba(107,33,168,0.10);
-  }
+:root {
+  --bg: #f8f4ff;
+  --purple: #7C3AED;
+  --purple-soft: #EDE9FE;
+  --pink: #EC4899;
+  --night: #4338CA;
+  --night-soft: #EEF2FF;
+  --day: #B45309;
+  --day-soft: #FFFBEB;
+  --text: #1E1B4B;
+  --muted: #6B7280;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --shadow: 0 4px 20px rgba(124,58,237,0.10);
+  --shadow-lg: 0 8px 40px rgba(124,58,237,0.18);
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Heebo', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+body {
+  font-family: 'Heebo', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-  /* Confetti background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(circle at 15% 20%, rgba(245,158,11,0.12) 0%, transparent 50%),
-      radial-gradient(circle at 85% 10%, rgba(147,51,234,0.10) 0%, transparent 50%),
-      radial-gradient(circle at 50% 90%, rgba(107,33,168,0.08) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-  }
+.bg-shapes { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.shape { position: absolute; border-radius: 50%; animation: float 8s ease-in-out infinite alternate; }
+.shape-1 { width: 320px; height: 320px; background: radial-gradient(circle, rgba(236,72,153,0.18), transparent 70%); top: -80px; right: -80px; }
+.shape-2 { width: 280px; height: 280px; background: radial-gradient(circle, rgba(124,58,237,0.15), transparent 70%); bottom: 10%; left: -60px; animation-delay: 2s; }
+.shape-3 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(251,191,36,0.18), transparent 70%); top: 40%; right: 5%; animation-delay: 4s; }
+.shape-4 { width: 160px; height: 160px; background: radial-gradient(circle, rgba(13,148,136,0.14), transparent 70%); top: 25%; left: 5%; animation-delay: 1s; }
+@keyframes float { from { transform: translateY(0); } to { transform: translateY(-20px); } }
 
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 16px 80px;
-    position: relative;
-    z-index: 1;
-  }
+.container { max-width: 680px; margin: 0 auto; padding: 0 16px 100px; position: relative; z-index: 1; }
 
-  /* HEADER */
-  header {
-    text-align: center;
-    padding: 28px 0 20px;
-  }
+/* POPUP */
+.popup-overlay {
+  position: fixed; inset: 0;
+  background: rgba(15,10,40,0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+}
+.popup-box {
+  background: white; border-radius: var(--radius);
+  padding: 32px 24px 24px; max-width: 400px; width: 100%;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+  animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popIn { from { transform: scale(0.85) translateY(20px); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.popup-top { background: linear-gradient(135deg, #DC2626, #EF4444); border-radius: var(--radius-sm); padding: 18px; text-align: center; margin-bottom: 18px; }
+.popup-icon { font-size: 2.8rem; display: block; margin-bottom: 8px; }
+.popup-top h2 { font-size: 1.15rem; font-weight: 900; color: white; }
+.safety-step { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: var(--radius-sm); margin-bottom: 10px; font-size: 0.93rem; line-height: 1.6; font-weight: 500; }
+.safety-step.red { background: #FEF2F2; color: #7F1D1D; border-right: 3px solid #DC2626; }
+.safety-step.green { background: #F0FDF4; color: #14532D; border-right: 3px solid #22C55E; }
+.step-icon { font-size: 1.3rem; flex-shrink: 0; }
+.popup-ok-btn { width: 100%; margin-top: 16px; background: linear-gradient(135deg, var(--purple), #9333EA); color: white; border: none; border-radius: var(--radius-sm); padding: 15px; font-size: 1rem; font-weight: 700; font-family: 'Heebo', sans-serif; cursor: pointer; }
+.popup-ok-btn:active { opacity: 0.9; }
 
-  .emoji-row {
-    font-size: 2rem;
-    letter-spacing: 6px;
-    margin-bottom: 10px;
-    animation: bounce 2s infinite alternate;
-  }
+/* HEADER */
+header { text-align: center; padding: 32px 0 22px; }
+.header-badge-top { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, var(--purple), var(--pink)); color: white; font-size: 0.8rem; font-weight: 700; padding: 5px 14px; border-radius: 50px; margin-bottom: 14px; box-shadow: 0 4px 14px rgba(124,58,237,0.3); }
+.emoji-strip { font-size: 2.2rem; letter-spacing: 4px; margin-bottom: 12px; display: block; animation: wiggle 3s ease-in-out infinite; }
+@keyframes wiggle { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+header h1 { font-size: 1.85rem; font-weight: 900; line-height: 1.25; margin-bottom: 6px; background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+header .city { font-size: 1rem; color: var(--muted); font-weight: 600; }
 
-  @keyframes bounce {
-    from { transform: translateY(0); }
-    to { transform: translateY(-6px); }
-  }
+/* SEARCH */
+.search-wrap { margin: 18px 0 14px; position: relative; }
+.search-input { width: 100%; padding: 15px 50px 15px 18px; border: 2px solid #E5E7EB; border-radius: var(--radius); font-size: 1rem; font-family: 'Heebo', sans-serif; background: white; outline: none; box-shadow: var(--shadow); transition: border-color 0.2s, box-shadow 0.2s; text-align: right; color: var(--text); }
+.search-input:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,58,237,0.12); }
+.search-input::placeholder { color: #9CA3AF; }
+.search-icon { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; pointer-events: none; }
 
-  header h1 {
-    font-size: 1.7rem;
-    font-weight: 900;
-    color: var(--purple);
-    line-height: 1.3;
-    margin-bottom: 6px;
-  }
+/* TABS */
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.tab-btn { padding: 14px 10px; border: 2.5px solid transparent; border-radius: var(--radius); font-family: 'Heebo', sans-serif; font-size: 0.98rem; font-weight: 700; cursor: pointer; transition: all 0.22s cubic-bezier(0.34,1.56,0.64,1); background: white; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: center; gap: 8px; }
+.tab-btn.night { color: var(--night); border-color: #C7D2FE; }
+.tab-btn.night.active { background: linear-gradient(135deg, var(--night), #6366F1); color: white; border-color: transparent; box-shadow: 0 6px 24px rgba(67,56,202,0.4); transform: translateY(-2px); }
+.tab-btn.day { color: var(--day); border-color: #FDE68A; }
+.tab-btn.day.active { background: linear-gradient(135deg, #D97706, #F59E0B); color: white; border-color: transparent; box-shadow: 0 6px 24px rgba(217,119,6,0.4); transform: translateY(-2px); }
+.tab-icon { font-size: 1.3rem; }
 
-  header .subtitle {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
+/* LOADING */
+.loading { text-align: center; padding: 50px 20px; color: var(--muted); }
+.spinner { width: 42px; height: 42px; border: 4px solid #E5E7EB; border-top-color: var(--purple); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-  header .chabad-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--purple), var(--purple-light));
-    color: white;
-    font-size: 0.82rem;
-    font-weight: 700;
-    padding: 4px 14px;
-    border-radius: 50px;
-    margin-top: 8px;
-  }
+/* ERROR */
+.error-box { background: #FEF2F2; border: 1.5px solid #FECACA; border-radius: var(--radius-sm); padding: 18px; text-align: center; color: #DC2626; font-weight: 600; font-size: 0.95rem; line-height: 1.8; }
+.retry-btn { margin-top: 12px; background: #DC2626; color: white; border: none; border-radius: 8px; padding: 10px 20px; font-family: 'Heebo', sans-serif; font-weight: 700; cursor: pointer; font-size: 0.9rem; }
 
-  /* SAFETY POPUP */
-  .popup-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    animation: fadeIn 0.3s;
-  }
+/* TIME GROUP */
+.time-group { margin-bottom: 24px; }
+.time-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 50px; font-weight: 900; font-size: 1rem; margin-bottom: 12px; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+.night-pill { background: linear-gradient(135deg, var(--night), #6366F1); color: white; }
+.day-pill { background: linear-gradient(135deg, #D97706, #F59E0B); color: white; }
 
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* CARD */
+.card { background: white; border-radius: var(--radius); padding: 18px; margin-bottom: 12px; box-shadow: var(--shadow); border: 1.5px solid #F3F4F6; transition: transform 0.18s, box-shadow 0.18s; animation: cardIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both; position: relative; overflow: hidden; }
+.card::before { content: ''; position: absolute; top: 0; right: 0; width: 5px; height: 100%; }
+.card.night-card::before { background: linear-gradient(180deg, var(--night), #6366F1); }
+.card.day-card::before { background: linear-gradient(180deg, #D97706, #F59E0B); }
+@keyframes cardIn { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
 
-  .popup-box {
-    background: white;
-    border-radius: var(--radius);
-    padding: 28px 24px;
-    max-width: 400px;
-    width: 100%;
-    border-top: 6px solid #DC2626;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    animation: slideUp 0.3s;
-  }
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 10px; }
+.card-address { font-size: 1.15rem; font-weight: 900; color: var(--text); line-height: 1.3; }
+.time-badge { flex-shrink: 0; font-size: 0.95rem; font-weight: 900; padding: 5px 13px; border-radius: 50px; }
+.night-badge { background: var(--night-soft); color: var(--night); }
+.day-badge { background: var(--day-soft); color: var(--day); }
 
-  @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.card-info { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+.info-row { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--muted); }
+.info-row strong { color: var(--text); font-weight: 700; }
 
-  .popup-box .popup-icon { font-size: 2.5rem; text-align: center; margin-bottom: 12px; }
-  .popup-box h2 { font-size: 1.2rem; font-weight: 900; color: #DC2626; text-align: center; margin-bottom: 16px; }
+.card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.action-btn { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 12px 10px; border-radius: var(--radius-sm); font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer; transition: transform 0.15s; }
+.action-btn:active { transform: scale(0.95); }
+.btn-nav { background: linear-gradient(135deg, #2563EB, #60A5FA); color: white; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+.btn-wa { background: linear-gradient(135deg, #16A34A, #4ADE80); color: white; box-shadow: 0 4px 12px rgba(22,163,74,0.3); }
+.btn-disabled { background: #F3F4F6; color: #9CA3AF; cursor: default; }
 
-  .safety-steps {
-    background: #FEF2F2;
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 20px;
-  }
+.no-results { text-align: center; padding: 50px 20px; font-size: 1rem; color: var(--muted); }
+.no-icon { font-size: 3rem; display: block; margin-bottom: 10px; }
+.count-badge { display: inline-block; background: var(--purple-soft, #EDE9FE); color: var(--purple); font-size: 0.78rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; margin-bottom: 16px; }
 
-  .safety-steps p {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: #7F1D1D;
-    font-weight: 500;
-  }
+.divider { height: 2px; background: linear-gradient(90deg, transparent, #E5E7EB 30%, #E5E7EB 70%, transparent); margin: 24px 0; border-radius: 50px; }
 
-  .safety-steps p + p { margin-top: 8px; }
+/* EXTRAS */
+.extras-section { display: flex; flex-direction: column; gap: 10px; }
+.full-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; border-radius: var(--radius); font-family: 'Heebo', sans-serif; font-size: 1rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer; width: 100%; transition: transform 0.15s; }
+.full-btn:active { transform: scale(0.98); }
+.btn-share { background: linear-gradient(135deg, #16A34A, #22C55E); color: white; box-shadow: 0 6px 20px rgba(22,163,74,0.3); }
+.btn-group-join { background: linear-gradient(135deg, #0D9488, #2DD4BF); color: white; box-shadow: 0 6px 20px rgba(13,148,136,0.3); }
+.donate-section { background: white; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); border: 1.5px solid #F3F4F6; }
+.donate-title { font-size: 1.05rem; font-weight: 900; color: var(--purple); text-align: center; margin-bottom: 14px; }
+.donate-buttons { display: flex; flex-direction: column; gap: 9px; }
+.btn-donate { color: white; font-size: 0.93rem; }
+.btn-d1 { background: linear-gradient(135deg, #7C3AED, #A855F7); box-shadow: 0 4px 14px rgba(124,58,237,0.3); }
+.btn-d2 { background: linear-gradient(135deg, #EC4899, #F472B6); box-shadow: 0 4px 14px rgba(236,72,153,0.3); }
+.btn-d3 { background: linear-gradient(135deg, #F97316, #FB923C); box-shadow: 0 4px 14px rgba(249,115,22,0.3); }
 
-  .popup-ok-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--purple), var(--purple-light));
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 14px;
-    font-size: 1rem;
-    font-weight: 700;
-    font-family: 'Heebo', sans-serif;
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-
-  .popup-ok-btn:active { transform: scale(0.97); }
-
-  /* SEARCH */
-  .search-wrap {
-    margin: 16px 0 12px;
-    position: relative;
-  }
-
-  .search-input {
-    width: 100%;
-    padding: 14px 18px 14px 44px;
-    border: 2px solid #E5E7EB;
-    border-radius: var(--radius);
-    font-size: 1rem;
-    font-family: 'Heebo', sans-serif;
-    background: white;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-    box-shadow: var(--shadow);
-    text-align: right;
-  }
-
-  .search-input:focus {
-    border-color: var(--purple-light);
-    box-shadow: 0 0 0 3px rgba(147,51,234,0.12);
-  }
-
-  .search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted);
-    font-size: 1.1rem;
-  }
-
-  /* TABS */
-  .tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-
-  .tab-btn {
-    flex: 1;
-    padding: 12px 10px;
-    border: 2px solid transparent;
-    border-radius: 12px;
-    font-family: 'Heebo', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: white;
-    box-shadow: var(--shadow);
-  }
-
-  .tab-btn.night {
-    color: var(--night-color);
-    border-color: #C7D2FE;
-  }
-
-  .tab-btn.night.active {
-    background: var(--night-color);
-    color: white;
-    border-color: var(--night-color);
-  }
-
-  .tab-btn.day {
-    color: var(--day-color);
-    border-color: #FDE68A;
-  }
-
-  .tab-btn.day.active {
-    background: var(--day-color);
-    color: white;
-    border-color: var(--day-color);
-  }
-
-  .tab-icon { font-size: 1.2rem; margin-left: 6px; }
-
-  /* SECTION LABEL */
-  .section-label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-  }
-
-  /* TIME GROUP */
-  .time-group { margin-bottom: 22px; }
-
-  .time-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-    padding: 8px 14px;
-    border-radius: 10px;
-    font-weight: 900;
-    font-size: 1.05rem;
-  }
-
-  .time-header.night-header {
-    background: linear-gradient(90deg, #312E81, #4338CA);
-    color: white;
-  }
-
-  .time-header.day-header {
-    background: linear-gradient(90deg, #92400E, #D97706);
-    color: white;
-  }
-
-  /* CARD */
-  .card {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: var(--shadow);
-    border: 1.5px solid #F3F4F6;
-    transition: transform 0.15s, box-shadow 0.15s;
-    animation: cardIn 0.3s both;
-  }
-
-  @keyframes cardIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  .card:active { transform: scale(0.99); }
-
-  .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 10px;
-  }
-
-  .card-address {
-    font-size: 1.1rem;
-    font-weight: 900;
-    color: var(--text);
-    line-height: 1.3;
-  }
-
-  .card-time {
-    background: var(--gold-light);
-    color: var(--day-color);
-    font-weight: 900;
-    font-size: 1rem;
-    padding: 4px 12px;
-    border-radius: 8px;
-    white-space: nowrap;
-  }
-
-  .card-time.night-time {
-    background: #E0E7FF;
-    color: var(--night-color);
-  }
-
-  .card-meta {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-    line-height: 1.6;
-  }
-
-  .card-meta span { display: block; }
-  .card-meta strong { color: var(--text); font-weight: 700; }
-
-  .card-actions {
-    display: flex;
-    gap: 8px;
-  }
-
-  .action-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 11px 8px;
-    border-radius: 10px;
-    font-family: 'Heebo', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 700;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.15s, filter 0.15s;
-  }
-
-  .action-btn:active { transform: scale(0.96); filter: brightness(0.9); }
-
-  .btn-nav {
-    background: linear-gradient(135deg, #2563EB, #3B82F6);
-    color: white;
-  }
-
-  .btn-wa {
-    background: linear-gradient(135deg, #15803D, #22C55E);
-    color: white;
-  }
-
-  /* NO RESULTS */
-  .no-results {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--text-muted);
-    font-size: 1rem;
-  }
-
-  /* SHARE & EXTRAS */
-  .extras-section {
-    margin-top: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .full-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 14px;
-    border-radius: var(--radius);
-    font-family: 'Heebo', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    transition: transform 0.15s, filter 0.15s;
-  }
-
-  .full-btn:active { transform: scale(0.98); filter: brightness(0.92); }
-
-  .btn-share {
-    background: linear-gradient(135deg, #15803D, #22C55E);
-    color: white;
-    box-shadow: 0 4px 14px rgba(21,128,61,0.3);
-  }
-
-  .btn-group-join {
-    background: linear-gradient(135deg, #15803D, #16A34A);
-    color: white;
-    box-shadow: 0 4px 14px rgba(21,128,61,0.2);
-  }
-
-  .donate-section {
-    background: white;
-    border-radius: var(--radius);
-    padding: 18px;
-    box-shadow: var(--shadow);
-    border: 1.5px solid #F3F4F6;
-  }
-
-  .donate-title {
-    font-size: 1rem;
-    font-weight: 900;
-    color: var(--purple);
-    margin-bottom: 12px;
-    text-align: center;
-  }
-
-  .donate-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .btn-donate {
-    background: linear-gradient(135deg, var(--purple), var(--purple-light));
-    color: white;
-    box-shadow: 0 4px 14px rgba(107,33,168,0.25);
-    font-size: 0.9rem;
-  }
-
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #E5E7EB, transparent);
-    margin: 16px 0;
-  }
-
-  footer {
-    text-align: center;
-    padding: 20px 0 10px;
-    color: var(--text-muted);
-    font-size: 0.8rem;
-  }
-
-  .purim-decoration {
-    font-size: 1.5rem;
-    margin-bottom: 6px;
-  }
+footer { text-align: center; padding: 28px 0 12px; color: var(--muted); font-size: 0.82rem; line-height: 1.8; }
+.footer-emoji { font-size: 1.8rem; display: block; margin-bottom: 6px; }
+.last-updated { text-align: center; font-size: 0.75rem; color: #9CA3AF; margin-top: 8px; }
 </style>
 </head>
 <body>
 
+<div class="bg-shapes">
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2"></div>
+  <div class="shape shape-3"></div>
+  <div class="shape shape-4"></div>
+</div>
+
 <!-- SAFETY POPUP -->
 <div class="popup-overlay" id="safetyPopup">
   <div class="popup-box">
-    <div class="popup-icon">🚨</div>
-    <h2>הנחיות בטיחות – חשוב לקרוא!</h2>
-    <div class="safety-steps">
-      <p>🔴 <strong>במקרה של אזעקה:</strong> יש להיכנס מיד למרחב מוגן (ממ"ד / מקלט).</p>
-      <p>✅ לאחר קבלת <strong>אישור יציאה</strong> באפליקציית פיקוד העורף – ניתן לחזור להמשך קריאת המגילה.</p>
+    <div class="popup-top">
+      <span class="popup-icon">🚨</span>
+      <h2>הנחיות בטיחות – חשוב לקרוא!</h2>
     </div>
-    <button class="popup-ok-btn" onclick="document.getElementById('safetyPopup').style.display='none'">
-      ✔ הבנתי – כניסה לאתר
-    </button>
+    <div class="safety-step red">
+      <span class="step-icon">🔴</span>
+      <span><strong>במקרה של אזעקה:</strong> יש להיכנס מיד למרחב מוגן (ממ"ד / מקלט).</span>
+    </div>
+    <div class="safety-step green">
+      <span class="step-icon">✅</span>
+      <span>לאחר קבלת <strong>אישור יציאה</strong> באפליקציית פיקוד העורף – ניתן לחזור להמשך קריאת המגילה.</span>
+    </div>
+    <button class="popup-ok-btn" onclick="document.getElementById('safetyPopup').style.display='none'">✔ הבנתי – כניסה לאתר</button>
   </div>
 </div>
 
 <div class="container">
 
   <header>
-    <div class="emoji-row">🎭🍷🎉</div>
-    <h1>מוקדי קריאת מגילה<br>שכונת הפארק, באר שבע</h1>
-    <div class="chabad-badge">🕍 יוזמת בית חב"ד שכונת הפארק</div>
+    <div class="header-badge-top">🕍 יוזמת בית חב"ד שכונת הפארק</div>
+    <span class="emoji-strip">🎭 🍷 🎉 🪬 🎊</span>
+    <h1>מוקדי קריאת מגילה</h1>
+    <div class="city">שכונת הפארק, באר שבע</div>
   </header>
 
-  <!-- SEARCH -->
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input
-      type="text"
-      id="searchInput"
-      class="search-input"
-      placeholder="חיפוש לפי שם רחוב..."
-      oninput="renderCards()"
-    >
+    <input type="text" id="searchInput" class="search-input"
+      placeholder="חיפוש לפי שם רחוב..." oninput="renderCards()">
   </div>
 
-  <!-- TABS -->
   <div class="tabs">
     <button class="tab-btn night active" onclick="switchTab('night')">
-      <span class="tab-icon">🌙</span> קריאת לילה – שני
+      <span class="tab-icon">🌙</span> לילה – שני
     </button>
     <button class="tab-btn day" onclick="switchTab('day')">
-      <span class="tab-icon">☀️</span> קריאת יום – שלישי
+      <span class="tab-icon">☀️</span> יום – שלישי
     </button>
   </div>
 
-  <!-- CARDS CONTAINER -->
-  <div id="cardsContainer"></div>
+  <div id="cardsContainer">
+    <div class="loading">
+      <div class="spinner"></div>
+      <div>טוען נתונים...</div>
+    </div>
+  </div>
 
+  <div id="lastUpdated" class="last-updated"></div>
   <div class="divider"></div>
 
-  <!-- EXTRAS -->
   <div class="extras-section">
-
-    <!-- Share -->
-    <button class="full-btn btn-share" onclick="shareWhatsApp()">
-      💬 שיתוף הדף בוואטסאפ
-    </button>
-
-    <!-- Join group -->
-    <a class="full-btn btn-group-join" href="https://chat.whatsapp.com/L0iEHd5FZLt73BCRHK4mCI" target="_blank">
-      📢 הצטרפות לקבוצת עדכונים
-    </a>
-
-    <!-- Donations -->
+    <button class="full-btn btn-share" onclick="shareWhatsApp()">💬 שיתוף הדף בוואטסאפ</button>
+    <a class="full-btn btn-group-join" href="https://chat.whatsapp.com/L0iEHd5FZLt73BCRHK4mCI" target="_blank">📢 הצטרפות לקבוצת עדכונים</a>
     <div class="donate-section">
       <div class="donate-title">💛 מצוות פורים – תרומות</div>
       <div class="donate-buttons">
-        <a class="full-btn btn-donate" href="https://pay.grow.link/ac8d37dc20792b91f0ec3c1f57f3ee9f-MzExMTM2NA" target="_blank">
-          🪙 מחצית השקל
-        </a>
-        <a class="full-btn btn-donate" href="https://app.icount.co.il/m/2efaa" target="_blank">
-          🍲 מתנות לאביונים – בית התמחוי
-        </a>
-        <a class="full-btn btn-donate" href="https://app.icount.co.il/m/104dc/c9316p142u69a54ec80?utm_source=iCount&utm_medium=paypage&utm_campaign=322" target="_blank">
-          ❤️ תרומה לבית חב"ד שכונת הפארק
-        </a>
+        <a class="full-btn btn-donate btn-d1" href="https://pay.grow.link/ac8d37dc20792b91f0ec3c1f57f3ee9f-MzExMTM2NA" target="_blank">🪙 מחצית השקל</a>
+        <a class="full-btn btn-donate btn-d2" href="https://app.icount.co.il/m/2efaa" target="_blank">🍲 מתנות לאביונים – בית התמחוי</a>
+        <a class="full-btn btn-donate btn-d3" href="https://app.icount.co.il/m/104dc/c9316p142u69a54ec80?utm_source=iCount&utm_medium=paypage&utm_campaign=322" target="_blank">❤️ תרומה לבית חב"ד שכונת הפארק</a>
       </div>
     </div>
-
   </div>
 
   <footer>
-    <div class="purim-decoration">🎭 פורים שמח! 🎭</div>
-    <div>שנה טובה ומבורכת לכל קהילת שכונת הפארק</div>
+    <span class="footer-emoji">🎭</span>
+    פורים שמח! שנה טובה ומבורכת<br>לכל קהילת שכונת הפארק 🎊
   </footer>
 
 </div>
 
 <script>
-const locations = [
-  // NIGHT (שני)
-  { day: 'night', time: '18:00', street: 'נחל שילה', num: '17/2',   contact: 'רויטל יעקב',        phone: '0547930040', reader: '' },
-  { day: 'night', time: '18:00', street: 'נחל קדרון', num: '44-46', contact: 'רחלי נועה שמילוב', phone: '0526144418', reader: '' },
-  { day: 'night', time: '18:00', street: 'נחל פרת',  num: '22',    contact: 'אוריאל',             phone: '0508181241', reader: '' },
-  { day: 'night', time: '18:00', street: 'נחל קדרון', num: '26',   contact: 'שחר פחימה',          phone: '0526267527', reader: '' },
-  { day: 'night', time: '19:00', street: 'נחל ערוגות', num: '11',  contact: 'אוריאל יוספי',       phone: '0507727005', reader: '' },
-  { day: 'night', time: '19:00', street: 'נחל משמר', num: '66',    contact: 'הילה טויזר',         phone: '0508505375', reader: '' },
-  { day: 'night', time: '19:00', street: 'נחל לבן',  num: '12',    contact: 'ירדן שושן',          phone: '0542571030', reader: '' },
-  { day: 'night', time: '19:00', street: 'נחל חבר',  num: '13',    contact: 'דניאלה',             phone: '0542291701', reader: '' },
-  // DAY (שלישי)
-  { day: 'day',   time: '10:00', street: 'נחל משמר', num: '62',    contact: 'עמית אבוחצירה',      phone: '0504799199', reader: '' },
-  { day: 'day',   time: '10:00', street: 'נחל דליות', num: '15',   contact: 'שירן אבוחצירה',      phone: '0504666071', reader: '' },
-  { day: 'day',   time: '10:00', street: 'נחל פרת',  num: '26',    contact: 'נועם לחיאני',        phone: '0524323541', reader: '' },
-  { day: 'day',   time: '11:00', street: 'נחל פרס',  num: '13-17', contact: 'יאנה ונגר',          phone: '0546250304', reader: '' },
-  { day: 'day',   time: '11:00', street: 'נחל קדרון', num: '35',   contact: 'דודו',               phone: '0524069993', reader: '' },
-  { day: 'day',   time: '11:00', street: 'נחל דליות', num: '22-24',contact: 'מיכל אלחדד',         phone: '0542061517', reader: '' },
-  { day: 'day',   time: '12:00', street: 'נחל פרת',  num: '10',    contact: 'הדר זגורי',          phone: '0507141450', reader: '' },
-  { day: 'day',   time: '12:00', street: 'נחל קדרון', num: '20',   contact: 'דניאלה תורגמן',      phone: '0585222374', reader: '' },
+// =====================================================
+// הגדרות – שנה רק את ה-URL אם הגיליון ישתנה
+// =====================================================
+const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWcuvJsF-YkDMdbNKJ2eH6_nHAKw-g7mejcbWZekKveh0-dgJvs4kEmlF7HiSXcxC328Vb8J0Z9PzD/pub?gid=0&single=true&output=csv';
+
+// proxy שמאפשר קריאת CSV מגוגל גם מ-GitHub Pages
+const PROXIES = [
+  'https://corsproxy.io/?',
+  'https://api.allorigins.win/raw?url=',
 ];
 
+let locations = [];
 let activeTab = 'night';
 
+// =====================================================
+// טעינת נתונים עם fallback בין כמה proxies
+// =====================================================
+async function loadData() {
+  let lastError = '';
+  for (const proxy of PROXIES) {
+    try {
+      const url = proxy + encodeURIComponent(SHEET_CSV);
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      if (!text || text.length < 10) throw new Error('תגובה ריקה');
+      locations = parseCSV(text);
+      if (locations.length === 0) throw new Error('לא נמצאו שורות נתונים');
+      // הצלחה!
+      const now = new Date();
+      document.getElementById('lastUpdated').textContent =
+        'עודכן: ' + now.toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit'});
+      renderCards();
+      return;
+    } catch (e) {
+      lastError = e.message;
+    }
+  }
+  // כל ה-proxies נכשלו
+  document.getElementById('cardsContainer').innerHTML =
+    '<div class="error-box">' +
+    '⚠️ לא ניתן לטעון את הנתונים.<br>' +
+    'בדוק שהגיליון פורסם כ-CSV ורענן.<br>' +
+    '<small>' + lastError + '</small><br>' +
+    '<button class="retry-btn" onclick="loadData()">🔄 נסה שוב</button>' +
+    '</div>';
+}
+
+// =====================================================
+// פרסור CSV – תומך בסדר עמודות הקובץ המקורי
+//
+// סדר עמודות צפוי (לפי ה-PDF):
+// A=יום | B=שעה | C=כתובת | D=איש קשר | E=טלפון | F=הערות | G=בעל קורא
+//
+// אבל גם תומך בפיצול רחוב+מספר:
+// A=יום | B=שעה | C=רחוב | D=מספר | E=איש קשר | F=טלפון | G=בעל קורא
+// =====================================================
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return [];
+
+  const header = splitCSVLine(lines[0]);
+
+  return lines.slice(1).map(line => {
+    const cols = splitCSVLine(line);
+    if (cols.length < 3) return null;
+
+    const c = cols.map(s => s.trim());
+
+    // זיהוי יום
+    const dayRaw = c[0] || '';
+    let day = 'night';
+    if (dayRaw === 'day' || dayRaw === 'שלישי' || dayRaw === 'יום') day = 'day';
+
+    const time = c[1] || '';
+    const col2 = c[2] || ''; // רחוב, או רחוב+מספר ביחד
+    const col3 = c[3] || '';
+    const col4 = c[4] || '';
+    const col5 = c[5] || '';
+    const col6 = c[6] || '';
+
+    let street, num, contact, phone, reader;
+
+    // האם עמודה D נראית כמו מספר בניין?
+    const col3looksLikeNum = /^[\d\-\/]+$/.test(col3) && col3.length <= 7 && col3.length > 0;
+
+    if (col3looksLikeNum) {
+      // מבנה: רחוב | מספר | איש קשר | טלפון | הערות | בעל קורא
+      street  = col2;
+      num     = col3;
+      contact = col4;
+      phone   = col5;
+      reader  = col6;
+    } else {
+      // מבנה: "רחוב מספר" ביחד | איש קשר | טלפון | הערות | בעל קורא
+      // נחלץ מספר מסוף הכתובת
+      const m = col2.match(/^(.+?)\s+([\d][0-9\-\/]*)$/);
+      if (m) {
+        street = m[1].trim();
+        num    = m[2].trim();
+      } else {
+        street = col2;
+        num    = '';
+      }
+      contact = col3;
+      phone   = col4;
+      reader  = col5;
+    }
+
+    // ניקוי טלפון
+    phone = (phone || '').replace(/[^\d\-+]/g, '').replace(/^-+|-+$/g, '');
+
+    return { day, time, street, num, contact, phone, reader };
+  }).filter(loc => loc && loc.street && loc.time);
+}
+
+function splitCSVLine(line) {
+  const result = [];
+  let cur = '', inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQ && line[i+1] === '"') { cur += '"'; i++; }
+      else inQ = !inQ;
+    } else if (ch === ',' && !inQ) {
+      result.push(cur); cur = '';
+    } else {
+      cur += ch;
+    }
+  }
+  result.push(cur);
+  return result;
+}
+
+// =====================================================
+// UI
+// =====================================================
 function switchTab(tab) {
   activeTab = tab;
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.tab-btn.${tab}`).classList.add('active');
+  document.querySelector('.tab-btn.' + tab).classList.add('active');
   renderCards();
 }
 
 function phoneToIntl(phone) {
-  const cleaned = phone.replace(/\D/g, '');
-  if (cleaned.startsWith('0')) return '972' + cleaned.slice(1);
-  return cleaned;
+  const c = (phone || '').replace(/\D/g, '');
+  return c.startsWith('0') ? '972' + c.slice(1) : c;
 }
 
 function mapsLink(street, num) {
-  const addr = encodeURIComponent(`${street} ${num}, באר שבע, ישראל`);
-  return `https://www.google.com/maps/search/?api=1&query=${addr}`;
+  const addr = [street, num, 'באר שבע', 'ישראל'].filter(Boolean).join(' ');
+  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(addr);
 }
 
 function renderCards() {
   const query = document.getElementById('searchInput').value.trim();
-  const filtered = locations.filter(loc => {
-    if (loc.day !== activeTab) return false;
-    if (query && !loc.street.includes(query)) return false;
-    return true;
-  });
-
-  // Group by time
-  const grouped = {};
-  filtered.forEach(loc => {
-    if (!grouped[loc.time]) grouped[loc.time] = [];
-    grouped[loc.time].push(loc);
-  });
-
+  const filtered = locations.filter(loc =>
+    loc.day === activeTab && (!query || loc.street.includes(query))
+  );
   const container = document.getElementById('cardsContainer');
+  const isNight = activeTab === 'night';
 
   if (filtered.length === 0) {
-    container.innerHTML = '<div class="no-results">😕 לא נמצאו מוקדים התואמים לחיפוש</div>';
+    container.innerHTML = '<div class="no-results"><span class="no-icon">😕</span>לא נמצאו מוקדים</div>';
     return;
   }
 
-  let html = '';
-  const isNight = activeTab === 'night';
+  const grouped = {};
+  filtered.forEach(loc => { (grouped[loc.time] = grouped[loc.time] || []).push(loc); });
+
+  let html = '<div class="count-badge">🏠 ' + filtered.length + ' מוקדים</div>';
 
   Object.entries(grouped).sort(([a],[b]) => a.localeCompare(b)).forEach(([time, locs]) => {
-    html += `
-      <div class="time-group">
-        <div class="time-header ${isNight ? 'night-header' : 'day-header'}">
-          ${isNight ? '🌙' : '☀️'} שעה ${time}
-        </div>
-    `;
+    html += '<div class="time-group">';
+    html += '<div class="time-pill ' + (isNight ? 'night-pill' : 'day-pill') + '">';
+    html += (isNight ? '🌙' : '☀️') + ' שעה ' + time + '</div>';
+
     locs.forEach((loc, i) => {
-      const timeClass = isNight ? 'night-time' : '';
-      html += `
-        <div class="card" style="animation-delay:${i * 0.05}s">
-          <div class="card-top">
-            <div class="card-address">${loc.street} ${loc.num}</div>
-            <div class="card-time ${timeClass}">${loc.time}</div>
-          </div>
-          <div class="card-meta">
-            <span>👤 <strong>מארח/ת:</strong> ${loc.contact}</span>
-            ${loc.reader ? `<span>📖 <strong>בעל קורא:</strong> ${loc.reader}</span>` : ''}
-          </div>
-          <div class="card-actions">
-            <a class="action-btn btn-nav" href="${mapsLink(loc.street, loc.num)}" target="_blank">
-              🗺️ ניווט
-            </a>
-            <a class="action-btn btn-wa" href="https://wa.me/${phoneToIntl(loc.phone)}" target="_blank">
-              💬 וואטסאפ
-            </a>
-          </div>
-        </div>
-      `;
+      const cardCls  = isNight ? 'night-card' : 'day-card';
+      const badgeCls = isNight ? 'night-badge' : 'day-badge';
+      const intlPhone = phoneToIntl(loc.phone);
+      const hasPhone = intlPhone.length >= 9;
+
+      html += '<div class="card ' + cardCls + '" style="animation-delay:' + (i*0.06) + 's">';
+      html += '<div class="card-header">';
+      html += '<div class="card-address">📍 ' + loc.street + (loc.num ? ' ' + loc.num : '') + '</div>';
+      html += '<div class="time-badge ' + badgeCls + '">' + loc.time + '</div>';
+      html += '</div>';
+      html += '<div class="card-info">';
+      html += '<div class="info-row">👤 <strong>מארח/ת:</strong>&nbsp;' + loc.contact + '</div>';
+      if (loc.reader) html += '<div class="info-row">📖 <strong>בעל קורא:</strong>&nbsp;' + loc.reader + '</div>';
+      html += '</div>';
+      html += '<div class="card-actions">';
+      html += '<a class="action-btn btn-nav" href="' + mapsLink(loc.street, loc.num) + '" target="_blank">🗺️ ניווט</a>';
+      html += hasPhone
+        ? '<a class="action-btn btn-wa" href="https://wa.me/' + intlPhone + '" target="_blank">💬 וואטסאפ</a>'
+        : '<div class="action-btn btn-disabled">אין טלפון</div>';
+      html += '</div></div>';
     });
     html += '</div>';
   });
@@ -651,12 +448,11 @@ function renderCards() {
 
 function shareWhatsApp() {
   const url = encodeURIComponent(window.location.href);
-  const text = encodeURIComponent('🎭 מוקדי קריאת מגילה – שכונת הפארק, באר שבע\nמצא את המוקד הקרוב אליך: ');
-  window.open(`https://wa.me/?text=${text}${url}`, '_blank');
+  const text = encodeURIComponent('🎭 מוקדי קריאת מגילה – שכונת הפארק, באר שבע\nמצא את המוקד הקרוב אליך:\n');
+  window.open('https://wa.me/?text=' + text + url, '_blank');
 }
 
-// Initial render
-renderCards();
+loadData();
 </script>
 </body>
 </html>
