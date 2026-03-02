@@ -1,458 +1,469 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>׳׳•׳§׳“׳™ ׳§׳¨׳™׳׳× ׳׳’׳™׳׳” ג€“ ׳©׳›׳•׳ ׳× ׳”׳₪׳׳¨׳§ ׳‘׳׳¨ ׳©׳‘׳¢</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #f8f4ff;
-  --purple: #7C3AED;
-  --purple-soft: #EDE9FE;
-  --pink: #EC4899;
-  --night: #4338CA;
-  --night-soft: #EEF2FF;
-  --day: #B45309;
-  --day-soft: #FFFBEB;
-  --text: #1E1B4B;
-  --muted: #6B7280;
-  --radius: 20px;
-  --radius-sm: 12px;
-  --shadow: 0 4px 20px rgba(124,58,237,0.10);
-  --shadow-lg: 0 8px 40px rgba(124,58,237,0.18);
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מוקדי קריאת מגילה – שכונת הפארק</title>
+    
+    <!-- Social Media Preview -->
+    <meta property="og:title" content="מוקדי קריאת מגילה – שכונת הפארק, באר שבע">
+    <meta property="og:description" content="מצאו בקלות את מוקד קריאת המגילה הקרוב אליכם בשכונת הפארק. פרויקט של בית חב''ד.">
+    <meta property="og:image" content="https://picsum.photos/seed/purim/1200/630">
+    <meta property="og:type" content="website">
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & Libraries -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-body {
-  font-family: 'Heebo', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purim: {
+                            purple: '#6D28D9',
+                            pink: '#DB2777',
+                            orange: '#F59E0B',
+                            gold: '#D97706',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Heebo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
-.bg-shapes { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-.shape { position: absolute; border-radius: 50%; animation: float 8s ease-in-out infinite alternate; }
-.shape-1 { width: 320px; height: 320px; background: radial-gradient(circle, rgba(236,72,153,0.18), transparent 70%); top: -80px; right: -80px; }
-.shape-2 { width: 280px; height: 280px; background: radial-gradient(circle, rgba(124,58,237,0.15), transparent 70%); bottom: 10%; left: -60px; animation-delay: 2s; }
-.shape-3 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(251,191,36,0.18), transparent 70%); top: 40%; right: 5%; animation-delay: 4s; }
-.shape-4 { width: 160px; height: 160px; background: radial-gradient(circle, rgba(13,148,136,0.14), transparent 70%); top: 25%; left: 5%; animation-delay: 1s; }
-@keyframes float { from { transform: translateY(0); } to { transform: translateY(-20px); } }
-
-.container { max-width: 680px; margin: 0 auto; padding: 0 16px 100px; position: relative; z-index: 1; }
-
-/* POPUP */
-.popup-overlay {
-  position: fixed; inset: 0;
-  background: rgba(15,10,40,0.65);
-  backdrop-filter: blur(4px);
-  z-index: 1000;
-  display: flex; align-items: center; justify-content: center;
-  padding: 16px;
-}
-.popup-box {
-  background: white; border-radius: var(--radius);
-  padding: 32px 24px 24px; max-width: 400px; width: 100%;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.35);
-  animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
-}
-@keyframes popIn { from { transform: scale(0.85) translateY(20px); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.popup-top { background: linear-gradient(135deg, #DC2626, #EF4444); border-radius: var(--radius-sm); padding: 18px; text-align: center; margin-bottom: 18px; }
-.popup-icon { font-size: 2.8rem; display: block; margin-bottom: 8px; }
-.popup-top h2 { font-size: 1.15rem; font-weight: 900; color: white; }
-.safety-step { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: var(--radius-sm); margin-bottom: 10px; font-size: 0.93rem; line-height: 1.6; font-weight: 500; }
-.safety-step.red { background: #FEF2F2; color: #7F1D1D; border-right: 3px solid #DC2626; }
-.safety-step.green { background: #F0FDF4; color: #14532D; border-right: 3px solid #22C55E; }
-.step-icon { font-size: 1.3rem; flex-shrink: 0; }
-.popup-ok-btn { width: 100%; margin-top: 16px; background: linear-gradient(135deg, var(--purple), #9333EA); color: white; border: none; border-radius: var(--radius-sm); padding: 15px; font-size: 1rem; font-weight: 700; font-family: 'Heebo', sans-serif; cursor: pointer; }
-.popup-ok-btn:active { opacity: 0.9; }
-
-/* HEADER */
-header { text-align: center; padding: 32px 0 22px; }
-.header-badge-top { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, var(--purple), var(--pink)); color: white; font-size: 0.8rem; font-weight: 700; padding: 5px 14px; border-radius: 50px; margin-bottom: 14px; box-shadow: 0 4px 14px rgba(124,58,237,0.3); }
-.emoji-strip { font-size: 2.2rem; letter-spacing: 4px; margin-bottom: 12px; display: block; animation: wiggle 3s ease-in-out infinite; }
-@keyframes wiggle { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
-header h1 { font-size: 1.85rem; font-weight: 900; line-height: 1.25; margin-bottom: 6px; background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-header .city { font-size: 1rem; color: var(--muted); font-weight: 600; }
-
-/* SEARCH */
-.search-wrap { margin: 18px 0 14px; position: relative; }
-.search-input { width: 100%; padding: 15px 50px 15px 18px; border: 2px solid #E5E7EB; border-radius: var(--radius); font-size: 1rem; font-family: 'Heebo', sans-serif; background: white; outline: none; box-shadow: var(--shadow); transition: border-color 0.2s, box-shadow 0.2s; text-align: right; color: var(--text); }
-.search-input:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,58,237,0.12); }
-.search-input::placeholder { color: #9CA3AF; }
-.search-icon { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; pointer-events: none; }
-
-/* TABS */
-.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-.tab-btn { padding: 14px 10px; border: 2.5px solid transparent; border-radius: var(--radius); font-family: 'Heebo', sans-serif; font-size: 0.98rem; font-weight: 700; cursor: pointer; transition: all 0.22s cubic-bezier(0.34,1.56,0.64,1); background: white; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: center; gap: 8px; }
-.tab-btn.night { color: var(--night); border-color: #C7D2FE; }
-.tab-btn.night.active { background: linear-gradient(135deg, var(--night), #6366F1); color: white; border-color: transparent; box-shadow: 0 6px 24px rgba(67,56,202,0.4); transform: translateY(-2px); }
-.tab-btn.day { color: var(--day); border-color: #FDE68A; }
-.tab-btn.day.active { background: linear-gradient(135deg, #D97706, #F59E0B); color: white; border-color: transparent; box-shadow: 0 6px 24px rgba(217,119,6,0.4); transform: translateY(-2px); }
-.tab-icon { font-size: 1.3rem; }
-
-/* LOADING */
-.loading { text-align: center; padding: 50px 20px; color: var(--muted); }
-.spinner { width: 42px; height: 42px; border: 4px solid #E5E7EB; border-top-color: var(--purple); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ERROR */
-.error-box { background: #FEF2F2; border: 1.5px solid #FECACA; border-radius: var(--radius-sm); padding: 18px; text-align: center; color: #DC2626; font-weight: 600; font-size: 0.95rem; line-height: 1.8; }
-.retry-btn { margin-top: 12px; background: #DC2626; color: white; border: none; border-radius: 8px; padding: 10px 20px; font-family: 'Heebo', sans-serif; font-weight: 700; cursor: pointer; font-size: 0.9rem; }
-
-/* TIME GROUP */
-.time-group { margin-bottom: 24px; }
-.time-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 50px; font-weight: 900; font-size: 1rem; margin-bottom: 12px; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
-.night-pill { background: linear-gradient(135deg, var(--night), #6366F1); color: white; }
-.day-pill { background: linear-gradient(135deg, #D97706, #F59E0B); color: white; }
-
-/* CARD */
-.card { background: white; border-radius: var(--radius); padding: 18px; margin-bottom: 12px; box-shadow: var(--shadow); border: 1.5px solid #F3F4F6; transition: transform 0.18s, box-shadow 0.18s; animation: cardIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both; position: relative; overflow: hidden; }
-.card::before { content: ''; position: absolute; top: 0; right: 0; width: 5px; height: 100%; }
-.card.night-card::before { background: linear-gradient(180deg, var(--night), #6366F1); }
-.card.day-card::before { background: linear-gradient(180deg, #D97706, #F59E0B); }
-@keyframes cardIn { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-
-.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 10px; }
-.card-address { font-size: 1.15rem; font-weight: 900; color: var(--text); line-height: 1.3; }
-.time-badge { flex-shrink: 0; font-size: 0.95rem; font-weight: 900; padding: 5px 13px; border-radius: 50px; }
-.night-badge { background: var(--night-soft); color: var(--night); }
-.day-badge { background: var(--day-soft); color: var(--day); }
-
-.card-info { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
-.info-row { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--muted); }
-.info-row strong { color: var(--text); font-weight: 700; }
-
-.card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.action-btn { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 12px 10px; border-radius: var(--radius-sm); font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer; transition: transform 0.15s; }
-.action-btn:active { transform: scale(0.95); }
-.btn-nav { background: linear-gradient(135deg, #2563EB, #60A5FA); color: white; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
-.btn-wa { background: linear-gradient(135deg, #16A34A, #4ADE80); color: white; box-shadow: 0 4px 12px rgba(22,163,74,0.3); }
-.btn-disabled { background: #F3F4F6; color: #9CA3AF; cursor: default; }
-
-.no-results { text-align: center; padding: 50px 20px; font-size: 1rem; color: var(--muted); }
-.no-icon { font-size: 3rem; display: block; margin-bottom: 10px; }
-.count-badge { display: inline-block; background: var(--purple-soft, #EDE9FE); color: var(--purple); font-size: 0.78rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; margin-bottom: 16px; }
-
-.divider { height: 2px; background: linear-gradient(90deg, transparent, #E5E7EB 30%, #E5E7EB 70%, transparent); margin: 24px 0; border-radius: 50px; }
-
-/* EXTRAS */
-.extras-section { display: flex; flex-direction: column; gap: 10px; }
-.full-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; border-radius: var(--radius); font-family: 'Heebo', sans-serif; font-size: 1rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer; width: 100%; transition: transform 0.15s; }
-.full-btn:active { transform: scale(0.98); }
-.btn-share { background: linear-gradient(135deg, #16A34A, #22C55E); color: white; box-shadow: 0 6px 20px rgba(22,163,74,0.3); }
-.btn-group-join { background: linear-gradient(135deg, #0D9488, #2DD4BF); color: white; box-shadow: 0 6px 20px rgba(13,148,136,0.3); }
-.donate-section { background: white; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); border: 1.5px solid #F3F4F6; }
-.donate-title { font-size: 1.05rem; font-weight: 900; color: var(--purple); text-align: center; margin-bottom: 14px; }
-.donate-buttons { display: flex; flex-direction: column; gap: 9px; }
-.btn-donate { color: white; font-size: 0.93rem; }
-.btn-d1 { background: linear-gradient(135deg, #7C3AED, #A855F7); box-shadow: 0 4px 14px rgba(124,58,237,0.3); }
-.btn-d2 { background: linear-gradient(135deg, #EC4899, #F472B6); box-shadow: 0 4px 14px rgba(236,72,153,0.3); }
-.btn-d3 { background: linear-gradient(135deg, #F97316, #FB923C); box-shadow: 0 4px 14px rgba(249,115,22,0.3); }
-
-footer { text-align: center; padding: 28px 0 12px; color: var(--muted); font-size: 0.82rem; line-height: 1.8; }
-.footer-emoji { font-size: 1.8rem; display: block; margin-bottom: 6px; }
-.last-updated { text-align: center; font-size: 0.75rem; color: #9CA3AF; margin-top: 8px; }
-</style>
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Heebo', sans-serif;
+        }
+        .purim-gradient {
+            background: linear-gradient(135deg, #6D28D9 0%, #DB2777 50%, #F59E0B 100%);
+        }
+        .purim-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #f1f5f9;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .purim-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
 <body>
+    <div id="root"></div>
 
-<div class="bg-shapes">
-  <div class="shape shape-1"></div>
-  <div class="shape shape-2"></div>
-  <div class="shape shape-3"></div>
-  <div class="shape shape-4"></div>
-</div>
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
+        const { motion, AnimatePresence } = FramerMotion;
 
-<!-- SAFETY POPUP -->
-<div class="popup-overlay" id="safetyPopup">
-  <div class="popup-box">
-    <div class="popup-top">
-      <span class="popup-icon">נ¨</span>
-      <h2>׳”׳ ׳—׳™׳•׳× ׳‘׳˜׳™׳—׳•׳× ג€“ ׳—׳©׳•׳‘ ׳׳§׳¨׳•׳!</h2>
-    </div>
-    <div class="safety-step red">
-      <span class="step-icon">נ”´</span>
-      <span><strong>׳‘׳׳§׳¨׳” ׳©׳ ׳׳–׳¢׳§׳”:</strong> ׳™׳© ׳׳”׳™׳›׳ ׳¡ ׳׳™׳“ ׳׳׳¨׳—׳‘ ׳׳•׳’׳ (׳׳"׳“ / ׳׳§׳׳˜).</span>
-    </div>
-    <div class="safety-step green">
-      <span class="step-icon">ג…</span>
-      <span>׳׳׳—׳¨ ׳§׳‘׳׳× <strong>׳׳™׳©׳•׳¨ ׳™׳¦׳™׳׳”</strong> ׳‘׳׳₪׳׳™׳§׳¦׳™׳™׳× ׳₪׳™׳§׳•׳“ ׳”׳¢׳•׳¨׳£ ג€“ ׳ ׳™׳×׳ ׳׳—׳–׳•׳¨ ׳׳”׳׳©׳ ׳§׳¨׳™׳׳× ׳”׳׳’׳™׳׳”.</span>
-    </div>
-    <button class="popup-ok-btn" onclick="document.getElementById('safetyPopup').style.display='none'">ג” ׳”׳‘׳ ׳×׳™ ג€“ ׳›׳ ׳™׳¡׳” ׳׳׳×׳¨</button>
-  </div>
-</div>
+        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWcuvJsF-YkDMdbNKJ2eH6_nHAKw-g7mejcbWZekKveh0-dgJvs4kEmlF7HiSXcxC328Vb8J0Z9PzD/pub?gid=0&single=true&output=csv";
 
-<div class="container">
+        // Simple Icon Component using Lucide
+        const Icon = ({ name, size = 20, className = "" }) => {
+            useEffect(() => {
+                lucide.createIcons();
+            }, [name]);
+            return <i data-lucide={name} style={{ width: size, height: size }} className={className}></i>;
+        };
 
-  <header>
-    <div class="header-badge-top">נ• ׳™׳•׳–׳׳× ׳‘׳™׳× ׳—׳‘"׳“ ׳©׳›׳•׳ ׳× ׳”׳₪׳׳¨׳§</div>
-    <span class="emoji-strip">נ­ נ· נ‰ נ×¬ נ</span>
-    <h1>׳׳•׳§׳“׳™ ׳§׳¨׳™׳׳× ׳׳’׳™׳׳”</h1>
-    <div class="city">׳©׳›׳•׳ ׳× ׳”׳₪׳׳¨׳§, ׳‘׳׳¨ ׳©׳‘׳¢</div>
-  </header>
+        function App() {
+            const [locations, setLocations] = useState([]);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+            const [searchTerm, setSearchTerm] = useState('');
+            const [activeTab, setActiveTab] = useState('שני');
+            const [selectedHour, setSelectedHour] = useState(null);
+            const [showSafetyModal, setShowSafetyModal] = useState(false);
 
-  <div class="search-wrap">
-    <span class="search-icon">נ”</span>
-    <input type="text" id="searchInput" class="search-input"
-      placeholder="׳—׳™׳₪׳•׳© ׳׳₪׳™ ׳©׳ ׳¨׳—׳•׳‘..." oninput="renderCards()">
-  </div>
+            useEffect(() => {
+                setSelectedHour(null);
+            }, [activeTab]);
 
-  <div class="tabs">
-    <button class="tab-btn night active" onclick="switchTab('night')">
-      <span class="tab-icon">נ™</span> ׳׳™׳׳” ג€“ ׳©׳ ׳™
-    </button>
-    <button class="tab-btn day" onclick="switchTab('day')">
-      <span class="tab-icon">ג˜€ן¸</span> ׳™׳•׳ ג€“ ׳©׳׳™׳©׳™
-    </button>
-  </div>
+            useEffect(() => {
+                const fetchData = async () => {
+                    try {
+                        setLoading(true);
+                        const response = await fetch(CSV_URL);
+                        const csvText = await response.text();
+                        
+                        Papa.parse(csvText, {
+                            header: true,
+                            skipEmptyLines: true,
+                            complete: (results) => {
+                                const parsedData = results.data
+                                    .filter(row => row['יום'] && row['שעה'] && row['כתובת'])
+                                    .map((row, index) => ({
+                                        id: index,
+                                        day: row['יום'],
+                                        time: row['שעה'],
+                                        address: row['כתובת'],
+                                        host: row['איש קשר'] || 'לא צוין',
+                                        phone: row['טלפון'] || '',
+                                        reader: row['בעל קורא'] || '',
+                                        notes: row['הערות'] || ''
+                                    }));
+                                setLocations(parsedData);
+                                setLoading(false);
+                            },
+                            error: (err) => {
+                                console.error('Parsing error:', err);
+                                setError('שגיאה בטעינת הנתונים');
+                                setLoading(false);
+                            }
+                        });
+                    } catch (err) {
+                        console.error('Fetch error:', err);
+                        setError('שגיאה בתקשורת עם השרת');
+                        setLoading(false);
+                    }
+                };
 
-  <div id="cardsContainer">
-    <div class="loading">
-      <div class="spinner"></div>
-      <div>׳˜׳•׳¢׳ ׳ ׳×׳•׳ ׳™׳...</div>
-    </div>
-  </div>
+                fetchData();
 
-  <div id="lastUpdated" class="last-updated"></div>
-  <div class="divider"></div>
+                const timer = setTimeout(() => {
+                    setShowSafetyModal(true);
+                }, 500);
+                return () => clearTimeout(timer);
+            }, []);
 
-  <div class="extras-section">
-    <button class="full-btn btn-share" onclick="shareWhatsApp()">נ’¬ ׳©׳™׳×׳•׳£ ׳”׳“׳£ ׳‘׳•׳•׳׳˜׳¡׳׳₪</button>
-    <a class="full-btn btn-group-join" href="https://chat.whatsapp.com/L0iEHd5FZLt73BCRHK4mCI" target="_blank">נ“¢ ׳”׳¦׳˜׳¨׳₪׳•׳× ׳׳§׳‘׳•׳¦׳× ׳¢׳“׳›׳•׳ ׳™׳</a>
-    <div class="donate-section">
-      <div class="donate-title">נ’› ׳׳¦׳•׳•׳× ׳₪׳•׳¨׳™׳ ג€“ ׳×׳¨׳•׳׳•׳×</div>
-      <div class="donate-buttons">
-        <a class="full-btn btn-donate btn-d1" href="https://pay.grow.link/ac8d37dc20792b91f0ec3c1f57f3ee9f-MzExMTM2NA" target="_blank">נ×™ ׳׳—׳¦׳™׳× ׳”׳©׳§׳</a>
-        <a class="full-btn btn-donate btn-d2" href="https://app.icount.co.il/m/2efaa" target="_blank">נ² ׳׳×׳ ׳•׳× ׳׳׳‘׳™׳•׳ ׳™׳ ג€“ ׳‘׳™׳× ׳”׳×׳׳—׳•׳™</a>
-        <a class="full-btn btn-donate btn-d3" href="https://app.icount.co.il/m/104dc/c9316p142u69a54ec80?utm_source=iCount&utm_medium=paypage&utm_campaign=322" target="_blank">ג₪ן¸ ׳×׳¨׳•׳׳” ׳׳‘׳™׳× ׳—׳‘"׳“ ׳©׳›׳•׳ ׳× ׳”׳₪׳׳¨׳§</a>
-      </div>
-    </div>
-  </div>
+            const availableHours = useMemo(() => {
+                const hours = locations
+                    .filter(loc => loc.day === activeTab)
+                    .map(loc => loc.time);
+                return Array.from(new Set(hours)).sort();
+            }, [locations, activeTab]);
 
-  <footer>
-    <span class="footer-emoji">נ­</span>
-    ׳₪׳•׳¨׳™׳ ׳©׳׳—! ׳©׳ ׳” ׳˜׳•׳‘׳” ׳•׳׳‘׳•׳¨׳›׳×<br>׳׳›׳ ׳§׳”׳™׳׳× ׳©׳›׳•׳ ׳× ׳”׳₪׳׳¨׳§ נ
-  </footer>
+            const filteredLocations = useMemo(() => {
+                return locations.filter(loc => 
+                    loc.day === activeTab && 
+                    (selectedHour ? loc.time === selectedHour : true) &&
+                    (loc.address.includes(searchTerm) || loc.host.includes(searchTerm))
+                );
+            }, [locations, searchTerm, activeTab, selectedHour]);
 
-</div>
+            const handleShare = () => {
+                const text = `מצאו מוקד קריאת מגילה בשכונת הפארק! 🎭📜\n${window.location.href}`;
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'מוקדי קריאת מגילה - שכונת הפארק',
+                        text: text,
+                        url: window.location.href,
+                    });
+                } else {
+                    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+                }
+            };
 
-<script>
-// =====================================================
-// ׳”׳’׳“׳¨׳•׳× ג€“ ׳©׳ ׳” ׳¨׳§ ׳׳× ׳”-URL ׳׳ ׳”׳’׳™׳׳™׳•׳ ׳™׳©׳×׳ ׳”
-// =====================================================
-const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWcuvJsF-YkDMdbNKJ2eH6_nHAKw-g7mejcbWZekKveh0-dgJvs4kEmlF7HiSXcxC328Vb8J0Z9PzD/pub?gid=0&single=true&output=csv';
+            return (
+                <div className="min-h-screen pb-24">
+                    {/* Header */}
+                    <header className="purim-gradient text-white pt-8 pb-12 px-4 text-center relative overflow-hidden">
+                        <motion.div 
+                            initial={{ y: -20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            className="relative z-10"
+                        >
+                            <div className="flex justify-center gap-3 mb-4 text-4xl">
+                                <span>🎉</span><span>🍷</span><span>🎭</span>
+                            </div>
+                            <h1 className="text-3xl md:text-4xl font-black mb-2 drop-shadow-md">מוקדי קריאת מגילה</h1>
+                            <p className="text-lg md:text-xl font-medium opacity-90">שכונת הפארק, באר שבע</p>
+                            <div className="mt-4 inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-bold border border-white/30">
+                                <span>פרויקט של בית חב"ד שכונת הפארק</span>
+                            </div>
+                        </motion.div>
+                    </header>
 
-// proxy ׳©׳׳׳₪׳©׳¨ ׳§׳¨׳™׳׳× CSV ׳׳’׳•׳’׳ ׳’׳ ׳-GitHub Pages
-const PROXIES = [
-  'https://corsproxy.io/?',
-  'https://api.allorigins.win/raw?url=',
-];
+                    {/* Main Content */}
+                    <main className="max-w-3xl mx-auto px-4 -mt-6 relative z-20">
+                        {/* Search Bar */}
+                        <div className="bg-white rounded-2xl shadow-xl p-2 flex items-center gap-3 border border-slate-100 mb-6">
+                            <div className="pr-3 text-slate-400">
+                                <Icon name="search" />
+                            </div>
+                            <input 
+                                type="text" 
+                                placeholder="חיפוש לפי שם רחוב..." 
+                                className="w-full py-3 outline-none text-lg font-medium"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            {searchTerm && (
+                                <button onClick={() => setSearchTerm('')} className="pl-3 text-slate-400 hover:text-slate-600">
+                                    <Icon name="x" />
+                                </button>
+                            )}
+                        </div>
 
-let locations = [];
-let activeTab = 'night';
+                        {/* Tabs */}
+                        <div className="flex gap-2 mb-8 p-1 bg-slate-200/50 rounded-xl">
+                            <button 
+                                onClick={() => setActiveTab('שני')}
+                                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-bold transition-all ${
+                                    activeTab === 'שני' ? 'bg-purim-purple text-white shadow-lg' : 'text-slate-600 hover:bg-slate-200'
+                                }`}
+                            >
+                                <Icon name="moon" size={18} />
+                                <span>קריאת לילה (שני)</span>
+                            </button>
+                            <button 
+                                onClick={() => setActiveTab('שלישי')}
+                                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-bold transition-all ${
+                                    activeTab === 'שלישי' ? 'bg-purim-orange text-white shadow-lg' : 'text-slate-600 hover:bg-slate-200'
+                                }`}
+                            >
+                                <Icon name="sun" size={18} />
+                                <span>קריאת יום (שלישי)</span>
+                            </button>
+                        </div>
 
-// =====================================================
-// ׳˜׳¢׳™׳ ׳× ׳ ׳×׳•׳ ׳™׳ ׳¢׳ fallback ׳‘׳™׳ ׳›׳׳” proxies
-// =====================================================
-async function loadData() {
-  let lastError = '';
-  for (const proxy of PROXIES) {
-    try {
-      const url = proxy + encodeURIComponent(SHEET_CSV);
-      const res = await fetch(url, { cache: 'no-store' });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const text = await res.text();
-      if (!text || text.length < 10) throw new Error('׳×׳’׳•׳‘׳” ׳¨׳™׳§׳”');
-      locations = parseCSV(text);
-      if (locations.length === 0) throw new Error('׳׳ ׳ ׳׳¦׳׳• ׳©׳•׳¨׳•׳× ׳ ׳×׳•׳ ׳™׳');
-      // ׳”׳¦׳׳—׳”!
-      const now = new Date();
-      document.getElementById('lastUpdated').textContent =
-        '׳¢׳•׳“׳›׳: ' + now.toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit'});
-      renderCards();
-      return;
-    } catch (e) {
-      lastError = e.message;
-    }
-  }
-  // ׳›׳ ׳”-proxies ׳ ׳›׳©׳׳•
-  document.getElementById('cardsContainer').innerHTML =
-    '<div class="error-box">' +
-    'ג ן¸ ׳׳ ׳ ׳™׳×׳ ׳׳˜׳¢׳•׳ ׳׳× ׳”׳ ׳×׳•׳ ׳™׳.<br>' +
-    '׳‘׳“׳•׳§ ׳©׳”׳’׳™׳׳™׳•׳ ׳₪׳•׳¨׳¡׳ ׳›-CSV ׳•׳¨׳¢׳ ׳.<br>' +
-    '<small>' + lastError + '</small><br>' +
-    '<button class="retry-btn" onclick="loadData()">נ”„ ׳ ׳¡׳” ׳©׳•׳‘</button>' +
-    '</div>';
-}
+                        {/* Hour Filter */}
+                        {!loading && !error && availableHours.length > 0 && (
+                            <div className="mb-6">
+                                <div className="flex items-center gap-2 mb-3 text-slate-500 font-bold px-1">
+                                    <span>סינון לפי שעה:</span>
+                                </div>
+                                <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+                                    <button
+                                        onClick={() => setSelectedHour(null)}
+                                        className={`px-4 py-2 rounded-full font-bold whitespace-nowrap transition-all border-2 ${
+                                            selectedHour === null ? 'bg-purim-purple border-purim-purple text-white shadow-md' : 'bg-white border-slate-200 text-slate-600'
+                                        }`}
+                                    >
+                                        הכל
+                                    </button>
+                                    {availableHours.map(hour => (
+                                        <button
+                                            key={hour}
+                                            onClick={() => setSelectedHour(hour)}
+                                            className={`px-4 py-2 rounded-full font-bold whitespace-nowrap transition-all border-2 ${
+                                                selectedHour === hour ? 'bg-purim-purple border-purim-purple text-white shadow-md' : 'bg-white border-slate-200 text-slate-600'
+                                            }`}
+                                        >
+                                            {hour}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
-// =====================================================
-// ׳₪׳¨׳¡׳•׳¨ CSV ג€“ ׳×׳•׳׳ ׳‘׳¡׳“׳¨ ׳¢׳׳•׳“׳•׳× ׳”׳§׳•׳‘׳¥ ׳”׳׳§׳•׳¨׳™
-//
-// ׳¡׳“׳¨ ׳¢׳׳•׳“׳•׳× ׳¦׳₪׳•׳™ (׳׳₪׳™ ׳”-PDF):
-// A=׳™׳•׳ | B=׳©׳¢׳” | C=׳›׳×׳•׳‘׳× | D=׳׳™׳© ׳§׳©׳¨ | E=׳˜׳׳₪׳•׳ | F=׳”׳¢׳¨׳•׳× | G=׳‘׳¢׳ ׳§׳•׳¨׳
-//
-// ׳׳‘׳ ׳’׳ ׳×׳•׳׳ ׳‘׳₪׳™׳¦׳•׳ ׳¨׳—׳•׳‘+׳׳¡׳₪׳¨:
-// A=׳™׳•׳ | B=׳©׳¢׳” | C=׳¨׳—׳•׳‘ | D=׳׳¡׳₪׳¨ | E=׳׳™׳© ׳§׳©׳¨ | F=׳˜׳׳₪׳•׳ | G=׳‘׳¢׳ ׳§׳•׳¨׳
-// =====================================================
-function parseCSV(text) {
-  const lines = text.trim().split(/\r?\n/);
-  if (lines.length < 2) return [];
+                        {/* Locations Grid */}
+                        <div className="space-y-4">
+                            {loading ? (
+                                <div className="flex flex-col items-center justify-center py-20 text-slate-400">
+                                    <Icon name="loader-2" size={40} className="animate-spin mb-4" />
+                                    <p className="text-lg font-medium">טוען נתונים...</p>
+                                </div>
+                            ) : error ? (
+                                <div className="bg-red-50 text-red-600 p-6 rounded-2xl text-center border border-red-100">
+                                    <Icon name="alert-triangle" size={40} className="mx-auto mb-4" />
+                                    <p className="text-lg font-bold">{error}</p>
+                                </div>
+                            ) : (
+                                <AnimatePresence mode="popLayout">
+                                    {filteredLocations.length > 0 ? (
+                                        filteredLocations.map((loc) => (
+                                            <motion.div 
+                                                key={loc.id}
+                                                layout
+                                                initial={{ opacity: 0, scale: 0.95 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.95 }}
+                                                className="purim-card p-5"
+                                            >
+                                                <div className="flex justify-between items-start mb-4">
+                                                    <div>
+                                                        <h3 className="text-xl font-black text-slate-800 leading-tight">{loc.address}</h3>
+                                                        <div className="flex flex-col gap-1 mt-2">
+                                                            <div className="flex items-center gap-1.5 text-slate-500 font-medium">
+                                                                <Icon name="info" size={14} />
+                                                                <span>מארח/ת: {loc.host}</span>
+                                                            </div>
+                                                            {loc.reader && (
+                                                                <div className="flex items-center gap-1.5 text-slate-500 font-medium">
+                                                                    <Icon name="info" size={14} />
+                                                                    <span>בעל קורא: {loc.reader}</span>
+                                                                </div>
+                                                            )}
+                                                            {loc.notes && (
+                                                                <div className="flex items-center gap-1.5 text-purim-pink font-bold text-sm mt-1">
+                                                                    <Icon name="alert-triangle" size={14} />
+                                                                    <span>{loc.notes}</span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <div className="bg-slate-100 text-purim-purple px-3 py-1 rounded-lg font-black text-lg whitespace-nowrap">
+                                                        {loc.time}
+                                                    </div>
+                                                </div>
 
-  const header = splitCSVLine(lines[0]);
+                                                <div className="grid grid-cols-2 gap-3">
+                                                    <a 
+                                                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${loc.address}, באר שבע`)}`}
+                                                        target="_blank"
+                                                        className="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-xl font-bold transition-colors"
+                                                    >
+                                                        <Icon name="navigation" size={18} />
+                                                        <span>ניווט</span>
+                                                    </a>
+                                                    <a 
+                                                        href={`https://wa.me/972${loc.phone.replace(/[-\s]/g, '').replace(/^0/, '')}`}
+                                                        target="_blank"
+                                                        className={`flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-colors ${
+                                                            loc.phone ? 'bg-emerald-500 hover:bg-emerald-600 text-white' : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                                                        }`}
+                                                    >
+                                                        <Icon name="message-circle" size={18} />
+                                                        <span>וואטסאפ</span>
+                                                    </a>
+                                                </div>
+                                            </motion.div>
+                                        ))
+                                    ) : (
+                                        <div className="text-center py-12 text-slate-400">
+                                            <p className="text-lg">לא נמצאו מוקדים התואמים לחיפוש</p>
+                                        </div>
+                                    )}
+                                </AnimatePresence>
+                            )}
+                        </div>
 
-  return lines.slice(1).map(line => {
-    const cols = splitCSVLine(line);
-    if (cols.length < 3) return null;
+                        {/* Donation Section */}
+                        <section className="mt-12 space-y-6">
+                            <div className="text-center">
+                                <h2 className="text-3xl font-black text-slate-800 mb-4">מצוות החג</h2>
+                            </div>
+                            <div className="grid grid-cols-1 gap-4">
+                                <a href="https://pay.grow.link/ac8d37dc20792b91f0ec3c1f57f3ee9f-MzExMTM2NA" target="_blank" className="flex items-center justify-between p-5 bg-white border-2 border-purim-purple rounded-2xl hover:bg-purim-purple/5 transition-all group shadow-lg shadow-purim-purple/10">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-purim-purple text-white flex items-center justify-center shadow-md">
+                                            <Icon name="heart" size={24} />
+                                        </div>
+                                        <span className="text-xl font-black text-slate-800">מחצית השקל</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-purim-purple font-bold">
+                                        <span>לתרומה</span>
+                                        <Icon name="external-link" size={20} />
+                                    </div>
+                                </a>
+                                <a href="https://app.icount.co.il/m/2efaa" target="_blank" className="flex items-center justify-between p-5 bg-white border-2 border-purim-pink rounded-2xl hover:bg-purim-pink/5 transition-all group shadow-lg shadow-purim-pink/10">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-purim-pink text-white flex items-center justify-center shadow-md">
+                                            <Icon name="heart" size={24} />
+                                        </div>
+                                        <span className="text-xl font-black text-slate-800">מתנות לאביונים</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-purim-pink font-bold">
+                                        <span>לתרומה</span>
+                                        <Icon name="external-link" size={20} />
+                                    </div>
+                                </a>
+                                <a href="https://app.icount.co.il/m/104dc/c9316p142u69a54ec80?utm_source=iCount&utm_medium=paypage&utm_campaign=322" target="_blank" className="flex items-center justify-between p-5 bg-white border-2 border-purim-gold rounded-2xl hover:bg-purim-gold/5 transition-all group shadow-lg shadow-purim-gold/10">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-purim-gold text-white flex items-center justify-center shadow-md">
+                                            <Icon name="heart" size={24} />
+                                        </div>
+                                        <span className="text-xl font-black text-slate-800">תרומה כללית</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-purim-gold font-bold">
+                                        <span>לתרומה</span>
+                                        <Icon name="external-link" size={20} />
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="https://chat.whatsapp.com/L0iEHd5FZLt73BCRHK4mCI" target="_blank" className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-500 text-white rounded-2xl font-black text-xl shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 transition-all">
+                                <Icon name="message-circle" size={28} />
+                                <span>הצטרפות לקבוצת עדכונים</span>
+                            </a>
+                        </section>
 
-    const c = cols.map(s => s.trim());
+                        <footer className="mt-16 mb-12 text-center">
+                            <h3 className="text-2xl font-black text-purim-purple mb-2">פורים שמח מבית חב"ד שכונת הפארק</h3>
+                            <p className="text-slate-400 font-medium">באר שבע תשפ"ו</p>
+                        </footer>
+                    </main>
 
-    // ׳–׳™׳”׳•׳™ ׳™׳•׳
-    const dayRaw = c[0] || '';
-    let day = 'night';
-    if (dayRaw === 'day' || dayRaw === '׳©׳׳™׳©׳™' || dayRaw === '׳™׳•׳') day = 'day';
+                    {/* Floating Action Bar */}
+                    <div className="fixed bottom-6 left-0 w-full px-6 z-40">
+                        <div className="max-w-3xl mx-auto flex justify-center">
+                            <button onClick={handleShare} className="flex items-center gap-2 bg-purim-purple text-white px-8 py-4 rounded-full font-black text-lg shadow-2xl shadow-purim-purple/40 hover:scale-105 active:scale-95 transition-all">
+                                <Icon name="share-2" size={24} />
+                                <span>שתפו את המוקדים</span>
+                            </button>
+                        </div>
+                    </div>
 
-    const time = c[1] || '';
-    const col2 = c[2] || ''; // ׳¨׳—׳•׳‘, ׳׳• ׳¨׳—׳•׳‘+׳׳¡׳₪׳¨ ׳‘׳™׳—׳“
-    const col3 = c[3] || '';
-    const col4 = c[4] || '';
-    const col5 = c[5] || '';
-    const col6 = c[6] || '';
+                    {/* Safety Modal */}
+                    <AnimatePresence>
+                        {showSafetyModal && (
+                            <motion.div 
+                                key="safety-modal-portal"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                            >
+                                <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowSafetyModal(false)}></div>
+                                <motion.div 
+                                    key="safety-modal-content"
+                                    initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                                    exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                                    className="bg-white rounded-3xl max-w-md w-full relative z-10 shadow-2xl overflow-hidden border-t-8 border-red-500"
+                                >
+                                    <div className="p-8 flex flex-col items-center text-center">
+                                        <div className="text-6xl mb-4">🚨</div>
+                                        <h2 className="text-2xl font-black text-red-600 mb-6">הנחיות בטיחות – חשוב לקרוא!</h2>
+                                        <div className="bg-red-50/50 rounded-2xl p-6 w-full text-right space-y-4 mb-8">
+                                            <div className="flex items-start gap-3 text-lg font-bold text-slate-800">
+                                                <span className="text-2xl leading-none">🔴</span>
+                                                <p>במקרה של אזעקה: יש להיכנס מיד למרחב המוגן שלכם (ממ"ד / מקלט).</p>
+                                            </div>
+                                            <div className="flex items-start gap-3 text-lg font-bold text-slate-800">
+                                                <span className="text-2xl leading-none">✅</span>
+                                                <p>לאחר קבלת אישור יציאה באפליקציית פיקוד העורף – ניתן לחזור להמשך קריאת המגילה.</p>
+                                            </div>
+                                        </div>
+                                        <button onClick={() => setShowSafetyModal(false)} className="w-full py-4 bg-purim-purple text-white rounded-2xl font-black text-xl hover:bg-purim-purple/90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-purim-purple/20">
+                                            <span>הבנתי – כניסה לאתר</span>
+                                            <span className="text-2xl">✔</span>
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            );
+        }
 
-    let street, num, contact, phone, reader;
-
-    // ׳”׳׳ ׳¢׳׳•׳“׳” D ׳ ׳¨׳׳™׳× ׳›׳׳• ׳׳¡׳₪׳¨ ׳‘׳ ׳™׳™׳?
-    const col3looksLikeNum = /^[\d\-\/]+$/.test(col3) && col3.length <= 7 && col3.length > 0;
-
-    if (col3looksLikeNum) {
-      // ׳׳‘׳ ׳”: ׳¨׳—׳•׳‘ | ׳׳¡׳₪׳¨ | ׳׳™׳© ׳§׳©׳¨ | ׳˜׳׳₪׳•׳ | ׳”׳¢׳¨׳•׳× | ׳‘׳¢׳ ׳§׳•׳¨׳
-      street  = col2;
-      num     = col3;
-      contact = col4;
-      phone   = col5;
-      reader  = col6;
-    } else {
-      // ׳׳‘׳ ׳”: "׳¨׳—׳•׳‘ ׳׳¡׳₪׳¨" ׳‘׳™׳—׳“ | ׳׳™׳© ׳§׳©׳¨ | ׳˜׳׳₪׳•׳ | ׳”׳¢׳¨׳•׳× | ׳‘׳¢׳ ׳§׳•׳¨׳
-      // ׳ ׳—׳׳¥ ׳׳¡׳₪׳¨ ׳׳¡׳•׳£ ׳”׳›׳×׳•׳‘׳×
-      const m = col2.match(/^(.+?)\s+([\d][0-9\-\/]*)$/);
-      if (m) {
-        street = m[1].trim();
-        num    = m[2].trim();
-      } else {
-        street = col2;
-        num    = '';
-      }
-      contact = col3;
-      phone   = col4;
-      reader  = col5;
-    }
-
-    // ׳ ׳™׳§׳•׳™ ׳˜׳׳₪׳•׳
-    phone = (phone || '').replace(/[^\d\-+]/g, '').replace(/^-+|-+$/g, '');
-
-    return { day, time, street, num, contact, phone, reader };
-  }).filter(loc => loc && loc.street && loc.time);
-}
-
-function splitCSVLine(line) {
-  const result = [];
-  let cur = '', inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
-    if (ch === '"') {
-      if (inQ && line[i+1] === '"') { cur += '"'; i++; }
-      else inQ = !inQ;
-    } else if (ch === ',' && !inQ) {
-      result.push(cur); cur = '';
-    } else {
-      cur += ch;
-    }
-  }
-  result.push(cur);
-  return result;
-}
-
-// =====================================================
-// UI
-// =====================================================
-function switchTab(tab) {
-  activeTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('.tab-btn.' + tab).classList.add('active');
-  renderCards();
-}
-
-function phoneToIntl(phone) {
-  const c = (phone || '').replace(/\D/g, '');
-  return c.startsWith('0') ? '972' + c.slice(1) : c;
-}
-
-function mapsLink(street, num) {
-  const addr = [street, num, '׳‘׳׳¨ ׳©׳‘׳¢', '׳™׳©׳¨׳׳'].filter(Boolean).join(' ');
-  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(addr);
-}
-
-function renderCards() {
-  const query = document.getElementById('searchInput').value.trim();
-  const filtered = locations.filter(loc =>
-    loc.day === activeTab && (!query || loc.street.includes(query))
-  );
-  const container = document.getElementById('cardsContainer');
-  const isNight = activeTab === 'night';
-
-  if (filtered.length === 0) {
-    container.innerHTML = '<div class="no-results"><span class="no-icon">נ˜•</span>׳׳ ׳ ׳׳¦׳׳• ׳׳•׳§׳“׳™׳</div>';
-    return;
-  }
-
-  const grouped = {};
-  filtered.forEach(loc => { (grouped[loc.time] = grouped[loc.time] || []).push(loc); });
-
-  let html = '<div class="count-badge">נ  ' + filtered.length + ' ׳׳•׳§׳“׳™׳</div>';
-
-  Object.entries(grouped).sort(([a],[b]) => a.localeCompare(b)).forEach(([time, locs]) => {
-    html += '<div class="time-group">';
-    html += '<div class="time-pill ' + (isNight ? 'night-pill' : 'day-pill') + '">';
-    html += (isNight ? 'נ™' : 'ג˜€ן¸') + ' ׳©׳¢׳” ' + time + '</div>';
-
-    locs.forEach((loc, i) => {
-      const cardCls  = isNight ? 'night-card' : 'day-card';
-      const badgeCls = isNight ? 'night-badge' : 'day-badge';
-      const intlPhone = phoneToIntl(loc.phone);
-      const hasPhone = intlPhone.length >= 9;
-
-      html += '<div class="card ' + cardCls + '" style="animation-delay:' + (i*0.06) + 's">';
-      html += '<div class="card-header">';
-      html += '<div class="card-address">נ“ ' + loc.street + (loc.num ? ' ' + loc.num : '') + '</div>';
-      html += '<div class="time-badge ' + badgeCls + '">' + loc.time + '</div>';
-      html += '</div>';
-      html += '<div class="card-info">';
-      html += '<div class="info-row">נ‘₪ <strong>׳׳׳¨׳—/׳×:</strong>&nbsp;' + loc.contact + '</div>';
-      if (loc.reader) html += '<div class="info-row">נ“– <strong>׳‘׳¢׳ ׳§׳•׳¨׳:</strong>&nbsp;' + loc.reader + '</div>';
-      html += '</div>';
-      html += '<div class="card-actions">';
-      html += '<a class="action-btn btn-nav" href="' + mapsLink(loc.street, loc.num) + '" target="_blank">נ—÷ן¸ ׳ ׳™׳•׳•׳˜</a>';
-      html += hasPhone
-        ? '<a class="action-btn btn-wa" href="https://wa.me/' + intlPhone + '" target="_blank">נ’¬ ׳•׳•׳׳˜׳¡׳׳₪</a>'
-        : '<div class="action-btn btn-disabled">׳׳™׳ ׳˜׳׳₪׳•׳</div>';
-      html += '</div></div>';
-    });
-    html += '</div>';
-  });
-
-  container.innerHTML = html;
-}
-
-function shareWhatsApp() {
-  const url = encodeURIComponent(window.location.href);
-  const text = encodeURIComponent('נ­ ׳׳•׳§׳“׳™ ׳§׳¨׳™׳׳× ׳׳’׳™׳׳” ג€“ ׳©׳›׳•׳ ׳× ׳”׳₪׳׳¨׳§, ׳‘׳׳¨ ׳©׳‘׳¢\n׳׳¦׳ ׳׳× ׳”׳׳•׳§׳“ ׳”׳§׳¨׳•׳‘ ׳׳׳™׳:\n');
-  window.open('https://wa.me/?text=' + text + url, '_blank');
-}
-
-loadData();
-</script>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
