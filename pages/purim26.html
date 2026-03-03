@@ -21,7 +21,6 @@
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
     <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -49,6 +48,8 @@
         body {
             background-color: #f8fafc;
             font-family: 'Heebo', sans-serif;
+            margin: 0;
+            padding: 0;
         }
         .purim-gradient {
             background: linear-gradient(135deg, #6D28D9 0%, #DB2777 50%, #F59E0B 100%);
@@ -59,10 +60,10 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             border: 1px solid #f1f5f9;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .purim-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        .purim-card:active {
+            transform: scale(0.98);
         }
         .no-scrollbar::-webkit-scrollbar {
             display: none;
@@ -71,27 +72,40 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+        /* Simple Fade In Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-overlay {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            animation: fadeInOverlay 0.3s ease-out;
+        }
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
     <div id="root">
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; text-align: center; padding: 20px;">
-            <div style="font-size: 48px; margin-bottom: 20px;">🎭</div>
-            <h2 style="color: #6D28D9;">טוען את מוקדי המגילה...</h2>
-            <p style="color: #64748b;">אם המסך נשאר לבן לאורך זמן, וודא שיש חיבור לאינטרנט.</p>
+            <div style="font-size: 60px; margin-bottom: 20px;">🎭</div>
+            <h2 style="color: #6D28D9; font-size: 24px; font-weight: 900;">טוען את מוקדי המגילה...</h2>
+            <p style="color: #64748b; margin-top: 10px;">אנא המתן רגע</p>
         </div>
     </div>
 
     <script type="text/babel">
-        // Safe access to globals
         const { useState, useEffect, useMemo } = React;
-        // Framer Motion global is often 'Motion' or 'framerMotion' depending on CDN
-        const motion = window.Motion ? window.Motion.motion : (window.framerMotion ? window.framerMotion.motion : null);
-        const AnimatePresence = window.Motion ? window.Motion.AnimatePresence : (window.framerMotion ? window.framerMotion.AnimatePresence : null);
 
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWcuvJsF-YkDMdbNKJ2eH6_nHAKw-g7mejcbWZekKveh0-dgJvs4kEmlF7HiSXcxC328Vb8J0Z9PzD/pub?gid=0&single=true&output=csv";
 
-        // Simple Icon Component using Lucide
+        // Simple Icon Component
         const Icon = ({ name, size = 20, className = "" }) => {
             useEffect(() => {
                 if (window.lucide) {
@@ -117,8 +131,8 @@
             useEffect(() => {
                 const fetchData = async () => {
                     try {
-                        setLoading(true);
                         const response = await fetch(CSV_URL);
+                        if (!response.ok) throw new Error('Network response was not ok');
                         const csvText = await response.text();
                         
                         if (window.Papa) {
@@ -142,15 +156,15 @@
                                     setLoading(false);
                                 },
                                 error: (err) => {
-                                    console.error('Parsing error:', err);
-                                    setError('שגיאה בטעינת הנתונים');
+                                    setError('שגיאה בעיבוד הנתונים');
                                     setLoading(false);
                                 }
                             });
+                        } else {
+                            throw new Error('PapaParse not loaded');
                         }
                     } catch (err) {
-                        console.error('Fetch error:', err);
-                        setError('שגיאה בתקשורת עם השרת');
+                        setError('שגיאה בטעינת הנתונים: ' + err.message);
                         setLoading(false);
                     }
                 };
@@ -159,7 +173,7 @@
 
                 const timer = setTimeout(() => {
                     setShowSafetyModal(true);
-                }, 800);
+                }, 1000);
                 return () => clearTimeout(timer);
             }, []);
 
@@ -191,11 +205,21 @@
                 }
             };
 
-            // Fallback for motion if not loaded
-            const MotionDiv = motion || 'div';
+            if (error) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center p-6 text-center">
+                        <div className="bg-white p-8 rounded-3xl shadow-2xl border border-red-100 max-w-md">
+                            <div className="text-5xl mb-4">⚠️</div>
+                            <h2 className="text-2xl font-black text-red-600 mb-4">אופס, משהו השתבש</h2>
+                            <p className="text-slate-600 mb-6">{error}</p>
+                            <button onClick={() => window.location.reload()} className="w-full py-3 bg-purim-purple text-white rounded-xl font-bold">נסה שוב</button>
+                        </div>
+                    </div>
+                );
+            }
 
             return (
-                <div className="min-h-screen pb-24">
+                <div className="min-h-screen pb-24 fade-in">
                     {/* Header */}
                     <header className="purim-gradient text-white pt-8 pb-12 px-4 text-center relative overflow-hidden">
                         <div className="relative z-10">
@@ -225,7 +249,7 @@
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
                             {searchTerm && (
-                                <button onClick={() => setSearchTerm('')} className="pl-3 text-slate-400 hover:text-slate-600">
+                                <button onClick={() => setSearchTerm('')} className="pl-3 text-slate-400">
                                     <Icon name="x" />
                                 </button>
                             )}
@@ -236,7 +260,7 @@
                             <button 
                                 onClick={() => setActiveTab('שני')}
                                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-bold transition-all ${
-                                    activeTab === 'שני' ? 'bg-purim-purple text-white shadow-lg' : 'text-slate-600 hover:bg-slate-200'
+                                    activeTab === 'שני' ? 'bg-purim-purple text-white shadow-lg' : 'text-slate-600'
                                 }`}
                             >
                                 <Icon name="moon" size={18} />
@@ -245,7 +269,7 @@
                             <button 
                                 onClick={() => setActiveTab('שלישי')}
                                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-bold transition-all ${
-                                    activeTab === 'שלישי' ? 'bg-purim-orange text-white shadow-lg' : 'text-slate-600 hover:bg-slate-200'
+                                    activeTab === 'שלישי' ? 'bg-purim-orange text-white shadow-lg' : 'text-slate-600'
                                 }`}
                             >
                                 <Icon name="sun" size={18} />
@@ -254,7 +278,7 @@
                         </div>
 
                         {/* Hour Filter */}
-                        {!loading && !error && availableHours.length > 0 && (
+                        {!loading && availableHours.length > 0 && (
                             <div className="mb-6">
                                 <div className="flex items-center gap-2 mb-3 text-slate-500 font-bold px-1">
                                     <span>סינון לפי שעה:</span>
@@ -290,16 +314,11 @@
                                     <Icon name="loader-2" size={40} className="animate-spin mb-4" />
                                     <p className="text-lg font-medium">טוען נתונים...</p>
                                 </div>
-                            ) : error ? (
-                                <div className="bg-red-50 text-red-600 p-6 rounded-2xl text-center border border-red-100">
-                                    <Icon name="alert-triangle" size={40} className="mx-auto mb-4" />
-                                    <p className="text-lg font-bold">{error}</p>
-                                </div>
                             ) : (
                                 <div className="space-y-4">
                                     {filteredLocations.length > 0 ? (
                                         filteredLocations.map((loc) => (
-                                            <div key={loc.id} className="purim-card p-5">
+                                            <div key={loc.id} className="purim-card p-5 fade-in">
                                                 <div className="flex justify-between items-start mb-4">
                                                     <div>
                                                         <h3 className="text-xl font-black text-slate-800 leading-tight">{loc.address}</h3>
@@ -424,53 +443,45 @@
                     </div>
 
                     {/* Safety Modal */}
-                    {AnimatePresence && (
-                        <AnimatePresence>
-                            {showSafetyModal && (
-                                <MotionDiv 
-                                    key="safety-modal-portal"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    className="fixed inset-0 z-50 flex items-center justify-center p-4"
-                                >
-                                    <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowSafetyModal(false)}></div>
-                                    <MotionDiv 
-                                        key="safety-modal-content"
-                                        initial={{ scale: 0.9, opacity: 0, y: 20 }}
-                                        animate={{ scale: 1, opacity: 1, y: 0 }}
-                                        exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                                        className="bg-white rounded-3xl max-w-md w-full relative z-10 shadow-2xl overflow-hidden border-t-8 border-red-500"
-                                    >
-                                        <div className="p-8 flex flex-col items-center text-center">
-                                            <div className="text-6xl mb-4">🚨</div>
-                                            <h2 className="text-2xl font-black text-red-600 mb-6">הנחיות בטיחות – חשוב לקרוא!</h2>
-                                            <div className="bg-red-50/50 rounded-2xl p-6 w-full text-right space-y-4 mb-8">
-                                                <div className="flex items-start gap-3 text-lg font-bold text-slate-800">
-                                                    <span className="text-2xl leading-none">🔴</span>
-                                                    <p>במקרה של אזעקה: יש להיכנס מיד למרחב מוגן (ממ"ד / מקלט).</p>
-                                                </div>
-                                                <div className="flex items-start gap-3 text-lg font-bold text-slate-800">
-                                                    <span className="text-2xl leading-none">✅</span>
-                                                    <p>לאחר קבלת אישור יציאה באפליקציית פיקוד העורף – ניתן לחזור להמשך קריאת המגילה.</p>
-                                                </div>
-                                            </div>
-                                            <button onClick={() => setShowSafetyModal(false)} className="w-full py-4 bg-purim-purple text-white rounded-2xl font-black text-xl hover:bg-purim-purple/90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-purim-purple/20">
-                                                <span>הבנתי – כניסה לאתר</span>
-                                                <span className="text-2xl">✔</span>
-                                            </button>
-                                        </div>
-                                    </MotionDiv>
-                                </MotionDiv>
-                            )}
-                        </AnimatePresence>
+                    {showSafetyModal && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay">
+                            <div className="bg-white rounded-3xl max-w-md w-full relative z-10 shadow-2xl overflow-hidden border-t-8 border-red-500 p-8 flex flex-col items-center text-center">
+                                <div className="text-6xl mb-4">🚨</div>
+                                <h2 className="text-2xl font-black text-red-600 mb-6">הנחיות בטיחות – חשוב לקרוא!</h2>
+                                <div className="bg-red-50/50 rounded-2xl p-6 w-full text-right space-y-4 mb-8">
+                                    <div className="flex items-start gap-3 text-lg font-bold text-slate-800">
+                                        <span className="text-2xl leading-none">🔴</span>
+                                        <p>במקרה של אזעקה: יש להיכנס מיד למרחב מוגן (ממ"ד / מקלט).</p>
+                                    </div>
+                                    <div className="flex items-start gap-3 text-lg font-bold text-slate-800">
+                                        <span className="text-2xl leading-none">✅</span>
+                                        <p>לאחר קבלת אישור יציאה באפליקציית פיקוד העורף – ניתן לחזור להמשך קריאת המגילה.</p>
+                                    </div>
+                                </div>
+                                <button onClick={() => setShowSafetyModal(false)} className="w-full py-4 bg-purim-purple text-white rounded-2xl font-black text-xl hover:bg-purim-purple/90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-purim-purple/20">
+                                    <span>הבנתי – כניסה לאתר</span>
+                                    <span className="text-2xl">✔</span>
+                                </button>
+                            </div>
+                        </div>
                     )}
                 </div>
             );
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        // Error handling for the whole app
+        try {
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(<App />);
+        } catch (e) {
+            document.getElementById('root').innerHTML = `
+                <div style="padding: 40px; text-align: center; font-family: sans-serif;">
+                    <h2 style="color: red;">שגיאה קריטית בטעינה</h2>
+                    <p>${e.message}</p>
+                    <button onclick="window.location.reload()" style="padding: 10px 20px; margin-top: 20px;">נסה שוב</button>
+                </div>
+            `;
+        }
     </script>
 </body>
 </html>
