@@ -1,422 +1,330 @@
-import React, { useState, useMemo } from 'react';
-import { 
-  CheckCircle, Circle, Clock, User, 
-  ShoppingCart, MapPin, DollarSign, LayoutDashboard, 
-  Filter, CheckSquare, Square, Info, Calendar, ChevronDown
-} from 'lucide-react';
-
-// --- נתונים מהקבצים ---
+import { useState, useMemo } from "react";
 
 const initialTasks = [
-  { id: 1, title: "להכין מודעה כללית להפנינג, קריאות וסעודה", status: "done", assignee: "שירה", category: "פרסום" },
-  { id: 2, title: "להפיץ בהכרזות, בקבוצות ובסטטוס", status: "done", assignee: "שירה", category: "פרסום" },
-  { id: 3, title: "הזמנת ציוד מהמל\"ש", status: "done", assignee: "שירה", category: "קניות" },
-  { id: 4, title: "חומרי יצירה מהסטוק / דן דיל", status: "done", assignee: "שירה", category: "קניות" },
-  { id: 5, title: "הפתעות בשקל לילדים", status: "done", assignee: "שירה", category: "קניות" },
-  { id: 6, title: "לגייס קוראים לכל קריאות המגילה", status: "todo", assignee: "מענדי", category: "כוח אדם" },
-  { id: 7, title: "לגייס מתנדבות ללילה וליום", status: "in-progress", assignee: "שירה", category: "כוח אדם" },
-  { id: 8, title: "להכין שלט שהכיבוד לצמים", status: "todo", assignee: "שירה", category: "הדפסות" },
-  { id: 9, title: "להכין את האוהל- לתלות שילוט מבחוץ", status: "todo", assignee: "מענדי", category: "לוגיסטיקה" },
-  { id: 10, title: "לתלות שרשראות דגלים בבית חב\"ד ובחוץ", status: "todo", assignee: "מענדי", category: "לוגיסטיקה" },
-  { id: 11, title: "לעצב ולשלוח לדפוס רולאפ עם ברקוד", status: "in-progress", assignee: "שירה", category: "הדפסות" },
-  { id: 12, title: "לארוז ערכות שי למצטרפים לקהילה", status: "todo", assignee: "נערות", category: "התארגנות" },
-  { id: 13, title: "קניית מיצים, סוכריות, חטיפים, כוסות, וויסקי", status: "todo", assignee: "מענדי", category: "קניות" },
-  { id: 14, title: "לארגן את המקום: כיסאות, שולחנות, חוברות טושים", status: "todo", assignee: "נערות", category: "לוגיסטיקה" },
-  { id: 15, title: "להכין כסף קטן עודף למתנות לאביונים", status: "todo", assignee: "משותף", category: "כספים" },
-  { id: 16, title: "להכין משלוחי מנות שווים למתנדבות", status: "todo", assignee: "שירה", category: "התארגנות" },
-  { id: 17, title: "להדפיס שלט 'נא להחזיר למקום'", status: "done", assignee: "שירה", category: "הדפסות" },
-  { id: 18, title: "לעצב כרטיסיות 4 מצוות פורים ולהדפיס", status: "done", assignee: "שירה", category: "הדפסות" }
+  // ליל פורים
+  { id: 1, category: "ליל פורים", title: "2 קריאות מגילה - אחת בצאת הצום 18:10 (עם פעילות לילדים באוהל)", assignee: null, done: false, priority: "high" },
+  { id: 2, category: "ליל פורים", title: "קריאה שנייה בשעה 20:00", assignee: null, done: false, priority: "high" },
+  { id: 3, category: "ליל פורים", title: "דוכן תפילין", assignee: null, done: false, priority: "medium" },
+  { id: 4, category: "ליל פורים", title: "לסגור הזמנה מאילנית לכל המתנדבות", assignee: "שירה", done: false, priority: "medium" },
+  { id: 5, category: "ליל פורים", title: "עמדת מחצית השקל ומתנות לאביונים", assignee: null, done: false, priority: "medium" },
+  { id: 6, category: "ליל פורים", title: "רולאפ עם ברקוד להצטרפות לבית חב\"ד", assignee: "שירה", done: true, priority: "medium" },
+  { id: 7, category: "ליל פורים", title: "להוציא מאפים ושתייה לצאת הצום עם שלט לצמים", assignee: null, done: false, priority: "low" },
+  { id: 8, category: "ליל פורים", title: "לחלק שי לחברי הקהילה (שקית צלופן + חוברת + רעשן + אזני המן)", assignee: null, done: false, priority: "medium" },
+  { id: 9, category: "ליל פורים", title: "קופסה זהובה למתנדבות", assignee: null, done: false, priority: "low" },
+
+  // יום פורים - הפנינג
+  { id: 10, category: "הפנינג", title: "קריאות בבניינים - להכין ערכות (מגילות צביעה, רעשנים, אזני המן, שקיות הפתעה)", assignee: null, done: false, priority: "high" },
+  { id: 11, category: "הפנינג", title: "לתת לקוראים קופות צדקה גדולות של מתנות לאביונים ומחצית השקל", assignee: null, done: false, priority: "medium" },
+  { id: 12, category: "הפנינג", title: "פליירים של בית חב\"ד עם ברקוד להצטרפות", assignee: null, done: false, priority: "medium" },
+  { id: 13, category: "הפנינג", title: "להחזיר כיפות ומגילות", assignee: null, done: false, priority: "low" },
+  { id: 14, category: "הפנינג", title: "להכין שלט שהכיבוד לצמים", assignee: "שירה", done: true, priority: "low" },
+  { id: 15, category: "הפנינג", title: "לגייס מתנדבות ללילה וליום", assignee: "שירה", done: false, priority: "high" },
+  { id: 16, category: "הפנינג", title: "מענדי - לגייס קוראים לכל קריאות המגילה", assignee: null, done: true, priority: "high" },
+  { id: 17, category: "הפנינג", title: "הזמנת ציוד מהמל\"ש", assignee: "שירה", done: true, priority: "medium" },
+  { id: 18, category: "הפנינג", title: "להפיץ בהכרזות, בקבוצות ובסטטוס", assignee: "שירה", done: true, priority: "medium" },
+  { id: 19, category: "הפנינג", title: "להכין מודעה כללית (להפנינג, לקריאות המגילה, לסעודה)", assignee: "שירה", done: false, priority: "high" },
+  { id: 20, category: "הפנינג", title: "ציורי פנים ואיפורים - לוודא עם אליענה שמגיעה שעה לפני", assignee: null, done: false, priority: "medium" },
+  { id: 21, category: "הפנינג", title: "קליעת צמות - לוודא עם שירן שבאה מספיק זמן מראש", assignee: null, done: false, priority: "medium" },
+  { id: 22, category: "הפנינג", title: "משחקי רצפה וסדנת ג'אגלינג ברחבת הכניסה", assignee: null, done: false, priority: "low" },
+  { id: 23, category: "הפנינג", title: "פופקורן, שערות סבתא, לחמניה ונקניקיה - לדאוג לפחים!", assignee: null, done: false, priority: "medium" },
+  { id: 24, category: "הפנינג", title: "אילן זיקרי - פלייליסט מוזיקה ברחבת הכניסה", assignee: null, done: false, priority: "low" },
+  { id: 25, category: "הפנינג", title: "מכירת פרסים תפילת הילדים - ארנקים עם לוגו", assignee: null, done: false, priority: "low" },
+
+  // סעודת פורים
+  { id: 26, category: "סעודת פורים", title: "להכין בשר / לבשל נקניקיות", assignee: null, done: false, priority: "high" },
+  { id: 27, category: "סעודת פורים", title: "לנקות ולערוך שולחן", assignee: null, done: false, priority: "high" },
+  { id: 28, category: "סעודת פורים", title: "לסדר ממ\"ד", assignee: null, done: false, priority: "medium" },
+  { id: 29, category: "סעודת פורים", title: "לקנות קטשופ", assignee: null, done: false, priority: "low" },
+  { id: 30, category: "סעודת פורים", title: "אלכוהול לסעודה", assignee: null, done: false, priority: "medium" },
+
+  // משלוחי מנות
+  { id: 31, category: "משלוחי מנות", title: "לקנות דברים איכותיים למשלוחים", assignee: null, done: false, priority: "high" },
+  { id: 32, category: "משלוחי מנות", title: "להחזיר למי ששולח לנו", assignee: null, done: false, priority: "high" },
+  { id: 33, category: "משלוחי מנות", title: "להכין כמה משלוחי מנות איכותיים למתנדבים", assignee: null, done: false, priority: "high" },
+  { id: 34, category: "משלוחי מנות", title: "לקנות חד\"פ", assignee: null, done: false, priority: "medium" },
+  { id: 35, category: "משלוחי מנות", title: "הכנת משלוחי מנות לילדים שהשתתפו בקריאה בשקט", assignee: null, done: false, priority: "medium" },
+
+  // ארגון ולוגיסטיקה
+  { id: 36, category: "ארגון ולוגיסטיקה", title: "יום שישי י' אדר - להכין את האוהל, לתלות שילוט מבחוץ (מענדי)", assignee: null, done: false, priority: "high" },
+  { id: 37, category: "ארגון ולוגיסטיקה", title: "לתלות שרשראות דגלים בבית חב\"ד ובחוץ", assignee: null, done: false, priority: "medium" },
+  { id: 38, category: "ארגון ולוגיסטיקה", title: "לארוז ערכות שי למצטרפים לקהילה", assignee: null, done: false, priority: "medium" },
+  { id: 39, category: "ארגון ולוגיסטיקה", title: "לעבור על הארגז - איזה שילוט נשאר ואיזה צריך לחדש", assignee: null, done: false, priority: "medium" },
+  { id: 40, category: "ארגון ולוגיסטיקה", title: "שני י\"ג אדר - לארגן מקום: כיסאות, שולחנות, חוברות, טושים", assignee: null, done: false, priority: "high" },
+  { id: 41, category: "ארגון ולוגיסטיקה", title: "להכין כסף קטן למתנות לאביונים ומחצית השקל", assignee: null, done: false, priority: "medium" },
+  { id: 42, category: "ארגון ולוגיסטיקה", title: "להכין שלט חסימת חנייה", assignee: null, done: false, priority: "low" },
+  { id: 43, category: "ארגון ולוגיסטיקה", title: "להכין תשלום: שירן, אליענה, מיכאל, אילן זיקרי, מוניות למתנדבות", assignee: null, done: false, priority: "high" },
+  { id: 44, category: "ארגון ולוגיסטיקה", title: "לשים מפות אלבד צבעוניות על 5 שולחנות בחוץ", assignee: null, done: false, priority: "medium" },
+  { id: 45, category: "ארגון ולוגיסטיקה", title: "לשריין בייביסיטר", assignee: null, done: false, priority: "medium" },
+  { id: 46, category: "ארגון ולוגיסטיקה", title: "לקשט את הרכב", assignee: null, done: false, priority: "low" },
+  { id: 47, category: "ארגון ולוגיסטיקה", title: "להתחיל לסדר מיום שני בבוקר", assignee: null, done: false, priority: "high" },
+  { id: 48, category: "ארגון ולוגיסטיקה", title: "לארגן חדר קריאת המגילה - גברים מצד ימין", assignee: null, done: false, priority: "high" },
+
+  // קניות
+  { id: 49, category: "קניות", title: "אלכוהול ללילה, להפנינג ולסעודה (חד\"פ, וויסקי, בירה איכותית)", assignee: null, done: false, priority: "high" },
+  { id: 50, category: "קניות", title: "250 לחמניות (שיבולת השרון - 200 ₪)", assignee: null, done: false, priority: "high" },
+  { id: 51, category: "קניות", title: "נקניקיות בשריות בצינור - 50", assignee: null, done: false, priority: "high" },
+  { id: 52, category: "קניות", title: "100 ופלים + אוזני המן", assignee: null, done: false, priority: "medium" },
+  { id: 53, category: "קניות", title: "200 טרופיות ו-200 חטיפים", assignee: null, done: false, priority: "medium" },
+  { id: 54, category: "קניות", title: "10 ק\"ג סוכר + תירס לפופקורן", assignee: null, done: false, priority: "medium" },
+  { id: 55, category: "קניות", title: "מיצים בצבעים שונים, סוכריות, חטיפים, כוסות וכוסיות", assignee: null, done: false, priority: "medium" },
+  { id: 56, category: "קניות", title: "200 פרסים (הכל בשקל)", assignee: "שירה", done: true, priority: "medium" },
+  { id: 57, category: "קניות", title: "גלילי אלבד צבעוניים", assignee: null, done: false, priority: "medium" },
+  { id: 58, category: "קניות", title: "דבק חשמל + קופות למשחק + כסף פרוט", assignee: null, done: false, priority: "medium" },
+  { id: 59, category: "קניות", title: "כרטיסי 4 מצוות פורים - לשלוח לדפוס", assignee: "שירה", done: true, priority: "medium" },
+  { id: 60, category: "קניות", title: "שקיות לפופקורן", assignee: null, done: false, priority: "low" },
+  { id: 61, category: "קניות", title: "50 רעשנים קטנים", assignee: null, done: false, priority: "medium" },
+  { id: 62, category: "קניות", title: "40-50 מגילות להורים + כיפות לגברים", assignee: null, done: false, priority: "high" },
 ];
 
-const initialShopping = [
-  { id: 1, item: "גלילי אלבד צבעוניים", store: "סטוק / דן דיל", done: false },
-  { id: 2, item: "דבק חשמל, סלוטייפ, דבק מסטיק", store: "סטוק / דן דיל", done: false },
-  { id: 3, item: "כוסיות למשקה וחד\"פ", store: "חנות חד\"פ", done: false },
-  { id: 4, item: "אלכוהול ובירה איכותית", store: "אושר עד", done: false },
-  { id: 5, item: "100 ופלים", store: "אושר עד", done: false },
-  { id: 6, item: "10 ק\"ג סוכר ותירס", store: "אושר עד", done: false },
-  { id: 7, item: "250 לחמניות אצבע", store: "שיבולת השרון", done: false },
-  { id: 8, item: "נקניקיות בשריות (50)", store: "אושר עד", done: false },
-  { id: 9, item: "קטשופ", store: "אושר עד", done: false },
-  { id: 10, item: "20 שוקולד שווה למתנדבים", store: "אושר עד", done: false },
-  { id: 11, item: "20 חטיפים קטנים (במבה/דוריטוס)", store: "אושר עד", done: false },
-  { id: 12, item: "כרטיסי 4 מצוות פורים", store: "דפוס", done: true },
-  { id: 13, item: "200 פרסים והפתעות", store: "הכל בשקל", done: true },
-  { id: 14, item: "שקיות לפופקורן", store: "אלי אקספרס", done: false },
-  { id: 15, item: "קופות למשחק", store: "אלי אקספרס", done: false }
-];
-
-const stationsData = [
-  { id: 1, name: "עמדת כניסה", location: "מצד ימין", description: "אוספים ניקובים ומקבלים חינם בדוכני מזון", equipment: "כרטיסיות" },
-  { id: 2, name: "הצטרפות לקהילה", location: "מצד שמאל", description: "חלוקת ערכות הצטרפות", equipment: "רולאפ עם ברקוד, ערכות הצטרפות" },
-  { id: 3, name: "מקרא מגילה", location: "לובי בית הכנסת", description: "האזנה פעילה למגילה, ביציאה מבית הכנסת ניקוב.", equipment: "40-50 מגילות, כיפות, שלט 'נא להחזיר', מגילות צביעה, טושים, רעשנים" },
-  { id: 4, name: "משלוח מנות", location: "רחבת הכניסה", description: "צביעת שקית, אריזת חטיפים ונתינת מתנה.", equipment: "200 טרופיות, חטיפים, ופלים ואוזני המן" },
-  { id: 5, name: "מתנות לאביונים", location: "רחבת הכניסה", description: "איסוף שטרות ממסלול דבק חשמל לקופה.", equipment: "קופת צדקה גדולה, מטבעות, חכות מגנטים, קופות משחק" }
-];
-
-const initialBudget = [
-  { id: 1, vendor: "אליענה אודרה", service: "עמדת ציורי פנים", cost: "לבירור", method: "מזומן" },
-  { id: 2, vendor: "שירן אדירי", service: "עמדת צמות", cost: 250, method: "מזומן" },
-  { id: 3, vendor: "מיכאל סולטן", service: "מפעיל / הגברה", cost: "2000 + מע\"מ", method: "העברה" },
-  { id: 4, vendor: "אילן זיקרי", service: "מפעיל / צלם", cost: "1500 + מע\"מ", method: "העברה" },
-  { id: 5, vendor: "ממלכת השקל", service: "הפתעות", cost: 200, method: "אשראי" },
-  { id: 6, vendor: "שיבולת השרון", service: "200 לחמניות אצבע", cost: 200, method: "אשראי ביכ\"נ" }
-];
-
-// --- קומפוננטה ---
+const CATEGORIES = ["הכל", "ליל פורים", "הפנינג", "סעודת פורים", "משלוחי מנות", "ארגון ולוגיסטיקה", "קניות"];
+const CATEGORY_COLORS = {
+  "ליל פורים": { bg: "#1a1a2e", text: "#f0c040", border: "#f0c040", badge: "#f0c040", badgeText: "#1a1a2e" },
+  "הפנינג": { bg: "#6b2fa0", text: "#e8b4ff", border: "#a855f7", badge: "#a855f7", badgeText: "#fff" },
+  "סעודת פורים": { bg: "#92400e", text: "#fde68a", border: "#f59e0b", badge: "#f59e0b", badgeText: "#1a1a2e" },
+  "משלוחי מנות": { bg: "#065f46", text: "#6ee7b7", border: "#10b981", badge: "#10b981", badgeText: "#fff" },
+  "ארגון ולוגיסטיקה": { bg: "#1e3a5f", text: "#93c5fd", border: "#3b82f6", badge: "#3b82f6", badgeText: "#fff" },
+  "קניות": { bg: "#7f1d1d", text: "#fca5a5", border: "#ef4444", badge: "#ef4444", badgeText: "#fff" },
+};
+const PRIORITY_LABELS = { high: "⚡ דחוף", medium: "🔶 בינוני", low: "🔵 נמוך" };
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
   const [tasks, setTasks] = useState(initialTasks);
-  const [shopping, setShopping] = useState(initialShopping);
-  const [assigneeFilter, setAssigneeFilter] = useState('all');
+  const [filterCategory, setFilterCategory] = useState("הכל");
+  const [filterAssignee, setFilterAssignee] = useState("הכל");
+  const [filterStatus, setFilterStatus] = useState("הכל");
+  const [searchText, setSearchText] = useState("");
+  const [view, setView] = useState("tasks"); // tasks | summary
+  const [newTask, setNewTask] = useState({ title: "", category: "הפנינג", priority: "medium", assignee: null });
+  const [showAddForm, setShowAddForm] = useState(false);
 
-  // --- Handlers ---
-  const toggleTaskStatus = (id) => {
-    setTasks(tasks.map(task => {
-      if (task.id === id) {
-        let newStatus = 'todo';
-        if (task.status === 'todo') newStatus = 'in-progress';
-        else if (task.status === 'in-progress') newStatus = 'done';
-        return { ...task, status: newStatus };
-      }
-      return task;
-    }));
-  };
+  const filtered = useMemo(() => tasks.filter(t => {
+    if (filterCategory !== "הכל" && t.category !== filterCategory) return false;
+    if (filterAssignee === "אני" && t.assignee !== "אני") return false;
+    if (filterAssignee === "שירה" && t.assignee !== "שירה") return false;
+    if (filterAssignee === "לא שויך" && t.assignee !== null) return false;
+    if (filterStatus === "פתוח" && t.done) return false;
+    if (filterStatus === "בוצע" && !t.done) return false;
+    if (searchText && !t.title.includes(searchText)) return false;
+    return true;
+  }), [tasks, filterCategory, filterAssignee, filterStatus, searchText]);
 
-  const toggleShoppingItem = (id) => {
-    setShopping(shopping.map(item => 
-      item.id === id ? { ...item, done: !item.done } : item
-    ));
-  };
+  const toggle = (id) => setTasks(ts => ts.map(t => t.id === id ? { ...t, done: !t.done } : t));
+  const assign = (id, who) => setTasks(ts => ts.map(t => t.id === id ? { ...t, assignee: t.assignee === who ? null : who } : t));
 
-  const shoppingByStore = useMemo(() => {
-    return shopping.reduce((acc, item) => {
-      if (!acc[item.store]) acc[item.store] = [];
-      acc[item.store].push(item);
-      return acc;
-    }, {});
-  }, [shopping]);
-
-  // --- עיצוב סטטוסים ---
-  const getTaskStyle = (status) => {
-    switch (status) {
-      case 'done': return { bg: 'bg-emerald-50 border-emerald-100', text: 'text-emerald-700', icon: <CheckCircle className="w-6 h-6 text-emerald-500" /> };
-      case 'in-progress': return { bg: 'bg-amber-50 border-amber-200', text: 'text-amber-700', icon: <Clock className="w-6 h-6 text-amber-500" /> };
-      default: return { bg: 'bg-white border-slate-200', text: 'text-slate-800', icon: <Circle className="w-6 h-6 text-slate-300" /> };
-    }
-  };
-
-  // --- מסכים ---
-
-  const renderDashboard = () => {
-    const totalTasks = tasks.length;
-    const completedTasks = tasks.filter(t => t.status === 'done').length;
-    const progress = Math.round((completedTasks / totalTasks) * 100);
-    const shiraTasks = tasks.filter(t => t.assignee === 'שירה' && t.status !== 'done').length;
-    const mendyTasks = tasks.filter(t => t.assignee === 'מענדי' && t.status !== 'done').length;
-
-    return (
-      <div className="flex flex-col gap-5 animate-in fade-in zoom-in-95 duration-300">
-        {/* Banner */}
-        <div className="bg-gradient-to-br from-indigo-600 via-purple-600 to-fuchsia-600 rounded-3xl p-6 text-white shadow-xl shadow-purple-200 relative overflow-hidden">
-          <div className="absolute -top-10 -right-10 opacity-10">
-            <Calendar className="w-40 h-40" />
-          </div>
-          <h2 className="text-2xl font-bold mb-1 relative z-10">מוכנות לפורים</h2>
-          <p className="text-purple-100 text-sm mb-5 relative z-10">תשפ"ו • שמחה פורצת גדר</p>
-          
-          <div className="relative z-10">
-            <div className="flex justify-between text-sm font-medium mb-2">
-              <span>התקדמות כללית</span>
-              <span>{progress}%</span>
-            </div>
-            <div className="w-full bg-white/20 rounded-full h-3 backdrop-blur-sm">
-              <div className="bg-white rounded-full h-3 transition-all duration-1000 ease-out" style={{ width: `${progress}%` }}></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 flex flex-col gap-3">
-            <div className="bg-fuchsia-100 w-12 h-12 rounded-2xl flex items-center justify-center text-fuchsia-600">
-              <User className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-sm text-slate-500 font-medium">לביצוע: שירה</p>
-              <p className="text-2xl font-bold text-slate-800">{shiraTasks} <span className="text-sm font-normal text-slate-400">משימות</span></p>
-            </div>
-          </div>
-          <div className="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 flex flex-col gap-3">
-            <div className="bg-indigo-100 w-12 h-12 rounded-2xl flex items-center justify-center text-indigo-600">
-              <User className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-sm text-slate-500 font-medium">לביצוע: מענדי</p>
-              <p className="text-2xl font-bold text-slate-800">{mendyTasks} <span className="text-sm font-normal text-slate-400">משימות</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderTasks = () => {
-    const filteredTasks = tasks.filter(t => assigneeFilter === 'all' || t.assignee === assigneeFilter);
-    const sortedTasks = [...filteredTasks].sort((a, b) => {
-      const order = { 'todo': 1, 'in-progress': 2, 'done': 3 };
-      return order[a.status] - order[b.status];
+  const stats = useMemo(() => {
+    const total = tasks.length;
+    const done = tasks.filter(t => t.done).length;
+    const mine = tasks.filter(t => t.assignee === "אני").length;
+    const shira = tasks.filter(t => t.assignee === "שירה").length;
+    const unassigned = tasks.filter(t => !t.assignee).length;
+    const mineDone = tasks.filter(t => t.assignee === "אני" && t.done).length;
+    const shiraDone = tasks.filter(t => t.assignee === "שירה" && t.done).length;
+    const byCat = {};
+    CATEGORIES.slice(1).forEach(c => {
+      byCat[c] = { total: tasks.filter(t => t.category === c).length, done: tasks.filter(t => t.category === c && t.done).length };
     });
+    return { total, done, mine, shira, unassigned, mineDone, shiraDone, byCat };
+  }, [tasks]);
 
-    return (
-      <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-4 duration-300">
-        {/* Filter */}
-        <div className="bg-white px-4 py-2 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center sticky top-0 z-10">
-          <div className="flex gap-2 items-center text-slate-600 font-medium text-sm">
-            <Filter className="w-4 h-4" />
-            סינון משימות:
-          </div>
-          <div className="relative">
-            <select 
-              className="appearance-none bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl py-2 pl-8 pr-4 outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 font-medium"
-              value={assigneeFilter}
-              onChange={(e) => setAssigneeFilter(e.target.value)}
-            >
-              <option value="all">כל המשימות</option>
-              <option value="שירה">שירה</option>
-              <option value="מענדי">מענדי</option>
-              <option value="נערות">אחר (נערות)</option>
-            </select>
-            <ChevronDown className="w-4 h-4 text-slate-400 absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none" />
-          </div>
-        </div>
-
-        {/* Task List */}
-        <div className="flex flex-col gap-3">
-          {sortedTasks.map(task => {
-            const style = getTaskStyle(task.status);
-            return (
-              <div 
-                key={task.id} 
-                onClick={() => toggleTaskStatus(task.id)}
-                className={`flex items-start gap-4 p-4 rounded-2xl border shadow-sm transition-all active:scale-[0.98] cursor-pointer ${style.bg}`}
-              >
-                <div className="mt-0.5 shrink-0 transition-transform hover:scale-110">
-                  {style.icon}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className={`font-semibold text-base leading-tight mb-2 ${task.status === 'done' ? 'line-through text-slate-400' : style.text}`}>
-                    {task.title}
-                  </h3>
-                  <div className="flex gap-2 text-xs font-medium">
-                    <span className="bg-white/60 px-2 py-1 rounded-lg border border-black/5 text-slate-600">
-                      {task.category}
-                    </span>
-                    <span className="flex items-center gap-1 bg-white/60 px-2 py-1 rounded-lg border border-black/5 text-slate-600">
-                      <User className="w-3 h-3" />
-                      {task.assignee}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-    );
+  const addTask = () => {
+    if (!newTask.title.trim()) return;
+    setTasks(ts => [...ts, { ...newTask, id: Date.now(), done: false }]);
+    setNewTask({ title: "", category: "הפנינג", priority: "medium", assignee: null });
+    setShowAddForm(false);
   };
 
-  const renderShopping = () => {
-    return (
-      <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-bottom-4 duration-300">
-        {Object.entries(shoppingByStore).map(([store, items]) => {
-          const allDone = items.every(i => i.done);
-          return (
-            <div key={store} className={`bg-white rounded-3xl shadow-sm border overflow-hidden transition-all duration-300 ${allDone ? 'border-emerald-200 opacity-60' : 'border-slate-200'}`}>
-              <div className="bg-slate-50 px-5 py-4 border-b border-slate-100 flex justify-between items-center">
-                <h3 className="font-bold text-slate-800 flex items-center gap-2">
-                  <div className={`p-1.5 rounded-lg ${allDone ? 'bg-emerald-100 text-emerald-600' : 'bg-purple-100 text-purple-600'}`}>
-                    <ShoppingCart className="w-4 h-4" />
-                  </div>
-                  {store}
-                </h3>
-                <span className="text-xs font-bold px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-500">
-                  {items.filter(i => i.done).length} / {items.length}
-                </span>
-              </div>
-              <div className="flex flex-col">
-                {items.map(item => (
-                  <div 
-                    key={item.id} 
-                    onClick={() => toggleShoppingItem(item.id)}
-                    className="px-5 py-3 flex items-center gap-4 border-b border-slate-50 last:border-0 active:bg-slate-50 cursor-pointer"
-                  >
-                    <div className="shrink-0">
-                      {item.done ? (
-                        <CheckSquare className="w-6 h-6 text-emerald-500" />
-                      ) : (
-                        <Square className="w-6 h-6 text-slate-300" />
-                      )}
-                    </div>
-                    <span className={`text-base font-medium ${item.done ? 'line-through text-slate-400' : 'text-slate-700'}`}>
-                      {item.item}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )
-        })}
+  const pct = (a, b) => b === 0 ? 0 : Math.round((a / b) * 100);
+
+  return (
+    <div dir="rtl" style={{ fontFamily: "'Segoe UI', Arial, sans-serif", minHeight: "100vh", background: "linear-gradient(135deg, #0f0c29, #302b63, #24243e)", color: "#fff", padding: "16px" }}>
+      {/* Header */}
+      <div style={{ textAlign: "center", marginBottom: 24 }}>
+        <div style={{ fontSize: 40, marginBottom: 4 }}>🎭 🎉 🎭</div>
+        <h1 style={{ margin: 0, fontSize: 28, fontWeight: 900, background: "linear-gradient(90deg, #f0c040, #f472b6, #a78bfa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          ניהול משימות פורים תשפ"ו
+        </h1>
+        <p style={{ margin: "4px 0 0", color: "#c4b5fd", fontSize: 14 }}>בית חב"ד | לא יפוסד שום דבר! 🏆</p>
       </div>
-    );
-  };
 
-  const renderStations = () => {
-    return (
-      <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-4 duration-300">
-        {stationsData.map(station => (
-          <div key={station.id} className="bg-white rounded-3xl shadow-sm border border-slate-100 p-5 relative overflow-hidden flex flex-col gap-4">
-            {/* Decoration line */}
-            <div className="absolute top-0 right-0 w-1.5 h-full bg-gradient-to-b from-fuchsia-500 to-purple-600 rounded-r-3xl"></div>
-            
-            <div className="pr-2">
-              <h3 className="text-xl font-bold text-slate-800 mb-1">{station.name}</h3>
-              <div className="flex items-center gap-1.5 text-sm text-fuchsia-600 font-semibold bg-fuchsia-50 w-fit px-2.5 py-1 rounded-lg">
-                <MapPin className="w-4 h-4" />
-                {station.location}
-              </div>
-            </div>
+      {/* Progress bar overall */}
+      <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "12px 16px", marginBottom: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6, fontSize: 13 }}>
+          <span>התקדמות כוללת</span>
+          <span style={{ fontWeight: 700, color: "#f0c040" }}>{stats.done}/{stats.total} ({pct(stats.done, stats.total)}%)</span>
+        </div>
+        <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 99, height: 10, overflow: "hidden" }}>
+          <div style={{ width: `${pct(stats.done, stats.total)}%`, height: "100%", background: "linear-gradient(90deg, #f0c040, #10b981)", borderRadius: 99, transition: "width 0.4s" }} />
+        </div>
+      </div>
 
-            <div className="flex flex-col gap-3 pr-2">
-              <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <Info className="w-4 h-4 text-slate-400" />
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">מה עושים כאן?</span>
-                </div>
-                <p className="text-sm text-slate-700 font-medium leading-relaxed">{station.description}</p>
-              </div>
-              <div className="bg-orange-50 rounded-2xl p-4 border border-orange-100">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <CheckSquare className="w-4 h-4 text-orange-400" />
-                  <span className="text-xs font-bold text-orange-500 uppercase tracking-wider">ציוד חובה</span>
-                </div>
-                <p className="text-sm text-slate-800 font-medium leading-relaxed">{station.equipment}</p>
-              </div>
-            </div>
-          </div>
+      {/* View Toggle */}
+      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+        {[["tasks", "📋 משימות"], ["summary", "📊 סיכום"]].map(([v, label]) => (
+          <button key={v} onClick={() => setView(v)} style={{ flex: 1, padding: "10px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 700, fontSize: 14, background: view === v ? "linear-gradient(135deg, #f0c040, #f59e0b)" : "rgba(255,255,255,0.1)", color: view === v ? "#1a1a2e" : "#fff", transition: "all 0.2s" }}>
+            {label}
+          </button>
         ))}
       </div>
-    );
-  };
 
-  const renderBudget = () => {
-    const totalKnown = initialBudget.reduce((sum, item) => {
-      return typeof item.cost === 'number' ? sum + item.cost : sum;
-    }, 0);
-
-    return (
-      <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-bottom-4 duration-300">
-        {/* Total Card */}
-        <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-6 text-white shadow-lg shadow-emerald-200 flex items-center justify-between">
-          <div>
-            <p className="text-emerald-50 font-medium text-sm mb-1">סה"כ הוצאות ידועות</p>
-            <p className="text-3xl font-black">₪{totalKnown}</p>
+      {view === "summary" ? (
+        <div>
+          {/* Person stats */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
+            {[["אני", stats.mine, stats.mineDone, "#a78bfa", "👤"], ["שירה", stats.shira, stats.shiraDone, "#f472b6", "👩"]].map(([name, total, done, color, icon]) => (
+              <div key={name} style={{ background: "rgba(255,255,255,0.08)", borderRadius: 14, padding: 14, border: `2px solid ${color}40` }}>
+                <div style={{ fontSize: 22, marginBottom: 4 }}>{icon}</div>
+                <div style={{ fontWeight: 800, fontSize: 16, color }}>{name}</div>
+                <div style={{ fontSize: 13, color: "#ccc", marginBottom: 8 }}>{done}/{total} משימות בוצעו</div>
+                <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 99, height: 8 }}>
+                  <div style={{ width: `${pct(done, total)}%`, height: "100%", background: color, borderRadius: 99 }} />
+                </div>
+                <div style={{ fontSize: 12, color, marginTop: 4, fontWeight: 700 }}>{pct(done, total)}%</div>
+              </div>
+            ))}
           </div>
-          <div className="bg-white/20 p-3 rounded-2xl backdrop-blur-md">
-            <DollarSign className="w-8 h-8 text-white" />
+          <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 14, padding: 14, marginBottom: 16, textAlign: "center" }}>
+            <div style={{ fontSize: 13, color: "#fca5a5" }}>⚠️ לא משויך: {stats.unassigned} משימות</div>
+          </div>
+          {/* By category */}
+          <div style={{ display: "grid", gap: 10 }}>
+            {CATEGORIES.slice(1).map(cat => {
+              const c = CATEGORY_COLORS[cat];
+              const { total, done } = stats.byCat[cat] || { total: 0, done: 0 };
+              return (
+                <div key={cat} style={{ background: `${c.bg}99`, border: `1px solid ${c.border}60`, borderRadius: 12, padding: "12px 14px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+                    <span style={{ fontWeight: 700, color: c.text }}>{cat}</span>
+                    <span style={{ fontSize: 13, color: c.text }}>{done}/{total}</span>
+                  </div>
+                  <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 99, height: 6 }}>
+                    <div style={{ width: `${pct(done, total)}%`, height: "100%", background: c.badge, borderRadius: 99, transition: "width 0.4s" }} />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
+      ) : (
+        <div>
+          {/* Filters */}
+          <div style={{ background: "rgba(255,255,255,0.07)", borderRadius: 14, padding: 14, marginBottom: 14 }}>
+            <input
+              placeholder="🔍 חפש משימה..."
+              value={searchText}
+              onChange={e => setSearchText(e.target.value)}
+              style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.1)", color: "#fff", fontSize: 14, marginBottom: 10, boxSizing: "border-box" }}
+            />
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
+              {["הכל", "אני", "שירה", "לא שויך"].map(a => (
+                <button key={a} onClick={() => setFilterAssignee(a)} style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, background: filterAssignee === a ? "#a78bfa" : "rgba(255,255,255,0.12)", color: filterAssignee === a ? "#fff" : "#ccc" }}>{a}</button>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
+              {["הכל", "פתוח", "בוצע"].map(s => (
+                <button key={s} onClick={() => setFilterStatus(s)} style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, background: filterStatus === s ? "#10b981" : "rgba(255,255,255,0.12)", color: filterStatus === s ? "#fff" : "#ccc" }}>{s}</button>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+              {CATEGORIES.map(c => (
+                <button key={c} onClick={() => setFilterCategory(c)} style={{ padding: "5px 10px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: 600, background: filterCategory === c ? "#f0c040" : "rgba(255,255,255,0.12)", color: filterCategory === c ? "#1a1a2e" : "#ccc" }}>{c}</button>
+              ))}
+            </div>
+          </div>
 
-        {/* Expenses List */}
-        <div className="flex flex-col gap-3">
-          <h3 className="text-lg font-bold text-slate-800 px-1">פירוט ספקים</h3>
-          {initialBudget.map(item => (
-            <div key={item.id} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
-              <div className="flex flex-col gap-1">
-                <span className="font-bold text-slate-800">{item.vendor}</span>
-                <span className="text-xs text-slate-500">{item.service}</span>
+          <div style={{ marginBottom: 12, fontSize: 13, color: "#c4b5fd" }}>{filtered.length} משימות מוצגות</div>
+
+          {/* Task list grouped by category */}
+          {CATEGORIES.slice(1).map(cat => {
+            const catTasks = filtered.filter(t => t.category === cat);
+            if (catTasks.length === 0) return null;
+            const c = CATEGORY_COLORS[cat];
+            return (
+              <div key={cat} style={{ marginBottom: 18 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                  <div style={{ flex: 1, height: 1, background: `${c.border}60` }} />
+                  <span style={{ fontWeight: 800, fontSize: 13, color: c.text, padding: "3px 12px", background: `${c.bg}cc`, borderRadius: 99, border: `1px solid ${c.border}60` }}>{cat}</span>
+                  <div style={{ flex: 1, height: 1, background: `${c.border}60` }} />
+                </div>
+                <div style={{ display: "grid", gap: 8 }}>
+                  {catTasks.map(task => (
+                    <TaskCard key={task.id} task={task} c={c} onToggle={toggle} onAssign={assign} />
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col items-end gap-1">
-                <span className="font-bold text-slate-800">
-                  {typeof item.cost === 'number' ? `₪${item.cost}` : item.cost}
-                </span>
-                <span className="text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">
-                  {item.method}
-                </span>
+            );
+          })}
+
+          {/* Add task */}
+          {!showAddForm ? (
+            <button onClick={() => setShowAddForm(true)} style={{ width: "100%", padding: 12, borderRadius: 12, border: "2px dashed rgba(255,255,255,0.3)", background: "transparent", color: "#a78bfa", fontSize: 14, fontWeight: 700, cursor: "pointer", marginTop: 8 }}>
+              + הוסף משימה
+            </button>
+          ) : (
+            <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 14, padding: 14, marginTop: 8 }}>
+              <input
+                placeholder="כותרת משימה..."
+                value={newTask.title}
+                onChange={e => setNewTask(n => ({ ...n, title: e.target.value }))}
+                style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.1)", color: "#fff", fontSize: 14, marginBottom: 8, boxSizing: "border-box" }}
+              />
+              <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
+                {CATEGORIES.slice(1).map(c => (
+                  <button key={c} onClick={() => setNewTask(n => ({ ...n, category: c }))} style={{ padding: "4px 10px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, background: newTask.category === c ? "#a78bfa" : "rgba(255,255,255,0.15)", color: "#fff" }}>{c}</button>
+                ))}
+              </div>
+              <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+                {["high", "medium", "low"].map(p => (
+                  <button key={p} onClick={() => setNewTask(n => ({ ...n, priority: p }))} style={{ padding: "4px 10px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, background: newTask.priority === p ? "#f59e0b" : "rgba(255,255,255,0.15)", color: "#fff" }}>{PRIORITY_LABELS[p]}</button>
+                ))}
+              </div>
+              <div style={{ display: "flex", gap: 6 }}>
+                <button onClick={addTask} style={{ flex: 1, padding: 10, borderRadius: 10, border: "none", background: "#10b981", color: "#fff", fontWeight: 700, cursor: "pointer" }}>הוסף ✓</button>
+                <button onClick={() => setShowAddForm(false)} style={{ flex: 1, padding: 10, borderRadius: 10, border: "none", background: "rgba(255,255,255,0.15)", color: "#fff", fontWeight: 700, cursor: "pointer" }}>ביטול</button>
               </div>
             </div>
-          ))}
-          <p className="text-xs text-slate-400 text-center mt-2 font-medium">
-            * המחירים אינם כוללים מע"מ או הוצאות שטרם תומחרו
-          </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TaskCard({ task, c, onToggle, onAssign }) {
+  return (
+    <div style={{
+      background: task.done ? "rgba(255,255,255,0.04)" : `${c.bg}99`,
+      border: `1px solid ${task.done ? "rgba(255,255,255,0.1)" : c.border + "60"}`,
+      borderRadius: 12, padding: "12px 14px",
+      opacity: task.done ? 0.65 : 1, transition: "all 0.2s"
+    }}>
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+        {/* Checkbox */}
+        <button onClick={() => onToggle(task.id)} style={{
+          width: 24, height: 24, borderRadius: 6, border: `2px solid ${task.done ? "#10b981" : c.border}`,
+          background: task.done ? "#10b981" : "transparent", cursor: "pointer", flexShrink: 0,
+          display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, marginTop: 1
+        }}>{task.done ? "✓" : ""}</button>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: task.done ? "#888" : "#fff", textDecoration: task.done ? "line-through" : "none", lineHeight: 1.4, marginBottom: 6 }}>
+            {task.title}
+          </div>
+          {/* Assign buttons */}
+          <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+            {["אני", "שירה"].map(who => (
+              <button key={who} onClick={() => onAssign(task.id, who)} style={{
+                padding: "3px 10px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: 700,
+                background: task.assignee === who ? (who === "אני" ? "#a78bfa" : "#f472b6") : "rgba(255,255,255,0.12)",
+                color: task.assignee === who ? "#fff" : "#aaa", transition: "all 0.2s"
+              }}>
+                {who === "אני" ? "👤 אני" : "👩 שירה"}
+              </button>
+            ))}
+            <span style={{ padding: "3px 8px", borderRadius: 99, fontSize: 10, fontWeight: 600, background: "rgba(255,255,255,0.08)", color: "#999" }}>
+              {task.priority === "high" ? "⚡" : task.priority === "medium" ? "🔶" : "🔵"}
+            </span>
+          </div>
         </div>
       </div>
-    );
-  };
-
-  // --- Layout הראשי ---
-  return (
-    <div dir="rtl" className="min-h-screen bg-slate-50 font-sans text-slate-900 flex flex-col selection:bg-purple-200">
-      
-      {/* Header עליון צף */}
-      <header className="fixed top-0 inset-x-0 bg-white/80 backdrop-blur-md border-b border-slate-200 z-50 px-4 h-16 flex items-center justify-center">
-        <h1 className="text-lg font-black bg-clip-text text-transparent bg-gradient-to-l from-purple-600 to-fuchsia-500">
-          ניהול פורים תשפ"ו 🎭
-        </h1>
-      </header>
-
-      {/* אזור התוכן המרכזי */}
-      <main className="flex-1 pt-20 pb-28 px-4 w-full max-w-md mx-auto overflow-x-hidden">
-        {activeTab === 'dashboard' && renderDashboard()}
-        {activeTab === 'tasks' && renderTasks()}
-        {activeTab === 'shopping' && renderShopping()}
-        {activeTab === 'stations' && renderStations()}
-        {activeTab === 'budget' && renderBudget()}
-      </main>
-
-      {/* תפריט ניווט תחתון מרחף */}
-      <nav className="fixed bottom-0 inset-x-0 pb-safe z-50">
-        <div className="bg-white/90 backdrop-blur-lg border-t border-slate-200 px-2 pt-2 pb-4 sm:pb-2 flex justify-around items-end">
-          
-          <button onClick={() => setActiveTab('dashboard')} className="flex flex-col items-center gap-1 w-16 group">
-            <div className={`p-1.5 rounded-xl transition-all duration-300 ${activeTab === 'dashboard' ? 'bg-purple-100 text-purple-600 scale-110' : 'text-slate-400 group-hover:text-purple-500'}`}>
-              <LayoutDashboard className="w-5 h-5" strokeWidth={activeTab === 'dashboard' ? 2.5 : 2} />
-            </div>
-            <span className={`text-[10px] font-bold transition-colors ${activeTab === 'dashboard' ? 'text-purple-700' : 'text-slate-500'}`}>ראשי</span>
-          </button>
-
-          <button onClick={() => setActiveTab('tasks')} className="flex flex-col items-center gap-1 w-16 group">
-            <div className={`p-1.5 rounded-xl transition-all duration-300 ${activeTab === 'tasks' ? 'bg-purple-100 text-purple-600 scale-110' : 'text-slate-400 group-hover:text-purple-500'}`}>
-              <CheckCircle className="w-5 h-5" strokeWidth={activeTab === 'tasks' ? 2.5 : 2} />
-            </div>
-            <span className={`text-[10px] font-bold transition-colors ${activeTab === 'tasks' ? 'text-purple-700' : 'text-slate-500'}`}>משימות</span>
-          </button>
-
-          <button onClick={() => setActiveTab('shopping')} className="flex flex-col items-center gap-1 w-16 group">
-            <div className={`p-1.5 rounded-xl transition-all duration-300 ${activeTab === 'shopping' ? 'bg-purple-100 text-purple-600 scale-110' : 'text-slate-400 group-hover:text-purple-500'}`}>
-              <ShoppingCart className="w-5 h-5" strokeWidth={activeTab === 'shopping' ? 2.5 : 2} />
-            </div>
-            <span className={`text-[10px] font-bold transition-colors ${activeTab === 'shopping' ? 'text-purple-700' : 'text-slate-500'}`}>קניות</span>
-          </button>
-
-          <button onClick={() => setActiveTab('stations')} className="flex flex-col items-center gap-1 w-16 group">
-            <div className={`p-1.5 rounded-xl transition-all duration-300 ${activeTab === 'stations' ? 'bg-purple-100 text-purple-600 scale-110' : 'text-slate-400 group-hover:text-purple-500'}`}>
-              <MapPin className="w-5 h-5" strokeWidth={activeTab === 'stations' ? 2.5 : 2} />
-            </div>
-            <span className={`text-[10px] font-bold transition-colors ${activeTab === 'stations' ? 'text-purple-700' : 'text-slate-500'}`}>עמדות</span>
-          </button>
-
-          <button onClick={() => setActiveTab('budget')} className="flex flex-col items-center gap-1 w-16 group">
-            <div className={`p-1.5 rounded-xl transition-all duration-300 ${activeTab === 'budget' ? 'bg-emerald-100 text-emerald-600 scale-110' : 'text-slate-400 group-hover:text-emerald-500'}`}>
-              <DollarSign className="w-5 h-5" strokeWidth={activeTab === 'budget' ? 2.5 : 2} />
-            </div>
-            <span className={`text-[10px] font-bold transition-colors ${activeTab === 'budget' ? 'text-emerald-700' : 'text-slate-500'}`}>תקציב</span>
-          </button>
-
-        </div>
-      </nav>
-
     </div>
   );
 }
