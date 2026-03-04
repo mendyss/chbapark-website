@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { 
-  CheckCircle2, Circle, Clock, User, Users, 
+  CheckCircle, Circle, Clock, User, 
   ShoppingCart, MapPin, DollarSign, LayoutDashboard, 
-  Filter, Plus, Trash2, Edit2
+  Filter
 } from 'lucide-react';
 
-// --- Initial Data Extracted from CSVs ---
+// --- נתונים התחלתיים מתוך קבצי ה-CSV ---
 
 const initialTasks = [
   { id: 1, title: "להכין מודעה כללית להפנינג, קריאות וסעודה", status: "done", assignee: "שירה", category: "פרסום" },
@@ -63,15 +63,15 @@ const initialBudget = [
   { id: 6, vendor: "שיבולת השרון", service: "200 לחמניות אצבע", cost: 200, method: "אשראי ביכ\"נ" }
 ];
 
-// --- Main App Component ---
+// --- קומפוננטה ראשית ---
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('tasks');
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [tasks, setTasks] = useState(initialTasks);
   const [shopping, setShopping] = useState(initialShopping);
-  const [assigneeFilter, setAssigneeFilter] = useState('all'); // 'all', 'שירה', 'מענדי'
+  const [assigneeFilter, setAssigneeFilter] = useState('all');
 
-  // --- Task Handlers ---
+  // --- פונקציות ניהול משימות ---
   const toggleTaskStatus = (id) => {
     setTasks(tasks.map(task => {
       if (task.id === id) {
@@ -86,7 +86,7 @@ export default function App() {
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'done': return <CheckCircle2 className="w-6 h-6 text-green-500" />;
+      case 'done': return <CheckCircle className="w-6 h-6 text-green-500" />;
       case 'in-progress': return <Clock className="w-6 h-6 text-yellow-500" />;
       default: return <Circle className="w-6 h-6 text-gray-300" />;
     }
@@ -100,7 +100,7 @@ export default function App() {
     }
   };
 
-  // --- Shopping Handlers ---
+  // --- פונקציות ניהול קניות ---
   const toggleShoppingItem = (id) => {
     setShopping(shopping.map(item => 
       item.id === id ? { ...item, done: !item.done } : item
@@ -115,7 +115,7 @@ export default function App() {
     }, {});
   }, [shopping]);
 
-  // --- Render Components ---
+  // --- רינדור מסכים ---
 
   const renderDashboard = () => {
     const totalTasks = tasks.length;
@@ -126,9 +126,9 @@ export default function App() {
     const mendyTasks = tasks.filter(t => t.assignee === 'מענדי' && t.status !== 'done').length;
 
     return (
-      <div className="space-y-6 animate-in fade-in">
+      <div className="space-y-6">
         <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
-          <h2 className="text-2xl font-bold mb-2">מוכנות לפורים תשפ"ו</h2>
+          <h2 className="text-2xl font-bold mb-2">מוכנות לפורים</h2>
           <div className="w-full bg-white/30 rounded-full h-4 mb-2 mt-4">
             <div className="bg-white rounded-full h-4 transition-all duration-500" style={{ width: `${progress}%` }}></div>
           </div>
@@ -162,14 +162,13 @@ export default function App() {
   const renderTasks = () => {
     const filteredTasks = tasks.filter(t => assigneeFilter === 'all' || t.assignee === assigneeFilter);
     
-    // Sort so todo is first, then in-progress, then done
     const sortedTasks = [...filteredTasks].sort((a, b) => {
       const order = { 'todo': 1, 'in-progress': 2, 'done': 3 };
       return order[a.status] - order[b.status];
     });
 
     return (
-      <div className="space-y-4 animate-in fade-in">
+      <div className="space-y-4">
         <div className="flex justify-between items-center bg-white p-3 rounded-xl shadow-sm border border-gray-200">
           <div className="flex items-center text-gray-600 font-medium">
             <Filter className="w-5 h-5 ml-2" />
@@ -219,7 +218,7 @@ export default function App() {
 
   const renderShopping = () => {
     return (
-      <div className="space-y-6 animate-in fade-in">
+      <div className="space-y-6">
         {Object.entries(shoppingByStore).map(([store, items]) => {
           const allDone = items.every(i => i.done);
           return (
@@ -237,7 +236,7 @@ export default function App() {
                 {items.map(item => (
                   <li key={item.id} className="p-3 flex items-center hover:bg-gray-50 transition-colors cursor-pointer" onClick={() => toggleShoppingItem(item.id)}>
                     <div className={`w-6 h-6 rounded-md border flex items-center justify-center ml-3 transition-colors ${item.done ? 'bg-green-500 border-green-500' : 'border-gray-300 bg-white'}`}>
-                      {item.done && <CheckCircle2 className="w-4 h-4 text-white" />}
+                      {item.done && <CheckCircle className="w-4 h-4 text-white" />}
                     </div>
                     <span className={`flex-1 ${item.done ? 'line-through text-gray-400' : 'text-gray-700'}`}>
                       {item.item}
@@ -254,7 +253,7 @@ export default function App() {
 
   const renderStations = () => {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {stationsData.map(station => (
           <div key={station.id} className="bg-white rounded-xl shadow-md p-5 border border-purple-100 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-2 h-full bg-purple-500"></div>
@@ -285,7 +284,7 @@ export default function App() {
     }, 0);
 
     return (
-      <div className="space-y-6 animate-in fade-in">
+      <div className="space-y-6">
         <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
           <div className="bg-green-50 p-4 border-b border-green-100 flex items-center justify-between">
             <h3 className="font-bold text-lg text-green-800 flex items-center">
@@ -328,19 +327,16 @@ export default function App() {
     );
   };
 
-  // --- Main Layout ---
   return (
-    <div dir="rtl" className="min-h-screen bg-gray-100 font-sans pb-20 md:pb-0">
-      {/* Header */}
+    <div dir="rtl" className="min-h-screen bg-gray-100 font-sans pb-24 md:pb-6">
       <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-pink-500">
-            התארגנות לפורים תשפ"ו 🎭
+        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-center items-center">
+          <h1 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-pink-500 text-center">
+            התארגנות לפורים 🎭
           </h1>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 py-6">
         {activeTab === 'dashboard' && renderDashboard()}
         {activeTab === 'tasks' && renderTasks()}
@@ -349,40 +345,39 @@ export default function App() {
         {activeTab === 'budget' && renderBudget()}
       </main>
 
-      {/* Mobile/Desktop Bottom Navigation */}
-      <nav className="fixed bottom-0 w-full bg-white border-t border-gray-200 shadow-lg md:relative md:border-none md:shadow-none md:bg-transparent md:max-w-4xl md:mx-auto md:px-4 md:mt-4">
+      <nav className="fixed bottom-0 w-full bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] md:relative md:border-none md:shadow-none md:bg-transparent md:max-w-4xl md:mx-auto md:px-4 md:mt-4 z-50">
         <div className="flex justify-around items-center p-2 md:bg-white md:rounded-2xl md:shadow-md md:p-2">
           <button 
             onClick={() => setActiveTab('dashboard')}
-            className={`flex flex-col md:flex-row items-center p-2 rounded-xl w-full transition-colors ${activeTab === 'dashboard' ? 'text-purple-600 md:bg-purple-50' : 'text-gray-500 hover:text-purple-500'}`}
+            className={`flex flex-col md:flex-row items-center justify-center p-2 rounded-xl w-full transition-colors ${activeTab === 'dashboard' ? 'text-purple-600 md:bg-purple-50' : 'text-gray-500 hover:text-purple-500'}`}
           >
             <LayoutDashboard className="w-6 h-6 md:ml-2" />
             <span className="text-xs md:text-sm font-medium mt-1 md:mt-0">מבט על</span>
           </button>
           <button 
             onClick={() => setActiveTab('tasks')}
-            className={`flex flex-col md:flex-row items-center p-2 rounded-xl w-full transition-colors ${activeTab === 'tasks' ? 'text-purple-600 md:bg-purple-50' : 'text-gray-500 hover:text-purple-500'}`}
+            className={`flex flex-col md:flex-row items-center justify-center p-2 rounded-xl w-full transition-colors ${activeTab === 'tasks' ? 'text-purple-600 md:bg-purple-50' : 'text-gray-500 hover:text-purple-500'}`}
           >
-            <CheckCircle2 className="w-6 h-6 md:ml-2" />
+            <CheckCircle className="w-6 h-6 md:ml-2" />
             <span className="text-xs md:text-sm font-medium mt-1 md:mt-0">משימות</span>
           </button>
           <button 
             onClick={() => setActiveTab('shopping')}
-            className={`flex flex-col md:flex-row items-center p-2 rounded-xl w-full transition-colors ${activeTab === 'shopping' ? 'text-purple-600 md:bg-purple-50' : 'text-gray-500 hover:text-purple-500'}`}
+            className={`flex flex-col md:flex-row items-center justify-center p-2 rounded-xl w-full transition-colors ${activeTab === 'shopping' ? 'text-purple-600 md:bg-purple-50' : 'text-gray-500 hover:text-purple-500'}`}
           >
             <ShoppingCart className="w-6 h-6 md:ml-2" />
             <span className="text-xs md:text-sm font-medium mt-1 md:mt-0">קניות</span>
           </button>
           <button 
             onClick={() => setActiveTab('stations')}
-            className={`flex flex-col md:flex-row items-center p-2 rounded-xl w-full transition-colors ${activeTab === 'stations' ? 'text-purple-600 md:bg-purple-50' : 'text-gray-500 hover:text-purple-500'}`}
+            className={`flex flex-col md:flex-row items-center justify-center p-2 rounded-xl w-full transition-colors ${activeTab === 'stations' ? 'text-purple-600 md:bg-purple-50' : 'text-gray-500 hover:text-purple-500'}`}
           >
             <MapPin className="w-6 h-6 md:ml-2" />
             <span className="text-xs md:text-sm font-medium mt-1 md:mt-0">עמדות</span>
           </button>
           <button 
             onClick={() => setActiveTab('budget')}
-            className={`flex flex-col md:flex-row items-center p-2 rounded-xl w-full transition-colors ${activeTab === 'budget' ? 'text-purple-600 md:bg-purple-50' : 'text-gray-500 hover:text-purple-500'}`}
+            className={`flex flex-col md:flex-row items-center justify-center p-2 rounded-xl w-full transition-colors ${activeTab === 'budget' ? 'text-purple-600 md:bg-purple-50' : 'text-gray-500 hover:text-purple-500'}`}
           >
             <DollarSign className="w-6 h-6 md:ml-2" />
             <span className="text-xs md:text-sm font-medium mt-1 md:mt-0">תקציב</span>
@@ -392,4 +387,3 @@ export default function App() {
     </div>
   );
 }
-
