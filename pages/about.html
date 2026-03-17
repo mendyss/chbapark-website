@@ -3,153 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בית חב"ד שכונת הפארק</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Bootstrap Icons CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- גופנים -->
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+    <title>בית חב"ד שכונת הפארק באר שבע</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
-        @font-face {
-            font-family: 'FB Hachaluzim';
-            src: url('fonts/FBHACHALUZIM-MEDIUM.OTF') format('opentype');
-            font-weight: 500;
-        }
+        /* הגדרות גופנים וצבעים */
         @font-face {
             font-family: 'FB Hachaluzim';
             src: url('fonts/FBHACHALUZIM-REGULAR.OTF') format('opentype');
-            font-weight: 400;
+            font-weight: normal;
         }
+        @font-face {
+            font-family: 'FB Hachaluzim';
+            src: url('fonts/FBHACHALUZIM-MEDIUM.OTF') format('opentype');
+            font-weight: bold;
+        }
+
+        :root {
+            --brand-orange: #EF6C00;
+            --brand-bordeaux: #800000;
+            --bg-light: #f8f9fa;
+        }
+
         body {
             font-family: 'Assistant', sans-serif;
+            background-color: var(--bg-light);
         }
-        h1, h2, h3 {
-            font-family: 'FB Hachaluzim', sans-serif;
+
+        h1, h2, h3, h4, h5, .nav-link, .brand-font {
+            font-family: 'FB Hachaluzim', 'Assistant', sans-serif;
         }
+
+        /* הדר וניווט */
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        .icon-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .icon-circle:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        .bg-whatsapp { background-color: #25D366; }
+        .bg-donate { background-color: var(--brand-orange); }
+
+        /* סליידר גיבור */
+        .hero-carousel {
+            height: 70vh;
+            min-height: 400px;
+            border-radius: 0 0 30px 30px;
+            overflow: hidden;
+        }
+        .hero-img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;
+            color: white;
+            width: 100%;
+        }
+
+        /* כרטיסיות נגללות (Scroll Snap) */
+        .scrolling-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 15px;
+            padding-bottom: 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .scrolling-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+        .scrolling-wrapper::-webkit-scrollbar-thumb {
+            background-color: var(--brand-orange);
+            border-radius: 10px;
+        }
+        .scroll-card {
+            flex: 0 0 auto;
+            width: 300px;
+            scroll-snap-align: center;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .scroll-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* שירותים */
+        .service-item {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+        .service-item:hover {
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border-right: 4px solid var(--brand-orange);
+        }
+        .service-icon {
+            font-size: 2rem;
+            color: var(--brand-bordeaux);
+        }
+
+        /* כפתורים */
+        .btn-custom-primary {
+            background-color: var(--brand-orange);
+            color: white;
+            border-radius: 30px;
+            padding: 10px 30px;
+            font-weight: bold;
+        }
+        .btn-custom-primary:hover {
+            background-color: #d85c00;
+            color: white;
+        }
+        .btn-custom-secondary {
+            background-color: #25D366;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 30px;
+            font-weight: bold;
+        }
+        .btn-custom-secondary:hover {
+            background-color: #1ebc59;
+            color: white;
+        }
+
+        /* עדויות */
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            min-width: 300px;
+            scroll-snap-align: center;
+        }
+        
+        footer { background-color: var(--brand-bordeaux); color: white; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-    <!-- הדר -->
-    <header class="sticky top-0 bg-white shadow-md z-50 p-4 flex justify-between items-center">
-        <div class="flex items-center space-x-4">
-            <a href="https://app.icount.co.il/m/104dc/" class="p-2 bg-orange-500 text-white rounded-full hover:bg-orange-600">
-                <i class="bi bi-credit-card"></i>
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand brand-font text-dark fs-3" href="index.html">
+                <strong>בית חב"ד</strong> שכונת הפארק
             </a>
-            <a href="https://bit.ly/WhatsappUpdatesChabad" class="p-2 bg-green-500 text-white rounded-full hover:bg-green-600">
-                <i class="bi bi-whatsapp"></i>
-            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 brand-font fs-5">
+                    <li class="nav-item"><a class="nav-link" href="about.html">אודות</a></li>
+                    <li class="nav-item"><a class="nav-link" href="donate.html">תרומות</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">צור קשר</a></li>
+                    <li class="nav-item"><a class="nav-link" href="bar-mitzvah.html">תכנית בר מצווה</a></li>
+                    <li class="nav-item"><a class="nav-link" href="synagogue.html">בית כנסת</a></li>
+                    <li class="nav-item"><a class="nav-link" href="mezuzah-check.html">בדיקת מזוזות</a></li>
+                    <li class="nav-item"><a class="nav-link" href="baby-gift.html">פינוק ליולדת</a></li>
+                </ul>
+                <div class="d-flex gap-3">
+                    <a href="https://app.icount.co.il/m/104dc/" class="icon-circle bg-donate" title="תרומה"><i class="bi bi-heart-fill"></i></a>
+                    <a href="https://wa.me/972503999262" class="icon-circle bg-whatsapp" title="וואטסאפ"><i class="bi bi-whatsapp"></i></a>
+                </div>
+            </div>
         </div>
-        <a href="index.html">
-            <img src="logo.png" alt="לוגו בית חבד" class="h-12">
-        </a>
-        <nav class="hidden md:flex space-x-6">
-            <a href="about.html" class="hover:text-orange-500">אודות</a>
-            <a href="donate.html" class="hover:text-orange-500">תרומות</a>
-            <a href="contact.html" class="hover:text-orange-500">צור קשר</a>
-            <a href="bar-mitzvah.html" class="hover:text-orange-500">תכנית בר מצווה</a>
-            <a href="synagogue.html" class="hover:text-orange-500">בית כנסת</a>
-            <a href="mezuzah-check.html" class="hover:text-orange-500">בדיקת מזוזות</a>
-            <a href="baby-gift.html" class="hover:text-orange-500">פינוק ליולדת</a>
-        </nav>
-        <button class="md:hidden text-2xl" onclick="toggleMenu()">☰</button>
-    </header>
+    </nav>
 
-    <!-- סליידר תמונות -->
-    <section class="relative">
-        <div class="w-full h-96 bg-cover bg-center" style="background-image: url('https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/SYN%20Beer%20Sheva-20.jpg')">
-            <div class="absolute inset-0 bg-black opacity-30 rounded-lg"></div>
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center">
-                <h1 class="text-4xl md:text-5xl font-bold">ברוכים הבאים בית חב"ד שכונת הפארק</h1>
-                <p class="text-xl md:text-2xl mt-2">עם כל הלב לכל אחד</p>
+    <div id="heroCarousel" class="carousel slide hero-carousel position-relative" data-bs-ride="carousel">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 class="display-3 fw-bold mb-3">ברוכים הבאים לבית חב"ד שכונת הפארק</h1>
+            <h2 class="fs-1">עם כל הלב לכל אחד</h2>
+        </div>
+        <div class="carousel-inner h-100">
+            <div class="carousel-item active h-100">
+                <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/SYN%20Beer%20Sheva-20.jpg" class="d-block hero-img" alt="בית חב"ד">
+            </div>
+            <div class="carousel-item h-100">
+                <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/WhatsApp%20Image%202024-09-30%20at%2020.22.52%20(1).jpeg" class="d-block hero-img" alt="פעילות">
+            </div>
+            <div class="carousel-item h-100">
+                <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/synagog.jpg" class="d-block hero-img" alt="בית כנסת">
+            </div>
+            <div class="carousel-item h-100">
+                <img src="https://raw.githubusercontent.com/mendyss/chbapark-website/main/images/376ee636-b873-4aec-b46b-e3f5a3b596c2.JPG" class="d-block hero-img" alt="קהילה">
+            </div>
+        </div>
+    </div>
+
+    <section class="container mt-5">
+        <div class="scrolling-wrapper px-2">
+            <div class="card scroll-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-book service-icon mb-2"></i>
+                    <h5 class="card-title fw-bold">זמני תפילות</h5>
+                    <ul class="list-unstyled mt-3">
+                        <li><strong>שחרית:</strong> 06:00</li>
+                        <li><strong>מנחה:</strong> 15 דקות לפני השקיעה</li>
+                        <li><strong>ערבית:</strong> צאת הכוכבים</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card scroll-card bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-star service-icon mb-2"></i>
+                    <h5 class="card-title fw-bold" id="parsha-name">פרשת השבוע</h5>
+                    <ul class="list-unstyled mt-3">
+                        <li><strong>כניסת שבת:</strong> <span id="candle-lighting">טוען...</span></li>
+                        <li><strong>צאת שבת:</strong> <span id="havdalah">טוען...</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card scroll-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-people service-icon mb-2"></i>
+                    <h5 class="card-title fw-bold">זמני שיעורים</h5>
+                    <ul class="list-unstyled mt-3">
+                        <li><strong>גמרא:</strong> ראשון 20:00</li>
+                        <li><strong>תניא לנשים:</strong> שלישי 20:45</li>
+                        <li><strong>לימוד ליל שישי:</strong> חמישי 20:30</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5">
+        <h2 class="text-center fw-bold mb-4">הפעילות שלנו</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-house-door service-icon"></i><span>בית כנסת פעיל</span></div></div>
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-calendar-event service-icon"></i><span>אירועי שיא לכל המשפחה בחגים</span></div></div>
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-journal-text service-icon"></i><span>שיעורי תורה</span></div></div>
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-award service-icon"></i><span>תכנית הכנה לבר מצווה</span></div></div>
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-flower1 service-icon"></i><span>ערבי נשים</span></div></div>
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-heart service-icon"></i><span>סיוע כלכלי למשפחות</span></div></div>
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-person-badge service-icon"></i><span>שירות 'רב עד הבית'</span></div></div>
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-shield-check service-icon"></i><span>בדיקת ומכירת תפילין ומזוזות</span></div></div>
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-gift service-icon"></i><span>מיזם "פינוק ליולדת"</span></div></div>
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-backpack service-icon"></i><span>פעילות במוסדות חינוך</span></div></div>
+            <div class="col-md-6 col-lg-4"><div class="service-item"><i class="bi bi-sun service-icon"></i><span>קייטנת חב"ד בקיץ</span></div></div>
+        </div>
+
+        <div class="text-center mt-5 d-flex justify-content-center gap-3 flex-wrap">
+            <a href="https://bit.ly/WhatsappUpdatesChabad" class="btn btn-custom-secondary"><i class="bi bi-whatsapp me-2"></i>צור קשר בוואטסאפ</a>
+            <a href="https://app.icount.co.il/m/104dc/" class="btn btn-custom-primary"><i class="bi bi-heart-fill me-2"></i>לתרומה מקוונת</a>
+        </div>
+    </section>
+
+    <section class="bg-light py-5">
+        <div class="container">
+            <h3 class="text-center fw-bold mb-4">מה אומרים בקהילה?</h3>
+            <div class="scrolling-wrapper px-2 py-3">
+                <div class="testimonial-card">
+                    <div class="d-flex text-warning mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                    <p>"בית חב"ד תמיד כאן בשבילי! בזכותם חגגנו בר מצווה לבן שלנו בצורה הכי מרגשת שיכולנו לדמיין."</p>
+                    <h6 class="fw-bold mb-0">- משה כהן</h6>
+                </div>
+                <div class="testimonial-card">
+                    <div class="d-flex text-warning mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                    <p>"הלימוד השבועי לנשים שינה לי את החיים – סוף סוף מצאתי מקום שבו אני מרגישה מחוברת ומוקפת באנשים חמים."</p>
+                    <h6 class="fw-bold mb-0">- שרה לוי</h6>
+                </div>
+                <div class="testimonial-card">
+                    <div class="d-flex text-warning mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                    <p>"כשעברנו לשכונה, לא הכרנו אף אחד, אבל בית חב"ד הפך אותנו לחלק ממשפחה אחת גדולה!"</p>
+                    <h6 class="fw-bold mb-0">- יוסי רז</h6>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- כרטיסיות זמני תפילות ושיעורים -->
-    <section class="py-8 px-4 bg-white">
-        <div class="max-w-6xl mx-auto flex overflow-x-auto space-x-4">
-            <div class="min-w-[200px] bg-gray-50 p-4 rounded-lg shadow">
-                <h3 class="text-xl text-orange-500">זמני תפילות</h3>
-                <p>שחרית: 06:15<br>ערבית: 20:00</p>
-            </div>
-            <div class="min-w-[200px] bg-gray-50 p-4 rounded-lg shadow">
-                <h3 class="text-xl text-orange-500">זמני שיעורים</h3>
-                <p>גמרא: ראשון 20:15<br>תניא לנשים: שלישי 20:45</p>
-            </div>
-            <div class="min-w-[200px] bg-gray-50 p-4 rounded-lg shadow">
-                <h3 class="text-xl text-orange-500">זמני שבת</h3>
-                <p>כניסת שבת: 18:00<br>צאת שבת: 19:15</p>
-            </div>
+    <section class="container-fluid px-0">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3393.816007469733!2d34.8115206!3d31.250493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x150268a731db813f%3A0x7d2871b6982cc2d5!2z16DXl9ecINeT15zXmdec15XXqiAxNiwg15HXkNeoINep15HXog!5e0!3m2!1siw!2sil!4v1700000000000!5m2!1siw!2sil" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+    <footer class="text-center py-4 mt-auto">
+        <div class="container">
+            <p class="mb-0">© כל הזכויות שמורות לבית חב"ד שכונת הפארק באר שבע.</p>
         </div>
-    </section>
-
-    <!-- כרטיסיות שירותים -->
-    <section class="py-12 px-4">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                <i class="bi bi-house text-3xl text-bordeaux-500"></i>
-                <h3 class="text-xl text-bordeaux-500 mt-2">בית כנסת מפואר</h3>
-                <p class="text-gray-600">בית כנסת פתוח לכולם, זמני תפילות מסודרים.</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                <i class="bi bi-calendar-event text-3xl text-orange-500"></i>
-                <h3 class="text-xl text-orange-500 mt-2">אירועי שיא בחגים</h3>
-                <p class="text-gray-600">פעילויות משפחתיות לחגים יהודיים.</p>
-            </div>
-            <!-- המשך השירותים יתווסף באותו פורמט -->
-        </div>
-    </section>
-
-    <!-- כפתורי CTA -->
-    <section class="py-8 px-4 text-center">
-        <a href="https://bit.ly/WhatsappUpdatesChabad" class="inline-block bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600">צור קשר בוואטסאפ</a>
-        <a href="https://app.icount.co.il/m/104dc/" class="inline-block bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 ml-4">לתרומה</a>
-    </section>
-
-    <!-- עדויות -->
-    <section class="py-12 px-4 bg-gray-50">
-        <div class="max-w-6xl mx-auto overflow-x-auto flex space-x-4">
-            <div class="min-w-[300px] bg-white p-6 rounded-lg shadow">
-                <p class="italic">"בית חב"ד תמיד כאן בשבילי! חגגנו בר מצווה בצורה מרגשת."</p>
-                <p class="mt-2 text-orange-500 font-bold">משה כהן</p>
-            </div>
-            <!-- עדויות נוספות -->
-        </div>
-    </section>
-
-    <!-- מפה -->
-    <section class="py-12 px-4">
-        <div class="max-w-6xl mx-auto">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3395.589146950227!2d34.80540651520665!3d31.241962981462573!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x150267f9b8e7e7e9%3A0x2d8e4e5b8f5e5e5f!2sNahal%20Daliyot%20St%2016%2C%20Be'er%20Sheva%2C%20Israel!5e0!3m2!1sen!2sil!4v1677654321897!5m2!1sen!2sil" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </section>
-
-    <!-- פוטר -->
-    <footer class="bg-gray-800 text-white text-center p-4">
-        <p>© כל הזכויות שמורות לבית חב"ד שכונת הפארק באר שבע</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-        function toggleMenu() {
-            const nav = document.querySelector('nav');
-            nav.classList.toggle('hidden');
-        }
-    </script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("partials/header.html")
-        .then(response => response.text())
-        .then(data => {
-            document.body.insertAdjacentHTML("afterbegin", data);
-        });
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://www.hebcal.com/shabbat?cfg=json&city=IL-Beer%20Sheva&m=50&a=on')
+            .then(response => response.json())
+            .then(data => {
+                const items = data.items;
+                let parsha = "פרשת השבוע";
+                let candles = "";
+                let havdalah = "";
 
-    fetch("partials/footer.html")
-        .then(response => response.text())
-        .then(data => {
-            document.body.insertAdjacentHTML("beforeend", data);
+                items.forEach(item => {
+                    if (item.category === "parashat") {
+                        parsha = item.hebrew;
+                    } else if (item.category === "candles") {
+                        let date = new Date(item.date);
+                        candles = date.toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
+                    } else if (item.category === "havdalah") {
+                        let date = new Date(item.date);
+                        havdalah = date.toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
+                    }
+                });
+
+                document.getElementById('parsha-name').innerText = parsha;
+                document.getElementById('candle-lighting').innerText = candles;
+                document.getElementById('havdalah').innerText = havdalah;
+            })
+            .catch(error => console.error('Error fetching Zmanim:', error));
         });
-});
-</script>
+    </script>
 </body>
 </html>
